@@ -166,6 +166,43 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 .bmk-toast.show{opacity:1;transform:translate(-50%,0)}
 
 /* ---------- Responsive ---------- */
+/* ---------- Guía dentro de cada bloque / in-block guidance ---------- */
+.bmk-qnum{display:block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.bmk-label{display:block}
+.bmk-field-head .bmk-check{margin-top:24px}
+.bmk-field--fixed .bmk-field-head .bmk-check{margin-top:5px}
+.bmk-ex-btn{background:none;border:0;padding:0;margin:-4px 0 12px;font-size:13px;font-style:italic;color:var(--rojo);text-decoration:underline;text-underline-offset:3px}
+.bmk-ex-btn:hover{color:var(--sombra)}
+.bmk-ex{margin:0 0 12px;padding:12px 14px;background:var(--accent-soft);border-radius:var(--radius);font-size:14px;line-height:1.5;font-style:italic;color:var(--ink)}
+.bmk-ex span{display:block;font-style:normal;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rojo);margin-bottom:4px}
+.bmk-inblock{margin-top:26px}
+.bmk-inblock > b{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:6px}
+.bmk-checklist{list-style:none;margin:0;padding:0;display:grid;gap:1px}
+.bmk-checklist button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:5px 0;font-size:14px;color:var(--muted);text-align:left}
+.bmk-checklist button:hover{color:var(--rojo)}
+.bmk-checklist .bmk-check{margin-top:0}
+.bmk-checklist button.is-done{color:var(--ink)}
+.bmk-checklist button.is-done .bmk-check{background:var(--rojo);border-color:var(--rojo);color:var(--blanco)}
+.bmk .bmk-intro{margin:0 0 30px;padding:18px 22px;background:var(--blanco);border-left:3px solid var(--rojo);border-radius:var(--radius);font-size:16px;line-height:1.55;color:var(--ink)}
+.bmk .bmk-intro em{color:var(--rojo)}
+
+/* ---------- Referencias con archivos ---------- */
+.bmk-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;border:1px dashed var(--line-strong);border-radius:var(--radius);background:var(--blanco);padding:22px 16px;cursor:pointer;transition:border-color .2s,background .2s}
+.bmk-drop:hover,.bmk-drop.is-over{border-color:var(--rojo);background:#FFF8F5}
+.bmk-drop.is-full{cursor:default;opacity:.6}
+.bmk-drop-t{font-size:15px;color:var(--ink)}
+.bmk-drop-t em{color:var(--rojo)}
+.bmk-drop small{font-size:12px;font-style:italic;color:var(--muted)}
+.bmk-files{display:grid;gap:8px;margin-top:10px}
+.bmk-file{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;background:var(--blanco);border:1px solid var(--line);border-radius:var(--radius);padding:8px}
+.bmk-thumb{width:56px;height:56px;border-radius:2px;object-fit:cover;background:var(--beige);display:grid;place-items:center;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--rojo)}
+.bmk-file-meta{min-width:0;display:grid;gap:5px}
+.bmk-file-name{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bmk-file-name small{font-style:italic;color:var(--muted);margin-left:8px}
+.bmk-file .bmk-input{padding:6px 10px;font-size:14px}
+.bmk-refs-or{margin:16px 0 8px;font-size:14px;color:var(--muted)}
+@media (max-height:760px){.bmk-aside{position:static}}
+
 /* ---------- Transitions.dev — Texts reveal ---------- */
 /* Cambio de vista: cada .bmk-line entra escalonada (--i) al añadir .is-shown al stage;
    al salir, .is-hiding hace un fundido corto de 200ms sin repetir el escalonado. */
@@ -233,7 +270,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     ] },
     { time: 5, fields: [
       { id: 'mood', type: 'tags', min: 5, max: 5 },
-      { id: 'references', type: 'list', n: 3, min: 3 },
+      { id: 'references', type: 'refs', min: 3 },
       { id: 'feeling', type: 'textarea', rows: 2 }
     ] },
     { time: 6, fields: [
@@ -285,7 +322,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
           tip: 'Piensa en un *universo*, no en un moodboard: ¿qué películas, lugares o creadores viven en él?',
           fields: {
             mood: { label: 'Mood', hint: 'Elige *5 palabras* que describan el mundo de la marca.' },
-            references: { label: 'Referencias', hint: 'Añade *3 referencias* visuales, culturales o creativas.' },
+            references: { label: 'Referencias', hint: 'Añade *3 referencias* visuales, culturales o creativas. *Adjunta* imágenes o PDF, *escríbelas*, o combina ambas.' },
             feeling: { label: 'Sensación', hint: '¿Qué debería *sentir* alguien al encontrarse con esta marca?' }
           } },
         { title: 'Expresión',
@@ -297,16 +334,55 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
             visual: { label: 'Visual', prefix: 'Nos vemos como:', hint: 'Nos vemos como… *5 palabras*.' },
             signature: { label: 'Firma', hint: '¿Qué *elemento reconocible* podría hacer identificable a esta marca?' }
           } },
-        { title: 'Reglas para la IA',
-          desc: 'Los *límites* que protegen a tu marca cuando la IA duda.',
-          tip: 'Cuanto más *concreta* la regla, mejor funciona. "Ser auténtica" no es una regla; "mostrar producto real, nunca idealizado" sí.',
+        { title: 'Tu marca y la IA',
+          desc: 'Cómo debe hablar y crear la IA cuando trabaje para tu marca.',
+          intro: 'Cuando le pidas a una IA (Claude, ChatGPT, Gemini…) un post, un texto o una imagen para tu marca, este Brandbook OS será su guía. Aquí decides qué debe *proteger*, qué debe *evitar* y qué debe *priorizar*, para que todo lo que cree suene y se vea como tu marca, no como algo genérico.',
+          tip: 'Piensa en la IA como alguien nuevo en tu equipo: *¿qué le dirías el primer día* para que no se equivoque con tu marca?',
           fields: {
-            always: { label: 'Siempre', hint: '¿Qué debe *preservar siempre* la IA? *3 reglas*.' },
-            never: { label: 'Nunca', hint: '¿Qué no debe hacer *nunca* la IA? *3 reglas*.' },
-            priority: { label: 'Prioridad', hint: 'Al tomar una decisión de marca, ¿qué *importa más*?' },
-            aiRule: { label: 'Regla IA', hint: '*Ya incluida* en tu Brandbook OS. No tienes que rellenarla.' }
+            always: { label: 'Siempre', hint: '¿Qué debe mantener *siempre* la IA cuando cree algo para tu marca? Tu tono, un valor, una forma de mostrar lo que haces… *3 reglas*.' },
+            never: { label: 'Nunca', hint: '¿Qué no debe hacer *nunca* la IA en nombre de tu marca? Prometer lo que no ofreces, sonar como otra marca… *3 reglas*.' },
+            priority: { label: 'Prioridad', hint: 'Si la IA duda entre dos caminos para tu marca, ¿qué debe *pesar más*? Por ejemplo: la cercanía antes que la perfección.' },
+            aiRule: { label: 'Instrucciones para la IA', hint: 'Acompañan a *tus respuestas* para que la IA las use bien. Ya están incluidas; no tienes que rellenarlas.' }
           } }
       ],
+      mdTitles: ['Esencia', 'Carácter', 'Audiencia', 'Mundo', 'Expresión', 'Cómo debe trabajar la IA con esta marca'],
+      mdLabels: {
+        brand: 'Qué es', idea: 'La idea', promise: 'La promesa', difference: 'Lo que la hace distinta',
+        traits: 'Personalidad', notThis: 'Nunca debe sentirse, sonar o comportarse así', tension: 'La tensión que crea su carácter',
+        who: 'A quién le habla', desire: 'Lo que esa persona quiere y valora',
+        mood: 'Mood', references: 'Referencias', feeling: 'Lo que alguien debe sentir al encontrarla',
+        voice: 'Sonamos como', message: 'Lo que comunica siempre', visual: 'Nos vemos como', signature: 'Su firma reconocible',
+        always: 'Al crear para esta marca, la IA siempre debe', never: 'La IA nunca debe', priority: 'Cuando dude, debe priorizar'
+      },
+      examples: {
+        brand: 'Salitre es una vermutería de barrio en Barcelona que sirve vermut propio y conservas del Mediterráneo, para gente que busca planes lentos y con raíz.',
+        idea: 'El aperitivo como pausa sagrada.',
+        promise: 'Salir siempre con la sensación de haber estado en casa de alguien.',
+        difference: 'Tratamos lo cotidiano con rigor de restaurante, sin perder el ruido de barrio.',
+        traits: 'cálida · directa · irónica · generosa',
+        notThis: 'Pretenciosa, nostálgica de postal o con tono de influencer.',
+        tension: 'cercana + exigente',
+        who: 'Gente de 30 a 45 años que vive en la ciudad, trabaja mucho y defiende sus domingos como un ritual.',
+        desire: 'Desconectar sin irse lejos, sentirse parte de un lugar y comer bien sin ceremonias.',
+        mood: 'sol de tarde · sal · mantel · sobremesa · verano largo',
+        references: 'El cine de Éric Rohmer · la fotografía de Joan Colom · las casas de pescadores de Cadaqués',
+        feeling: 'Como entrar en un patio fresco a las dos de la tarde en agosto.',
+        voice: 'cercana · seca · con humor',
+        message: 'Aquí la tarde es larga: quédate.',
+        visual: 'soleada · táctil · imperfecta · mediterránea · luminosa',
+        signature: 'Una sombra de persiana cruzando cada imagen.',
+        always: 'Hablar de tú · Mostrar producto real, nunca idealizado · Dejar espacio y silencio visual',
+        never: 'Usar imágenes de stock · Prometer lujo · Usar anglicismos',
+        priority: 'Que suene a nosotros antes que a tendencia.'
+      },
+      md: {
+        file: 'Archivo', folder: 'referencias', unavailable: 'no incluido',
+        filesNote: 'Los archivos de referencia están en la carpeta `referencias/`, junto a este documento.',
+        pendingTitle: 'Pendiente de definir',
+        pendingIntro: 'Estos campos aún no tienen respuesta. Si afectan al resultado, pregunta antes de suponer.',
+        ruleTitle: 'Instrucciones para la IA',
+        empty: '_Todavía no hay respuestas. Completa los bloques para construir tu Brandbook OS._'
+      },
       rule: {
         intro: ['Usa esta información como el contexto creativo de la marca.', 'Preserva su carácter, su distintividad y su intención estratégica.'],
         prioritize: 'Prioriza:',
@@ -343,14 +419,30 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         cleared: 'Respuestas borradas',
         copied: 'Brandbook OS copiado ✓',
         copyFail: 'No se pudo copiar',
+        copiedFiles: 'Copiado ✓ Tus archivos van en la descarga .zip',
+        downloadZip: 'Descargar .zip',
+        zipFail: 'No se pudo crear el .zip; se descargó solo el .md',
+        storageFull: 'No queda espacio en este navegador para guardar más vistas previas',
+        refsDrop: '<em>Adjunta imágenes o PDF</em>: arrastra aquí o haz clic',
+        refsLimits: 'Hasta 6 archivos · máx. 10 MB cada uno',
+        refsOr: 'o escríbelas',
+        refsNotePh: '¿Qué te inspira de esta referencia? (opcional)',
+        refsCount: n => `${n} de 3 referencias`,
+        exampleShow: 'Ver ejemplo', exampleHide: 'Ocultar ejemplo', exampleOf: 'Ejemplo · Salitre, vermutería de barrio',
+        question: (k, n) => `Pregunta ${k} de ${n}`, inBlock: 'En este bloque',
+        refsMax: 'Máximo 6 archivos',
+        refsType: 'Solo imágenes o PDF',
+        refsSize: 'Archivo demasiado grande (máx. 10 MB)',
+        refsKeep: 'Los archivos originales se incluyen en la descarga .zip mientras no cierres ni recargues la página.',
+        refsPreview: 'Tras recargar solo se conservan las vistas previas; vuelve a adjuntar los originales si los necesitas en la descarga.',
         how: [
           { k: 'Recorre', p: 'Los bloques en orden, empezando por la esencia.', s: 'Puedes saltar entre bloques cuando quieras; nada se pierde.' },
           { k: 'Escribe', p: 'Corto y concreto.', s: 'La IA trabaja mejor con precisión que con volumen.' },
           { k: 'Conseguirás', p: 'Tu Brandbook OS, listo para pegar en tu IA.', s: 'Un bloque de texto para Claude, ChatGPT o Gemini.' }
         ],
         use: [
-          { k: 'Copia', p: 'Tu Brandbook OS completo.', s: 'Los campos vacíos aparecen como [Pendiente].' },
-          { k: 'Pega', p: 'Como contexto, al inicio de la conversación.', s: 'En Claude o ChatGPT: dentro de un Proyecto, en instrucciones personalizadas o al principio del chat.' },
+          { k: 'Copia', p: 'Tu Brandbook OS, escrito a partir de tus respuestas.', s: 'Solo incluye lo que has respondido y señala lo que falta por definir.' },
+          { k: 'Pega', p: 'Como contexto, al inicio de la conversación.', s: 'En Claude o ChatGPT: dentro de un Proyecto, en instrucciones personalizadas o al principio del chat. Si adjuntaste referencias, súbelas también.' },
           { k: 'Pide', p: 'Con intención.', s: '"Usando mi Brandbook OS, escribe 3 posts de lanzamiento para Instagram."' }
         ]
       }
@@ -390,7 +482,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
           tip: 'Think of a *universe*, not a moodboard: which films, places or creators live in it?',
           fields: {
             mood: { label: 'Mood', hint: 'Choose *5 words* that describe the brand\'s world.' },
-            references: { label: 'References', hint: 'Add *3* visual, cultural or creative references.' },
+            references: { label: 'References', hint: 'Add *3* visual, cultural or creative references. *Attach* images or PDFs, *write them*, or mix both.' },
             feeling: { label: 'Feeling', hint: 'What should someone *feel* when they encounter this brand?' }
           } },
         { title: 'Expression',
@@ -402,16 +494,55 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
             visual: { label: 'Visual', prefix: 'We look like:', hint: 'We look like… *5 words*.' },
             signature: { label: 'Signature', hint: 'What is *one recognizable element* that could make this brand identifiable?' }
           } },
-        { title: 'AI Rules',
-          desc: 'The *boundaries* that protect your brand when AI is unsure.',
-          tip: 'The more *specific* the rule, the better it works. "Be authentic" isn\'t a rule; "show real product, never idealized" is.',
+        { title: 'Your brand & AI',
+          desc: 'How AI should speak and create when it works for your brand.',
+          intro: 'When you ask an AI (Claude, ChatGPT, Gemini…) for a post, a piece of copy or an image for your brand, this Brandbook OS becomes its guide. Here you decide what it should *protect*, what it should *avoid* and what it should *prioritize*, so everything it creates sounds and looks like your brand, not like something generic.',
+          tip: 'Think of AI as someone new on your team: *what would you tell them on day one* so they don\'t get your brand wrong?',
           fields: {
-            always: { label: 'Always', hint: 'What should AI *always preserve*? *3 rules*.' },
-            never: { label: 'Never', hint: 'What should AI *never do*? *3 rules*.' },
-            priority: { label: 'Priority', hint: 'When making a brand decision, what *matters most*?' },
-            aiRule: { label: 'AI Rule', hint: '*Already included* in your Brandbook OS. Nothing to fill in.' }
+            always: { label: 'Always', hint: 'What should AI *always* keep when it creates something for your brand? Your tone, a value, a way of showing what you do… *3 rules*.' },
+            never: { label: 'Never', hint: 'What should AI *never* do on behalf of your brand? Promise what you don\'t offer, sound like another brand… *3 rules*.' },
+            priority: { label: 'Priority', hint: 'If AI is torn between two directions for your brand, what should *weigh more*? For example: warmth over polish.' },
+            aiRule: { label: 'Instructions for AI', hint: 'They travel with *your answers* so AI uses them well. Already included; nothing to fill in.' }
           } }
       ],
+      mdTitles: ['Core', 'Character', 'Audience', 'World', 'Expression', 'How AI should work with this brand'],
+      mdLabels: {
+        brand: 'What it is', idea: 'The idea', promise: 'The promise', difference: 'What makes it different',
+        traits: 'Personality', notThis: 'It should never feel, sound or behave like', tension: 'The tension behind its character',
+        who: 'Who it speaks to', desire: 'What that person wants and values',
+        mood: 'Mood', references: 'References', feeling: 'What someone should feel when they encounter it',
+        voice: 'We sound like', message: 'What it always communicates', visual: 'We look like', signature: 'Its recognizable signature',
+        always: 'When creating for this brand, AI must always', never: 'AI must never', priority: 'When unsure, it should prioritize'
+      },
+      examples: {
+        brand: 'Salitre is a neighborhood vermouth bar in Barcelona serving house vermouth and Mediterranean tinned food, for people who want slow, rooted plans.',
+        idea: 'Aperitivo as a sacred pause.',
+        promise: 'You always leave feeling like you\'ve been in someone\'s home.',
+        difference: 'We treat everyday food with restaurant rigor, without losing the neighborhood buzz.',
+        traits: 'warm · direct · wry · generous',
+        notThis: 'Pretentious, postcard-nostalgic or influencer-toned.',
+        tension: 'approachable + demanding',
+        who: 'City people aged 30 to 45 who work hard and protect their Sundays like a ritual.',
+        desire: 'To switch off without going far, to belong somewhere and to eat well without ceremony.',
+        mood: 'late sun · salt · tablecloth · long lunch · endless summer',
+        references: 'Éric Rohmer\'s films · Joan Colom\'s photography · the fishermen\'s houses of Cadaqués',
+        feeling: 'Like stepping into a cool courtyard at 2 pm in August.',
+        voice: 'warm · dry · witty',
+        message: 'The afternoon is long here: stay.',
+        visual: 'sunny · tactile · imperfect · Mediterranean · bright',
+        signature: 'A shutter shadow crossing every image.',
+        always: 'Speak informally · Show real product, never idealized · Leave room and visual silence',
+        never: 'Use stock imagery · Promise luxury · Sound corporate',
+        priority: 'Sounding like us over sounding on-trend.'
+      },
+      md: {
+        file: 'File', folder: 'references', unavailable: 'not included',
+        filesNote: 'Reference files are in the `references/` folder, next to this document.',
+        pendingTitle: 'Still to define',
+        pendingIntro: 'These fields haven\'t been answered yet. If they affect the output, ask rather than assume.',
+        ruleTitle: 'Instructions for AI',
+        empty: '_No answers yet. Complete the blocks to build your Brandbook OS._'
+      },
       rule: {
         intro: ['Use this information as the brand\'s creative context.', 'Preserve its character, distinctiveness and strategic intent.'],
         prioritize: 'Prioritize:',
@@ -448,14 +579,30 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         cleared: 'Answers cleared',
         copied: 'Brandbook OS copied ✓',
         copyFail: 'Couldn\'t copy',
+        copiedFiles: 'Copied ✓ Your files are in the .zip download',
+        downloadZip: 'Download .zip',
+        zipFail: 'Couldn\'t build the .zip; downloaded the .md only',
+        storageFull: 'Not enough browser storage to keep more previews',
+        refsDrop: '<em>Attach images or PDFs</em>: drop them here or click',
+        refsLimits: 'Up to 6 files · max 10 MB each',
+        refsOr: 'or write them',
+        refsNotePh: 'What inspires you about it? (optional)',
+        refsCount: n => `${n} of 3 references`,
+        exampleShow: 'See example', exampleHide: 'Hide example', exampleOf: 'Example · Salitre, a neighborhood vermouth bar',
+        question: (k, n) => `Question ${k} of ${n}`, inBlock: 'In this block',
+        refsMax: 'Maximum 6 files',
+        refsType: 'Images or PDFs only',
+        refsSize: 'File too large (max 10 MB)',
+        refsKeep: 'Original files are included in the .zip download as long as you don\'t close or reload the page.',
+        refsPreview: 'After reloading only previews are kept; re-attach the originals if you need them in the download.',
         how: [
           { k: 'Go through', p: 'The blocks in order, starting with the core.', s: 'You can jump between blocks anytime; nothing gets lost.' },
           { k: 'Write', p: 'Short and specific.', s: 'AI works better with precision than with volume.' },
           { k: 'You\'ll get', p: 'Your Brandbook OS, ready to paste into your AI.', s: 'A block of text for Claude, ChatGPT or Gemini.' }
         ],
         use: [
-          { k: 'Copy', p: 'Your complete Brandbook OS.', s: 'Empty fields show up as [Pending].' },
-          { k: 'Paste', p: 'As context, at the start of the conversation.', s: 'In Claude or ChatGPT: inside a Project, in custom instructions or at the start of the chat.' },
+          { k: 'Copy', p: 'Your Brandbook OS, written from your answers.', s: 'It only includes what you answered and flags what\'s still to define.' },
+          { k: 'Paste', p: 'As context, at the start of the conversation.', s: 'In Claude or ChatGPT: inside a Project, in custom instructions or at the start of the chat. If you attached references, upload them too.' },
           { k: 'Ask', p: 'With intent.', s: '"Using my Brandbook OS, write 3 launch posts for Instagram."' }
         ]
       }
@@ -473,6 +620,15 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   const clean = a => (Array.isArray(a) ? a : []).map(x => (x || '').trim()).filter(Boolean);
   const reduceMotion = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   const line = i => `bmk-line" style="--i:${i}`;
+  const MAX_FILES = 6, MAX_SIZE = 10 * 1024 * 1024;
+  const fmtSize = b => b >= 1048576 ? `${(b / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1024))} KB`;
+  /* "a, b y c" / "a, b and c" (en español "e" delante de i-/hi-) */
+  const joinNatural = a => {
+    if (a.length < 2) return a.join('');
+    const last = a[a.length - 1];
+    const and = lang === 'es' ? (/^h?i(?![aeiouáéíóú])/i.test(last) ? 'e' : 'y') : 'and';
+    return `${a.slice(0, -1).join(', ')} ${and} ${last}`;
+  };
 
   function initialLang() {
     const q = new URLSearchParams(location.search).get('lang');
@@ -493,8 +649,8 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   function buildSections() {
     return BASE.map((b, i) => {
       const t = T.sections[i];
-      return { ...b, title: t.title, desc: t.desc, tip: t.tip, fields: b.fields.map(f => {
-        const out = { ...f, ...t.fields[f.id] };
+      return { ...b, title: t.title, desc: t.desc, tip: t.tip, intro: t.intro, mdTitle: T.mdTitles[i], fields: b.fields.map(f => {
+        const out = { ...f, ...t.fields[f.id], md: T.mdLabels[f.id], example: T.examples[f.id] };
         if (f.type === 'fixed') { out.html = ruleHTML(T.rule); out.text = ruleText(T.rule); }
         return out;
       }) };
@@ -510,10 +666,27 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   let T = TEXT[lang];
   let SECTIONS = buildSections();
   const findField = id => { for (const s of SECTIONS) for (const f of s.fields) if (f.id === id) return f; };
+  const FILES = new Map(); // archivos originales, solo durante la sesión (id → File)
+  const openEx = new Set(); // ejemplos desplegados
+
+  /* Referencias: { texts: [...], files: [{ id, name, type, size, note, thumb }] } */
+  function refsVal() {
+    const v = state.references;
+    if (Array.isArray(v)) return { texts: v, files: [] };
+    return { texts: Array.isArray(v && v.texts) ? v.texts : [], files: Array.isArray(v && v.files) ? v.files : [] };
+  }
+  const refsCount = () => { const r = refsVal(); return clean(r.texts).length + r.files.length; };
+  function refEntry(fl, i) {
+    const safe = fl.name.replace(/[^\w.\-]+/g, '-'), base = `${T.md.folder}/${pad(i + 1)}-`;
+    if (FILES.has(fl.id)) return { path: base + safe, data: FILES.get(fl.id) };
+    if (fl.thumb) return { path: `${base}${safe.replace(/\.[^.]+$/, '')}-preview.jpg`, data: fl.thumb.split(',')[1], base64: true };
+    return { path: null };
+  }
 
   function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; } }
   function save() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch (e) { if (!save.warned && /quota/i.test(`${e && e.name} ${e && e.message}`)) { save.warned = true; toast(T.ui.storageFull); } }
     const el = root.querySelector('[data-saved]');
     if (el) {
       if (el.textContent !== T.ui.savedOk) { el.textContent = T.ui.savedOk; replay([el]); }
@@ -530,6 +703,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
       case 'list': return clean(v).length >= (f.min || f.n);
       case 'tags': return clean(v).length >= (f.min || 1);
       case 'pair': return Array.isArray(v) && !!(v[0] || '').trim() && !!(v[1] || '').trim();
+      case 'refs': return refsCount() >= (f.min || 3);
       default: return true;
     }
   }
@@ -658,9 +832,12 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
           <p class="bmk-desc ${line(3)}">${esc(plain(s.desc))}</p>
           <div class="bmk-aside-prog ${line(4)}"><em>${esc(T.ui.completed)}</em><span data-sec-count style="display:inline-block">${p.done}/${p.total}</span></div>
           <div class="bmk-bar ${p.done === p.total ? 'is-done' : ''} ${line(4)}" data-sec-bar><i style="width:${p.pct}%"></i></div>
-          ${s.tip ? `<div class="bmk-tip ${line(5)}"><b>${esc(T.ui.tip)}</b>${rich(s.tip)}</div>` : ''}
+          <div class="bmk-inblock ${line(5)}"><b>${esc(T.ui.inBlock)}</b><ol class="bmk-checklist">${countable(s).map(f =>
+            `<li><button class="${isFilled(f) ? 'is-done' : ''}" data-act="jump" data-f="${f.id}" data-check="${f.id}"><span class="bmk-check">✓</span>${esc(f.label)}</button></li>`).join('')}</ol></div>
+          ${s.tip ? `<div class="bmk-tip ${line(6)}"><b>${esc(T.ui.tip)}</b>${rich(s.tip)}</div>` : ''}
         </aside>
         <div>
+          ${s.intro ? `<p class="bmk-intro ${line(1)}">${rich(s.intro)}</p>` : ''}
           <div class="bmk-form">${s.fields.map((f, k) => fieldHTML(f, k)).join('')}</div>
           <div class="bmk-nav ${line(Math.min(s.fields.length + 2, 11))}">
             ${i > 0 ? `<button class="bmk-btn bmk-btn--ghost" data-act="open" data-i="${i - 1}">← ${pad(i)} ${esc(plain(SECTIONS[i - 1].title))}</button>` : `<button class="bmk-btn bmk-btn--ghost" data-act="map">${esc(T.ui.backMap)}</button>`}
@@ -703,12 +880,35 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
           <input class="bmk-input" data-f="${f.id}" data-t="list" data-k="1" value="${esc(a[1])}" aria-label="${esc(f.label)} 2"></div>`;
         break;
       }
+      case 'refs': {
+        const r = refsVal(), nFiles = r.files.length;
+        let last = -1; r.texts.forEach((x, j) => { if ((x || '').trim()) last = j; });
+        const slots = Math.max(1, (f.min || 3) - nFiles, last + 1);
+        const files = r.files.map(fl => `<div class="bmk-file" data-file="${fl.id}">
+            ${fl.thumb ? `<img class="bmk-thumb" src="${fl.thumb}" alt="">` : `<span class="bmk-thumb">${fl.type === 'application/pdf' ? 'PDF' : 'IMG'}</span>`}
+            <div class="bmk-file-meta"><div class="bmk-file-name">${esc(fl.name)}<small>${fmtSize(fl.size)}</small></div>
+            <input class="bmk-input" data-f="${f.id}" data-t="refnote" data-id="${fl.id}" value="${esc(fl.note)}" placeholder="${esc(T.ui.refsNotePh)}" aria-label="${esc(T.ui.refsNotePh)}"></div>
+            <button class="bmk-x" data-act="rmfile" data-id="${fl.id}" aria-label="${esc(T.ui.remove)} ${esc(fl.name)}">×</button></div>`).join('');
+        c = `<label class="bmk-drop ${nFiles >= MAX_FILES ? 'is-full' : ''}">
+            ${nFiles < MAX_FILES ? `<input type="file" multiple accept="image/*,application/pdf" data-f="${f.id}" data-t="file" hidden>` : ''}
+            <span class="bmk-drop-t">${T.ui.refsDrop}</span><small>${esc(T.ui.refsLimits)}</small></label>
+          ${nFiles ? `<div class="bmk-files">${files}</div><p class="bmk-count">${esc(r.files.some(fl => FILES.has(fl.id)) ? T.ui.refsKeep : T.ui.refsPreview)}</p>` : ''}
+          <div class="bmk-refs-or"><em>${esc(T.ui.refsOr)}</em></div>
+          <div class="bmk-list">${Array.from({ length: slots }, (_, j) => `<div class="bmk-list-row"><span class="bmk-list-n">${j + 1}</span>
+            <input class="bmk-input" data-f="${f.id}" data-t="reftext" data-k="${j}" value="${esc(r.texts[j])}" aria-label="${esc(f.label)} ${j + 1}"><span></span></div>`).join('')}</div>
+          <div class="bmk-count" data-refcount>${esc(T.ui.refsCount(refsCount()))}</div>`;
+        break;
+      }
       case 'fixed':
         c = `<div class="bmk-fixed">${f.html}</div>`; break;
     }
+    const sec = SECTIONS.find(s => s.fields.includes(f)), qs = sec ? countable(sec) : [], pos = qs.indexOf(f);
+    const exOpen = openEx.has(f.id);
+    const example = f.example ? `<button class="bmk-ex-btn" data-act="example" data-f="${f.id}" aria-expanded="${exOpen}">${esc(exOpen ? T.ui.exampleHide : T.ui.exampleShow)}</button>
+        <div class="bmk-ex" data-ex="${f.id}" ${exOpen ? '' : 'hidden'}><span>${esc(T.ui.exampleOf)}</span>${esc(f.example)}</div>` : '';
     return `<div class="bmk-field ${fixed ? 'bmk-field--fixed' : ''} ${!fixed && isFilled(f) ? 'is-done' : ''} ${k === undefined ? '' : line(Math.min(k + 2, 10))}" data-field="${f.id}">
-      <div class="bmk-field-head"><span class="bmk-check">${fixed ? '•' : '✓'}</span><span class="bmk-label">${esc(f.label)}</span></div>
-      <div class="bmk-field-body">${f.hint ? `<p class="bmk-hint">${rich(f.hint)}</p>` : ''}<div class="bmk-control">${c}</div></div></div>`;
+      <div class="bmk-field-head"><span class="bmk-check">${fixed ? '•' : '✓'}</span><div>${pos >= 0 ? `<span class="bmk-qnum">${esc(T.ui.question(pos + 1, qs.length))}</span>` : ''}<span class="bmk-label">${esc(f.label)}</span></div></div>
+      <div class="bmk-field-body">${f.hint ? `<p class="bmk-hint">${rich(f.hint)}</p>` : ''}${example}<div class="bmk-control">${c}</div></div></div>`;
   }
 
   function resultView(keepTop) {
@@ -723,7 +923,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         </div>
         <div class="bmk-actions ${line(4)}">
           <button class="bmk-btn" data-act="copy">${esc(T.ui.copy)}</button>
-          <button class="bmk-btn bmk-btn--ghost" data-act="download">${esc(T.ui.download)}</button>
+          <button class="bmk-btn bmk-btn--ghost" data-act="download">${esc(refsVal().files.length ? T.ui.downloadZip : T.ui.download)}</button>
         </div>
       </div>
       ${missing.length ? `<div class="bmk-missing ${line(5)}"><h4>${esc(T.ui.missing(o.total - o.done, o.pct))}</h4><ul>${missing.map(m =>
@@ -738,24 +938,115 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   }
 
   /* ---------- Export ---------- */
-  function fmt(f) {
-    const v = state[f.id];
+  /* Cada respuesta se redacta como una línea del documento; null si no hay respuesta */
+  function mdField(f) {
+    const v = state[f.id], L = f.md || f.label;
     switch (f.type) {
-      case 'text': case 'textarea': return (v || '').trim() || T.pending;
-      case 'list': { const a = clean(v); return a.length ? a.map((x, k) => f.bullet ? `* ${x}` : `${k + 1}. ${x}`).join('\n') : T.pending; }
-      case 'tags': { const a = clean(v); return a.length ? (f.prefix ? f.prefix + ' ' : '') + a.join(' · ') : T.pending; }
-      case 'pair': { const a = Array.isArray(v) ? v : []; return (a[0] || '').trim() && (a[1] || '').trim() ? `${a[0].trim()} + ${a[1].trim()}` : T.pending; }
-      case 'fixed': return f.text;
+      case 'text': case 'textarea': {
+        const x = (v || '').trim();
+        if (!x) return null;
+        return x.includes('\n') ? `**${L}:**\n${x}` : `**${L}:** ${x}`;
+      }
+      case 'tags': { const a = clean(v); return a.length ? `**${L}:** ${joinNatural(a)}.` : null; }
+      case 'pair': {
+        const a = Array.isArray(v) ? v : [], x = (a[0] || '').trim(), y = (a[1] || '').trim();
+        return x && y ? `**${L}:** ${x} + ${y}` : null;
+      }
+      case 'list': { const a = clean(v); return a.length ? `**${L}:**\n${a.map(x => `- ${x}`).join('\n')}` : null; }
+      case 'refs': {
+        const r = refsVal();
+        const items = clean(r.texts).concat(r.files.map((fl, i) => {
+          const e = refEntry(fl, i), note = (fl.note || '').trim();
+          return `${T.md.file} ${e.path ? `\`${e.path}\`` : `${fl.name} (${T.md.unavailable})`}${note ? ` — ${note}` : ''}`;
+        }));
+        if (!items.length) return null;
+        return `**${L}:**\n${items.map((x, i) => `${i + 1}. ${x}`).join('\n')}${r.files.length ? `\n\n_${T.md.filesNote}_` : ''}`;
+      }
+      default: return null;
     }
   }
 
+  function ruleMD(r) {
+    return `${r.intro.join(' ')}\n\n**${r.prioritize}**\n${r.list.map((x, i) => `${i + 1}. ${x}`).join('\n')}\n\n${r.rules.map(x => `- ${x}`).join('\n')}\n\n${r.goal[0]} **${r.goal[1]}**`;
+  }
+
+  /* Documento Markdown construido solo con lo respondido */
   function buildText() {
-    const out = [T.exportTitle, T.exportSub, ''];
+    const out = [`# ${T.exportTitle}`, '', `_${T.exportSub}_`];
+    const pending = [];
+    let any = false;
     SECTIONS.forEach((s, i) => {
-      out.push('────────────────────────', `${pad(i + 1)} — ${plain(s.title).toUpperCase()}`, '');
-      s.fields.forEach(f => out.push(f.label.toUpperCase(), fmt(f), ''));
+      const parts = [];
+      s.fields.forEach(f => {
+        if (f.type === 'fixed') return;
+        const m = mdField(f);
+        if (m) parts.push(m); else pending.push(`${plain(f.label)} (${plain(s.title)})`);
+      });
+      if (parts.length) { any = true; out.push('', '---', '', `## ${pad(i + 1)} · ${s.mdTitle}`, '', parts.join('\n\n')); }
     });
-    return out.join('\n').trim();
+    if (!any) out.push('', T.md.empty);
+    if (any && pending.length) out.push('', '---', '', `## ${T.md.pendingTitle}`, '', T.md.pendingIntro, '', pending.map(x => `- ${x}`).join('\n'));
+    out.push('', '---', '', `## ${T.md.ruleTitle}`, '', ruleMD(T.rule));
+    return out.join('\n') + '\n';
+  }
+
+  /* ---------- Archivos de referencia ---------- */
+  function makeThumb(file) {
+    return new Promise(res => {
+      if (!file.type.startsWith('image/')) return res('');
+      const url = URL.createObjectURL(file), img = new Image();
+      img.onload = () => {
+        const k = Math.min(1, 480 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.width * k)); c.height = Math.max(1, Math.round(img.height * k));
+        const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        try { res(c.toDataURL('image/jpeg', 0.8)); } catch (e) { res(''); }
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); res(''); };
+      img.src = url;
+    });
+  }
+  async function addFiles(list) {
+    const r = refsVal(), before = r.files.length;
+    for (const file of Array.from(list || [])) {
+      if (r.files.length >= MAX_FILES) { toast(T.ui.refsMax); break; }
+      if (!/^image\//.test(file.type) && file.type !== 'application/pdf') { toast(T.ui.refsType); continue; }
+      if (file.size > MAX_SIZE) { toast(T.ui.refsSize); continue; }
+      const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+      FILES.set(id, file);
+      r.files.push({ id, name: file.name, type: file.type, size: file.size, note: '', thumb: await makeThumb(file) });
+    }
+    const added = r.files.length - before;
+    if (!added) return;
+    state.references = r; save();
+    rerenderField('references', null, nu => [...nu.querySelectorAll('.bmk-file')].slice(-added));
+    refresh();
+  }
+  function loadZip() {
+    if (window.JSZip) return Promise.resolve(window.JSZip);
+    return loadZip.p || (loadZip.p = new Promise((res, rej) => {
+      const sc = document.createElement('script');
+      sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+      sc.onload = () => res(window.JSZip);
+      sc.onerror = () => { loadZip.p = null; rej(new Error('jszip')); };
+      document.head.appendChild(sc);
+    }));
+  }
+  function saveBlob(blob, name) {
+    const url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1500);
+  }
+  async function download() {
+    const md = buildText(), base = `brandbook-os-101-${lang}`, files = refsVal().files;
+    const mdBlob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+    if (!files.length) return saveBlob(mdBlob, `${base}.md`);
+    try {
+      const JSZip = await loadZip(), zip = new JSZip();
+      zip.file(`${base}.md`, md);
+      files.forEach((fl, i) => { const e = refEntry(fl, i); if (e.path) zip.file(e.path, e.data, e.base64 ? { base64: true } : {}); });
+      saveBlob(await zip.generateAsync({ type: 'blob' }), `${base}.zip`);
+    } catch (e) { saveBlob(mdBlob, `${base}.md`); toast(T.ui.zipFail); }
   }
 
   /* ---------- UI helpers ---------- */
@@ -818,6 +1109,12 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     });
     const cnt = root.querySelector('[data-sec-count]'), txt = `${p.done}/${p.total}`;
     if (cnt && cnt.textContent !== txt) { cnt.textContent = txt; replay([cnt]); }
+    const rc = root.querySelector('[data-refcount]'), rtxt = T.ui.refsCount(refsCount());
+    if (rc && rc.textContent !== rtxt) { rc.textContent = rtxt; replay([rc]); }
+    root.querySelectorAll('[data-check]').forEach(b => {
+      const d = isFilled(findField(b.dataset.check));
+      if (b.classList.contains('is-done') !== d) { b.classList.toggle('is-done', d); replay([b.querySelector('.bmk-check')]); }
+    });
     const bar = root.querySelector('[data-sec-bar]'); if (bar) { bar.firstElementChild.style.width = p.pct + '%'; bar.classList.toggle('is-done', p.done === p.total); }
     root.querySelectorAll('[data-pill]').forEach(b => {
       const i = +b.dataset.pill, done = status(i) === 'done', was = b.classList.contains('is-done');
@@ -852,8 +1149,29 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     if (!id) return;
     if (ty === 'text') state[id] = t.value;
     else if (ty === 'list') { const a = Array.isArray(state[id]) ? state[id] : []; a[+t.dataset.k] = t.value; state[id] = a; }
+    else if (ty === 'reftext') { const r = refsVal(); r.texts[+t.dataset.k] = t.value; state.references = r; }
+    else if (ty === 'refnote') { const r = refsVal(), fl = r.files.find(x => x.id === t.dataset.id); if (fl) fl.note = t.value; state.references = r; }
     else return;
     save(); refresh();
+  });
+
+  root.addEventListener('change', e => {
+    const t = e.target;
+    if (t.dataset && t.dataset.t === 'file') { addFiles(t.files); t.value = ''; }
+  });
+  root.addEventListener('dragover', e => {
+    const d = e.target.closest && e.target.closest('.bmk-drop:not(.is-full)');
+    if (d) { e.preventDefault(); d.classList.add('is-over'); }
+  });
+  root.addEventListener('dragleave', e => {
+    const d = e.target.closest && e.target.closest('.bmk-drop');
+    if (d && !d.contains(e.relatedTarget)) d.classList.remove('is-over');
+  });
+  root.addEventListener('drop', e => {
+    const d = e.target.closest && e.target.closest('.bmk-drop');
+    if (!d) return;
+    e.preventDefault(); d.classList.remove('is-over');
+    if (!d.classList.contains('is-full')) addFiles(e.dataTransfer.files);
   });
 
   root.addEventListener('keydown', e => {
@@ -885,13 +1203,28 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
       case 'map': go({ name: 'map' }); break;
       case 'result': go({ name: 'result' }); break;
       case 'rmtag': { const a = clean(state[id]); a.splice(+b.dataset.k, 1); state[id] = a; save(); rerenderField(id, 'taginput', nu => [nu.querySelector('.bmk-count')]); refresh(); break; }
-      case 'copy': toast((await copyText(buildText())) ? T.ui.copied : T.ui.copyFail); break;
-      case 'download': {
-        const url = URL.createObjectURL(new Blob([buildText()], { type: 'text/markdown;charset=utf-8' }));
-        const a = document.createElement('a'); a.href = url; a.download = `brandbook-os-101-${lang}.md`;
-        document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+      case 'example': {
+        const box = root.querySelector(`[data-ex="${id}"]`), open = box.hidden;
+        box.hidden = !open; open ? openEx.add(id) : openEx.delete(id);
+        b.textContent = open ? T.ui.exampleHide : T.ui.exampleShow; b.setAttribute('aria-expanded', String(open));
+        if (open) replay([box]);
         break;
       }
+      case 'jump': {
+        const el = root.querySelector(`[data-field="${id}"]`);
+        if (!el) break;
+        el.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'center' });
+        const input = el.querySelector('input:not([type=file]), textarea');
+        if (input) setTimeout(() => input.focus({ preventScroll: true }), reduceMotion() ? 0 : 350);
+        replay(headOf(el));
+        break;
+      }
+      case 'rmfile': {
+        const r = refsVal(); r.files = r.files.filter(x => x.id !== b.dataset.id); FILES.delete(b.dataset.id);
+        state.references = r; save(); rerenderField('references', null, nu => [nu.querySelector('[data-refcount]')]); refresh(); break;
+      }
+      case 'copy': toast((await copyText(buildText())) ? (refsVal().files.length ? T.ui.copiedFiles : T.ui.copied) : T.ui.copyFail); break;
+      case 'download': download(); break;
       case 'reset':
         if (confirm(T.ui.confirmReset)) { state = {}; save(); view = { name: 'result' }; go({ name: 'map' }); toast(T.ui.cleared); }
         break;
