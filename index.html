@@ -269,15 +269,51 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   .bmk{padding:36px 16px 52px}
   .bmk-rail{margin:40px 0 20px}
   .bmk-util{margin:-20px 0 12px}
-  .bmk-rail-label{display:none}
-  .bmk-node{width:30px;height:30px;font-size:11px}
-  .bmk-rail-step:not(:last-child)::after{top:14px;left:calc(50% + 18px);right:calc(-50% + 18px)}
   .bmk-row{grid-template-columns:1fr;gap:4px}
   .bmk-row > em{text-align:left}
   .bmk-how{margin-top:56px}
   .bmk-pair{grid-template-columns:1fr}
   .bmk-pair span{text-align:center}
-  .bmk-nav .bmk-btn{flex:1;justify-content:center}
+}
+/* ---------- Teléfono / phone ---------- */
+.bmk-toast{box-sizing:border-box;max-width:calc(100vw - 32px);width:max-content;text-align:center;line-height:1.4;bottom:calc(24px + env(safe-area-inset-bottom, 0px))}
+.bmk-steps.is-scrollable{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 30px),transparent)}
+@media (max-width:640px){
+  /* 16px evita el zoom automático de iOS al escribir */
+  .bmk-input,.bmk-tag-input,.bmk-file .bmk-input{font-size:16px}
+  .bmk-file .bmk-input{padding:9px 10px}
+  .bmk-pill,.bmk-steps-pill,.bmk-lang-pill{height:36px}
+  .bmk-pill{min-width:38px;padding:4px 11px}
+  /* Barra superior: volver + guardado en una fila, pasos debajo a todo el ancho */
+  .bmk-top{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px}
+  .bmk-top > .bmk-btn{padding:9px 14px;font-size:13px;min-height:40px}
+  .bmk-top .bmk-steps{grid-column:1/-1;grid-row:2}
+  .bmk-saved{justify-self:end;text-align:right;font-size:12px}
+  /* Hoja de ruta como línea de tiempo vertical con nombres */
+  .bmk-rail{grid-template-columns:1fr;margin:36px 0 0}
+  .bmk-rail-step{flex-direction:row;justify-content:flex-start;gap:14px;min-height:52px;text-align:left}
+  .bmk-rail-step:not(:last-child)::after{top:calc(50% + 18px);left:17.5px;right:auto;width:1px;height:calc(100% - 36px)}
+  .bmk-node{width:36px;height:36px;flex:none;font-size:12px}
+  .bmk-rail-label{font-size:15px;text-align:left;padding:0}
+  /* Cabecera del bloque más corta: la lista ya está justo debajo */
+  .bmk-aside h2{margin-top:14px}
+  .bmk-checklist{display:none}
+  .bmk-inblock .bmk-bar{margin-bottom:0}
+  .bmk-tip{margin-top:18px}
+  .bmk .bmk-intro{font-size:15px;padding:14px 16px;margin-bottom:22px}
+  /* Zonas táctiles más grandes */
+  .bmk-ex-btn{padding:10px 0;margin:-10px 0 4px}
+  .bmk-tag .bmk-x{padding:11px 11px;margin:-9px -4px -9px 0}
+  .bmk-tag-input{min-height:38px}
+  .bmk-file .bmk-x{padding:12px 10px}
+  .bmk-file-name small{display:block;margin-left:0}
+  .bmk-link{padding:12px 0}
+  /* Navegación: acción principal arriba y a todo el ancho */
+  .bmk-layout .bmk-nav{flex-direction:column-reverse;align-items:stretch}
+  .bmk-nav .bmk-btn{width:100%;justify-content:center;min-height:48px}
+  .bmk-guide > li{padding:18px}
+  .bmk-guide-actions .bmk-btn{flex:1 1 140px;justify-content:center;min-height:44px}
+  .bmk-doc-actions .bmk-btn{min-height:46px}
 }
 </style>
 </head>
@@ -833,6 +869,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     if (!bar) { lastPill = null; return; }
     const pill = bar.querySelector('.bmk-steps-pill'), tab = bar.querySelector('[aria-selected="true"]');
     if (!tab) return;
+    bar.classList.toggle('is-scrollable', bar.scrollWidth > bar.clientWidth + 1);
     const to = { x: tab.offsetLeft, w: tab.offsetWidth };
     const set = p => { pill.style.transform = `translateX(${p.x}px)`; pill.style.width = `${p.w}px`; };
     pill.style.transition = 'none';
