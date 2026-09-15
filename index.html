@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Brand Master Key</title>
+<title>AI Brand OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   AI BRAND MASTER KEY — widget embebible · identidad LaGutierrez
+   AI BRAND OS — widget embebible · identidad LaGutierrez
    Todo el CSS está bajo .bmk para no chocar con tu web.
    Paleta: Rojo Pasión #8C2936 · Blanco Fantasmal #FFFFFF ·
            Sombra Oscura #000000 · Beige Costero #F9EED9
@@ -59,7 +59,7 @@
 .bmk-panel .bmk-btn{width:100%;justify-content:center;margin-top:14px;padding:9px 14px;font-size:13px}
 
 /* ---------- MAP: rail ---------- */
-.bmk-rail{display:grid;grid-template-columns:repeat(8,1fr);margin:80px 0 0}
+.bmk-rail{display:grid;grid-template-columns:repeat(7,1fr);margin:80px 0 0}
 .bmk-rail-step{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;background:none;border:0;padding:0}
 .bmk-rail-step:not(:last-child)::after{content:'';position:absolute;top:17px;left:calc(50% + 22px);right:calc(-50% + 22px);height:1px;background:var(--line-strong)}
 .bmk-rail-step.is-done:not(:last-child)::after{background:var(--rojo)}
@@ -71,7 +71,7 @@
 .bmk-rail-label{font-size:13px;color:var(--muted);text-align:center;line-height:1.3;padding:0 4px}
 .bmk-rail-step:hover .bmk-rail-label{color:var(--rojo)}
 
-/* ---------- MAP: how (debajo de la línea de tiempo) ---------- */
+/* ---------- MAP: filas bajo la línea de tiempo ---------- */
 /* Filas editoriales: etiqueta en cursiva a la izquierda, contenido a la derecha */
 .bmk-how,.bmk-use{max-width:820px;margin:80px auto 0;display:grid;gap:30px}
 .bmk-use{margin-top:56px}
@@ -237,98 +237,76 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
      ============================================================ */
   const SECTIONS = [
     {
-      title: 'Esencia de marca', en: 'Brand Essence', time: 10,
-      desc: 'El núcleo: qué haces, *para quién* existe y qué *prometes*.',
+      title: 'Esencia', en: 'Core', time: 5,
+      desc: 'Qué es tu marca, la *idea* que la sostiene y por qué *importa*.',
       tip: 'Si no puedes decirlo *en una frase*, todavía no está claro. Todo lo demás se apoya en este bloque.',
       fields: [
-        { id: 'name', label: 'Nombre de la marca', type: 'text', hint: 'Tal y como quieres que la IA la escriba.' },
-        { id: 'what', label: 'Qué hacemos', type: 'textarea', rows: 2, hint: 'Una frase *clara*. Sin adjetivos vacíos.' },
-        { id: 'who', label: 'Para quién es', type: 'textarea', rows: 2, hint: 'Una audiencia *específica*. "Todo el mundo" no es una respuesta.' },
-        { id: 'idea', label: 'Idea de marca', type: 'textarea', rows: 2, hint: 'La idea *central* que lo sostiene todo.' },
-        { id: 'promise', label: 'Promesa', type: 'textarea', rows: 2, hint: 'Lo que la gente debería *sentir*, *recibir* o *vivir* de forma constante.' },
-        { id: 'words', label: '3–5 palabras', type: 'tags', min: 3, max: 5, hint: 'La expresión *más simple* del carácter de la marca.' }
+        { id: 'brand', label: 'Marca', type: 'textarea', rows: 2, hint: '¿Qué es la marca, *qué hace* y *para quién* es?' },
+        { id: 'idea', label: 'Idea', type: 'textarea', rows: 2, hint: '¿Cuál es *la única idea* por la que esta marca debería ser conocida?' },
+        { id: 'promise', label: 'Promesa', type: 'textarea', rows: 2, hint: '¿Qué obtiene la gente de esta marca que *de verdad le importa*?' },
+        { id: 'difference', label: 'Diferencia', type: 'textarea', rows: 2, hint: '¿Qué la hace *significativamente distinta* de lo que la gente esperaría normalmente?' }
       ]
     },
     {
-      title: 'Diferencia', en: 'Brand Difference', time: 8,
-      desc: 'Lo que te *separa* de todo lo demás en tu categoría.',
-      tip: 'No intentes explicarlo todo. Captura *la única diferencia* que debería influir en las decisiones creativas.',
-      fields: [
-        { id: 'weAre', label: 'Somos', type: 'textarea', rows: 2, hint: 'Lo que hace a esta marca *distintiva*.' },
-        { id: 'weAreNot', label: 'No somos', type: 'textarea', rows: 2, hint: 'De qué se aleja la marca *deliberadamente*.' },
-        { id: 'category', label: 'Categoría', type: 'textarea', rows: 2, hint: '¿Qué *convenciones* de tu categoría hay que conocer? Lo que "todos hacen".' },
-        { id: 'twist', label: 'Nuestro giro', type: 'textarea', rows: 2, hint: '¿Qué hacemos *distinto* de lo esperado?' }
-      ]
-    },
-    {
-      title: 'Personalidad', en: 'Personality', time: 10,
-      desc: 'Cómo sería tu marca si *entrara por la puerta*.',
+      title: 'Carácter', en: 'Character', time: 4,
+      desc: 'La personalidad de tu marca y *lo que nunca sería*.',
       tip: 'La *tensión* es lo que hace memorable a una personalidad: dos cualidades que, en principio, no encajan.',
       fields: [
-        { id: 'person', label: 'Si la marca fuera una persona', type: 'textarea', rows: 3, hint: 'Describe al *personaje* en pocas frases.' },
-        { id: 'traits', label: 'Rasgos', type: 'list', n: 5, min: 3, hint: 'Cinco *rasgos* de carácter. Mínimo tres.' },
-        { id: 'energy', label: 'Energía', type: 'chips', hint: 'Elige *una o dos*. Puedes añadir la tuya.', options: ['Tranquila', 'Audaz', 'Juguetona', 'Sensual', 'Intelectual', 'Rebelde', 'Cálida', 'Elegante', 'Enérgica', 'Misteriosa'] },
-        { id: 'attitude', label: 'Actitud', type: 'textarea', rows: 2, hint: 'Cómo se *comporta* la marca y cómo se acerca a la gente.' },
-        { id: 'tension', label: 'Tensión', type: 'pair', hint: 'Dos cualidades que, *juntas*, crean carácter.' }
+        { id: 'traits', label: 'Rasgos', type: 'tags', min: 3, max: 5, hint: 'Elige *de 3 a 5 palabras* que describan la personalidad de la marca.' },
+        { id: 'notThis', label: 'Esto no', type: 'textarea', rows: 2, hint: '¿Cómo no debería *sentirse*, *sonar* o *comportarse* nunca esta marca?' },
+        { id: 'tension', label: 'Tensión', type: 'pair', hint: '¿Qué dos cualidades crean su carácter? Ejemplo: *sofisticada + irreverente*.' }
       ]
     },
     {
-      title: 'Mundo de marca', en: 'Brand World', time: 10,
-      desc: 'El *universo* cultural y estético al que pertenece tu marca.',
-      tip: 'Piensa en un *universo*, no en un moodboard: ¿qué películas, lugares y materiales viven en él?',
+      title: 'Audiencia', en: 'Audience', time: 4,
+      desc: 'La *persona* a la que le habla tu marca y lo que *desea*.',
+      tip: 'Hazlo *humano y específico*. Sin datos demográficos, salvo que de verdad importen a la marca.',
       fields: [
-        { id: 'world', label: 'El mundo al que pertenecemos', type: 'textarea', rows: 2, hint: 'El universo *cultural* y *estético* en pocas palabras.' },
-        { id: 'mood', label: 'Mood', type: 'tags', min: 5, max: 8, hint: 'Entre *5 y 8* palabras clave.' },
-        { id: 'references', label: 'Referencias', type: 'textarea', rows: 3, hint: 'Personas, lugares, películas, arquitectura, moda, arte, fotografía.' },
-        { id: 'materials', label: 'Materiales + texturas', type: 'textarea', rows: 2, hint: 'Lo que se podría *tocar* dentro de la marca.' },
-        { id: 'atmosphere', label: 'Atmósfera', type: 'textarea', rows: 2, hint: '¿Qué se debería *sentir* al entrar en el mundo de esta marca?' }
+        { id: 'who', label: 'Quién', type: 'textarea', rows: 3, hint: '¿A *quién* le estamos hablando?' },
+        { id: 'desire', label: 'Deseo', type: 'textarea', rows: 2, hint: '¿Qué *quiere*, *valora* o *le importa* a esta persona?' }
       ]
     },
     {
-      title: 'Voz', en: 'Voice', time: 10,
-      desc: 'Cómo *habla* tu marca: el tono, las palabras y lo que *nunca diría*.',
-      tip: 'Lee tu ejemplo de voz *en voz alta*. Si podría firmarlo cualquier otra marca, reescríbelo.',
+      title: 'Mundo', en: 'World', time: 5,
+      desc: 'El *universo* al que pertenece tu marca y lo que *se siente* en él.',
+      tip: 'Piensa en un *universo*, no en un moodboard: ¿qué películas, lugares o creadores viven en él?',
       fields: [
-        { id: 'sound', label: 'Sonamos', type: 'textarea', rows: 2, hint: 'Describe la *voz*.' },
-        { id: 'speakLike', label: 'Hablamos como', type: 'tags', min: 3, max: 5, hint: 'De *3 a 5* características.' },
-        { id: 'use', label: 'Usamos', type: 'textarea', rows: 2, hint: 'Palabras, expresiones, *patrones* de lenguaje.' },
-        { id: 'avoid', label: 'Evitamos', type: 'textarea', rows: 2, hint: 'Palabras, actitudes o tonos que *suenan mal* en esta marca.' },
-        { id: 'voiceExample', label: 'Ejemplo de voz', type: 'textarea', rows: 3, hint: 'De 1 a 3 frases que suenen, *sin duda*, a esta marca.' }
+        { id: 'mood', label: 'Mood', type: 'tags', min: 5, max: 5, hint: 'Elige *5 palabras* que describan el mundo de la marca.' },
+        { id: 'references', label: 'Referencias', type: 'list', n: 3, min: 3, hint: 'Añade *3 referencias* visuales, culturales o creativas.' },
+        { id: 'feeling', label: 'Sensación', type: 'textarea', rows: 2, hint: '¿Qué debería *sentir* alguien al encontrarse con esta marca?' }
       ]
     },
     {
-      title: 'Dirección visual', en: 'Visual Direction', time: 12,
-      desc: 'Cómo se ve y se *siente* tu marca. *Dirección*, no manual.',
-      tip: 'No es un manual de identidad: es una *dirección*. Describe carácter, no especificaciones técnicas.',
+      title: 'Expresión', en: 'Expression', time: 6,
+      desc: 'Cómo *suena*, qué *dice* y cómo *se ve* tu marca.',
+      tip: 'Elige palabras que *solo* podrían describir a tu marca. Si le sirven a cualquiera, no la distinguen.',
       fields: [
-        { id: 'visualMood', label: 'Mood visual', type: 'textarea', rows: 2, hint: '¿Cómo debería *verse* y *sentirse* la marca?' },
-        { id: 'colors', label: 'Color', type: 'colors', hint: 'Elige el color y, si quieres, dale un *nombre* o un uso.' },
-        { id: 'typography', label: 'Tipografía', type: 'textarea', rows: 2, hint: 'El *carácter* general, no un sistema tipográfico completo.' },
-        { id: 'imageLang', label: 'Lenguaje de imagen', type: 'chips', note: true, hint: 'Fotografía, ilustración, CGI, collage… *Elige y matiza*.', options: ['Fotografía', 'Ilustración', 'CGI / 3D', 'Collage', 'Tipográfico', 'Motion', 'Archivo'] },
-        { id: 'composition', label: 'Composición', type: 'textarea', rows: 2, hint: 'Cómo se *encuadran*, ordenan y equilibran las cosas.' },
-        { id: 'light', label: 'Luz + textura', type: 'textarea', rows: 2, hint: 'Tipo de *luz*, grano, acabado.' },
-        { id: 'signature', label: 'Firma', type: 'textarea', rows: 2, hint: 'Un comportamiento visual *reconocible*.' }
+        { id: 'voice', label: 'Voz', type: 'tags', min: 3, max: 3, prefix: 'Sonamos como:', hint: 'Sonamos como… *3 palabras*.' },
+        { id: 'message', label: 'Mensaje', type: 'textarea', rows: 2, hint: '¿Qué debería *comunicar siempre* esta marca?' },
+        { id: 'visual', label: 'Visual', type: 'tags', min: 5, max: 5, prefix: 'Nos vemos como:', hint: 'Nos vemos como… *5 palabras*.' },
+        { id: 'signature', label: 'Firma', type: 'textarea', rows: 2, hint: '¿Qué *elemento reconocible* podría hacer identificable a esta marca?' }
       ]
     },
     {
-      title: 'Reglas para la IA', en: 'AI Brand Rules', time: 8,
+      title: 'Reglas para la IA', en: 'AI Rules', time: 5,
       desc: 'Los *límites* que protegen a tu marca cuando la IA duda.',
       tip: 'Cuanto más *concreta* la regla, mejor funciona. "Ser auténtica" no es una regla; "mostrar producto real, nunca idealizado" sí.',
       fields: [
-        { id: 'always', label: 'Siempre', type: 'list', n: 3, min: 3, bullet: true, addable: true, addLabel: '+ Añadir regla', hint: 'Lo que la IA debe hacer *en todo* lo que cree.' },
-        { id: 'never', label: 'Nunca', type: 'list', n: 3, min: 3, bullet: true, addable: true, addLabel: '+ Añadir regla', hint: 'Lo que la IA no debe hacer *jamás*.' },
-        { id: 'prioritize', label: 'Prioriza', type: 'fixed', hint: '*Ya incluido* en tu Master Key. No tienes que rellenarlo.',
-          html: '<ol><li>Carácter de marca</li><li>Distintividad</li><li>Coherencia</li><li>Ejecución</li></ol>',
-          text: '1. Carácter de marca\n2. Distintividad\n3. Coherencia\n4. Ejecución' },
-        { id: 'unclear', label: 'Cuando algo no esté claro', type: 'fixed', hint: '*Ya incluido* en tu Master Key.',
-          html: 'No inventes una nueva dirección de marca. Pide aclaración o usa el <em>principio de marca existente más cercano</em>.',
-          text: 'No inventes una nueva dirección de marca.\nPide aclaración o usa el principio de marca existente más cercano.' }
+        { id: 'always', label: 'Siempre', type: 'list', n: 3, min: 3, bullet: true, hint: '¿Qué debe *preservar siempre* la IA? *3 reglas*.' },
+        { id: 'never', label: 'Nunca', type: 'list', n: 3, min: 3, bullet: true, hint: '¿Qué no debe hacer *nunca* la IA? *3 reglas*.' },
+        { id: 'priority', label: 'Prioridad', type: 'textarea', rows: 2, hint: 'Al tomar una decisión de marca, ¿qué *importa más*?' },
+        { id: 'aiRule', label: 'Regla IA', type: 'fixed', hint: '*Ya incluida* en tu Brand OS. No tienes que rellenarla.',
+          html: '<p style="margin:0 0 10px">Usa esta información como el contexto creativo de la marca. Preserva su carácter, su distintividad y su intención estratégica.</p>' +
+                '<p style="margin:0 0 4px"><em>Prioriza:</em></p><ol style="margin:0 0 10px"><li>Distintividad</li><li>Coherencia estratégica</li><li>Carácter de marca</li><li>Relevancia emocional</li><li>Contexto</li></ol>' +
+                '<p style="margin:0 0 10px">No inventes atributos estratégicos que no estén respaldados por el Brand OS. Traduce la marca al formato solicitado manteniendo su identidad. Cuando falte información que afecte de forma material al resultado, pregunta en lugar de suponer.</p>' +
+                '<p style="margin:0">El objetivo no es reproducir las respuestas. <em>El objetivo es traducirlas en decisiones de marca coherentes.</em></p>',
+          text: 'Usa esta información como el contexto creativo de la marca.\nPreserva su carácter, su distintividad y su intención estratégica.\n\nPrioriza:\n1. Distintividad\n2. Coherencia estratégica\n3. Carácter de marca\n4. Relevancia emocional\n5. Contexto\n\nNo inventes atributos estratégicos que no estén respaldados por el Brand OS.\nTraduce la marca al formato solicitado manteniendo su identidad.\nCuando falte información que afecte de forma material al resultado, pregunta en lugar de suponer.\n\nEl objetivo no es reproducir las respuestas.\nEl objetivo es traducirlas en decisiones de marca coherentes.' }
       ]
     }
   ];
 
   const COLOR_SLOTS = [['primary', 'Primario'], ['secondary', 'Secundario'], ['accent', 'Acento']];
-  const STORAGE_KEY = 'ai-brand-master-key-v2';
+  const STORAGE_KEY = 'ai-brand-os-v1';
   const PENDING = '[Pendiente]';
 
   /* ============================================================ */
@@ -423,14 +401,14 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   function mapView() {
     const o = overall(), nx = nextIndex();
     const cta = o.done === 0 ? { t: 'Empezar por 01 →', a: 'data-act="open" data-i="0"' }
-      : nx === -1 ? { t: 'Ver mi Master Key →', a: 'data-act="result"' }
+      : nx === -1 ? { t: 'Ver mi Brand OS →', a: 'data-act="result"' }
       : { t: `Continuar en ${pad(nx + 1)} →`, a: `data-act="open" data-i="${nx}"` };
 
     const rail = SECTIONS.map((s, i) => {
       const st = status(i);
       return `<button class="bmk-rail-step is-${st} ${i === nx ? 'is-next' : ''} ${line(3 + i)}" data-act="open" data-i="${i}" aria-label="${pad(i + 1)} ${esc(plain(s.title))}">
         <span class="bmk-node">${st === 'done' ? '✓' : pad(i + 1)}</span><span class="bmk-rail-label">${rich(s.title)}</span></button>`;
-    }).join('') + `<button class="bmk-rail-step is-final ${line(3 + SECTIONS.length)}" data-act="result" aria-label="Resultado"><span class="bmk-node">✦</span><span class="bmk-rail-label"><em>Master Key</em></span></button>`;
+    }).join('') + `<button class="bmk-rail-step is-final ${line(3 + SECTIONS.length)}" data-act="result" aria-label="Resultado"><span class="bmk-node">✦</span><span class="bmk-rail-label"><em>Brand OS</em></span></button>`;
 
     return `
       <header class="bmk-hero">
@@ -445,7 +423,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
       <section class="bmk-how">
         <div class="bmk-row ${line(13)}"><em>Recorre</em><p>Los bloques en orden, empezando por la esencia.<small>Puedes saltar entre bloques cuando quieras; nada se pierde.</small></p></div>
         <div class="bmk-row ${line(14)}"><em>Escribe</em><p>Corto y concreto.<small>La IA trabaja mejor con precisión que con volumen.</small></p></div>
-        <div class="bmk-row ${line(15)}"><em>Conseguirás</em><p>Tu Master Key, lista para pegar en tu IA.<small>Un bloque de texto para Claude, ChatGPT o Gemini.</small></p></div>
+        <div class="bmk-row ${line(15)}"><em>Conseguirás</em><p>Tu Brand OS, listo para pegar en tu IA.<small>Un bloque de texto para Claude, ChatGPT o Gemini.</small></p></div>
       </section>`;
   }
 
@@ -453,7 +431,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     return `<div class="bmk-steps" role="tablist" aria-label="Bloques"><span class="bmk-steps-pill" aria-hidden="true"></span>${SECTIONS.map((s, i) => {
       const st = status(i), sel = i === current;
       return `<button class="bmk-pill ${st === 'done' ? 'is-done' : ''}" role="tab" aria-selected="${sel}" data-pill="${i}" data-act="open" data-i="${i}" title="${esc(plain(s.title))}">${st === 'done' && !sel ? '✓ ' : ''}${pad(i + 1)}</button>`;
-    }).join('')}<button class="bmk-pill" role="tab" aria-selected="${current === 'result'}" data-act="result" title="Master Key">✦ <em>Key</em></button></div>`;
+    }).join('')}<button class="bmk-pill" role="tab" aria-selected="${current === 'result'}" data-act="result" title="Brand OS">✦ <em>OS</em></button></div>`;
   }
 
   function topBar(current, keepTop) {
@@ -480,7 +458,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
           <div class="bmk-form">${s.fields.map((f, k) => fieldHTML(f, k)).join('')}</div>
           <div class="bmk-nav ${line(Math.min(s.fields.length + 2, 11))}">
             ${i > 0 ? `<button class="bmk-btn bmk-btn--ghost" data-act="open" data-i="${i - 1}">← ${pad(i)} ${esc(plain(SECTIONS[i - 1].title))}</button>` : `<button class="bmk-btn bmk-btn--ghost" data-act="map">← Hoja de ruta</button>`}
-            ${last ? `<button class="bmk-btn" data-act="result">Ver mi Master Key ✦</button>` : `<button class="bmk-btn" data-act="open" data-i="${i + 1}">${pad(i + 2)} ${esc(plain(SECTIONS[i + 1].title))} →</button>`}
+            ${last ? `<button class="bmk-btn" data-act="result">Ver mi Brand OS ✦</button>` : `<button class="bmk-btn" data-act="open" data-i="${i + 1}">${pad(i + 2)} ${esc(plain(SECTIONS[i + 1].title))} →</button>`}
           </div>
         </div>
       </div>`;
@@ -510,7 +488,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         const a = clean(v);
         c = `<div class="bmk-tags">${a.map((t, k) => `<span class="bmk-tag">${esc(t)}<button class="bmk-x" data-act="rmtag" data-f="${f.id}" data-k="${k}" aria-label="Quitar ${esc(t)}">×</button></span>`).join('')}
           ${a.length < f.max ? `<input class="bmk-tag-input" data-f="${f.id}" data-t="taginput" aria-label="${esc(f.label)}">` : ''}</div>
-          <div class="bmk-count">${a.length} de ${f.min}–${f.max}${a.length >= f.max ? ' · Máximo alcanzado' : ' · Escribe y pulsa Enter'}</div>`;
+          <div class="bmk-count">${a.length} de ${f.min === f.max ? f.max : f.min + '–' + f.max}${a.length >= f.max ? ' · Máximo alcanzado' : ' · Escribe y pulsa Enter'}</div>`;
         break;
       }
       case 'chips': {
@@ -556,12 +534,12 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     return `${topBar('result', keepTop)}
       <div class="bmk-result-head">
         <div>
-          <div class="bmk-eyebrow ${line(1)}">08 · Brand Context</div>
-          <h2 class="${line(2)}">Tu AI Brand <em>Master Key</em>${state.name ? ` — ${esc(state.name)}` : ''}</h2>
+          <div class="bmk-eyebrow ${line(1)}">${pad(SECTIONS.length + 1)} · Resultado</div>
+          <h2 class="${line(2)}">Tu AI Brand <em>OS</em></h2>
           <p class="${line(3)}">Todo lo que has definido, listo para que la IA trabaje con tu marca</p>
         </div>
         <div class="bmk-actions ${line(4)}">
-          <button class="bmk-btn" data-act="copy">Copiar Master Key</button>
+          <button class="bmk-btn" data-act="copy">Copiar Brand OS</button>
           <button class="bmk-btn bmk-btn--ghost" data-act="download">Descargar .md</button>
         </div>
       </div>
@@ -570,9 +548,9 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         : `<div class="bmk-complete ${line(5)}">✓ Todo completo. Tu marca está <em>lista para trabajar con IA</em>.</div>`}
       <pre class="bmk-pre ${line(6)}">${esc(buildText())}</pre>
       <section class="bmk-use">
-        <div class="bmk-row ${line(7)}"><em>Copia</em><p>Tu Master Key completa.<small>Los campos vacíos aparecen como ${PENDING}.</small></p></div>
+        <div class="bmk-row ${line(7)}"><em>Copia</em><p>Tu Brand OS completo.<small>Los campos vacíos aparecen como ${PENDING}.</small></p></div>
         <div class="bmk-row ${line(8)}"><em>Pega</em><p>Como contexto, al inicio de la conversación.<small>En Claude o ChatGPT: dentro de un Proyecto, en instrucciones personalizadas o al principio del chat.</small></p></div>
-        <div class="bmk-row ${line(9)}"><em>Pide</em><p>Con intención.<small>"Usando mi Master Key, escribe 3 posts de lanzamiento para Instagram."</small></p></div>
+        <div class="bmk-row ${line(9)}"><em>Pide</em><p>Con intención.<small>"Usando mi Brand OS, escribe 3 posts de lanzamiento para Instagram."</small></p></div>
       </section>
       <div class="bmk-nav ${line(10)};margin-top:36px">
         <button class="bmk-btn bmk-btn--ghost" data-act="map">← Volver a la hoja de ruta</button>
@@ -586,7 +564,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     switch (f.type) {
       case 'text': case 'textarea': return (v || '').trim() || PENDING;
       case 'list': { const a = clean(v); return a.length ? a.map((x, k) => f.bullet ? `* ${x}` : `${k + 1}. ${x}`).join('\n') : PENDING; }
-      case 'tags': { const a = clean(v); return a.length ? a.join(' · ') : PENDING; }
+      case 'tags': { const a = clean(v); return a.length ? (f.prefix ? f.prefix + ' ' : '') + a.join(' · ') : PENDING; }
       case 'chips': {
         const a = clean(v), note = (state[f.id + '_note'] || '').trim();
         return [a.join(' / '), note].filter(Boolean).join('\n') || PENDING;
@@ -604,19 +582,12 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   }
 
   function buildText() {
-    const out = ['AI BRAND MASTER KEY' + (state.name ? ` — ${state.name.trim()}` : ''),
-      'Sistema compacto de contexto de marca para que la IA entienda, exprese y extienda esta marca con coherencia.', ''];
+    const out = ['AI BRAND OS', 'El contexto mínimo que la IA necesita para entender, proteger y extender una marca.', ''];
     SECTIONS.forEach((s, i) => {
       out.push('────────────────────────', `${pad(i + 1)} — ${plain(s.title).toUpperCase()}`, '');
       s.fields.forEach(f => out.push(f.label.toUpperCase(), fmt(f), ''));
     });
-    out.push('────────────────────────', 'BRAND CONTEXT', '',
-      'Cuando crees cualquier cosa para esta marca:', 'ENTENDER → INTERPRETAR → CREAR', '',
-      'No reproduzcas la información literalmente.',
-      'Traduce la esencia, la personalidad, el mundo y las reglas de la marca al contexto específico que se pide.', '',
-      'El objetivo no es hacer algo que simplemente se vea bien.',
-      'El objetivo es hacer algo que se sienta específico de esta marca.');
-    return out.join('\n');
+    return out.join('\n').trim();
   }
 
   /* ---------- UI helpers ---------- */
@@ -762,11 +733,10 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         rerenderField(id, 'list', nu => [[...nu.querySelectorAll('.bmk-list-row')].pop()]); break;
       }
       case 'rmitem': { const a = Array.isArray(state[id]) ? state[id] : []; a.splice(+b.dataset.k, 1); state[id] = a; save(); rerenderField(id); refresh(); break; }
-      case 'copy': toast((await copyText(buildText())) ? 'Master Key copiada ✓' : 'No se pudo copiar'); break;
+      case 'copy': toast((await copyText(buildText())) ? 'Brand OS copiado ✓' : 'No se pudo copiar'); break;
       case 'download': {
-        const slug = (state.name || 'mi-marca').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
         const url = URL.createObjectURL(new Blob([buildText()], { type: 'text/markdown;charset=utf-8' }));
-        const a = document.createElement('a'); a.href = url; a.download = `brand-master-key-${slug || 'marca'}.md`;
+        const a = document.createElement('a'); a.href = url; a.download = 'ai-brand-os.md';
         document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
         break;
       }
