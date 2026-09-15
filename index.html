@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Brand OS</title>
+<title>Brandbook OS 101</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   AI BRAND OS — widget embebible · identidad LaGutierrez
+   BRANDBOOK OS 101 — widget embebible · identidad LaGutierrez
    Todo el CSS está bajo .bmk para no chocar con tu web.
    Paleta: Rojo Pasión #8C2936 · Blanco Fantasmal #FFFFFF ·
            Sombra Oscura #000000 · Beige Costero #F9EED9
@@ -51,7 +51,7 @@
 
 /* ---------- MAP: hero ---------- */
 .bmk-hero{display:grid;grid-template-columns:1fr 250px;gap:40px;align-items:end;padding-bottom:8px}
-.bmk-hero h1{font-weight:400;font-size:clamp(36px,5.4vw,60px);line-height:1.02;letter-spacing:-.015em;margin:0;color:var(--sombra);max-width:12.5em}
+.bmk-hero h1{font-weight:400;font-size:clamp(36px,5.4vw,60px);line-height:1.02;letter-spacing:-.015em;margin:0;color:var(--sombra);width:fit-content;max-width:100%}
 .bmk-hero h1 em{display:block;text-align:right;color:var(--rojo);font-size:.82em;margin-top:.08em}
 .bmk-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
 .bmk-panel-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
@@ -71,7 +71,7 @@
 .bmk-rail-label{font-size:13px;color:var(--muted);text-align:center;line-height:1.3;padding:0 4px}
 .bmk-rail-step:hover .bmk-rail-label{color:var(--rojo)}
 
-/* ---------- MAP: filas bajo la línea de tiempo ---------- */
+/* ---------- MAP: filas bajo la línea de tiempo / rows under the timeline ---------- */
 /* Filas editoriales: etiqueta en cursiva a la izquierda, contenido a la derecha */
 .bmk-how,.bmk-use{max-width:820px;margin:80px auto 0;display:grid;gap:30px}
 .bmk-use{margin-top:56px}
@@ -82,9 +82,9 @@
 
 /* ---------- Stepper — Transitions.dev "Tabs sliding" ---------- */
 .bmk-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--rojo)}
-.bmk-steps{position:relative;display:inline-flex;align-items:center;gap:3px;padding:3px;border-radius:48px;background:#F0DDC4;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.bmk-steps,.bmk-lang{position:relative;display:inline-flex;align-items:center;gap:3px;padding:3px;border-radius:48px;background:#F0DDC4;max-width:100%;overflow-x:auto;scrollbar-width:none}
 .bmk-steps::-webkit-scrollbar{display:none}
-.bmk-steps-pill{position:absolute;top:3px;left:0;height:30px;width:0;background:var(--blanco);border-radius:48px;
+.bmk-steps-pill,.bmk-lang-pill{position:absolute;top:3px;left:0;height:30px;width:0;background:var(--blanco);border-radius:48px;
   box-shadow:0 1px 2px rgba(140,41,54,.14),0 2px 6px -2px rgba(140,41,54,.14);
   transform:translateX(0);transition:transform var(--tabs-dur) var(--tabs-ease),width var(--tabs-dur) var(--tabs-ease);
   will-change:transform,width;z-index:0;pointer-events:none}
@@ -92,9 +92,10 @@
   border-radius:48px;font-size:13px;color:rgba(35,31,32,.7);white-space:nowrap;transition:color var(--tabs-dur) var(--tabs-ease)}
 .bmk-pill:not([aria-selected="true"]):hover,.bmk-pill[aria-selected="true"]{color:var(--sombra)}
 .bmk-pill.is-done{color:var(--rojo)}
+.bmk-util{display:flex;justify-content:flex-end;margin:-32px 0 16px}
 .bmk-saved{font-size:13px;font-style:italic;color:var(--muted);transition:color .3s}
 .bmk-saved.flash{color:var(--rojo)}
-@media (prefers-reduced-motion:reduce){.bmk-steps-pill,.bmk-pill{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.bmk-steps-pill,.bmk-lang-pill,.bmk-pill{transition:none!important}}
 
 /* ---------- SECTION ---------- */
 .bmk-layout{display:grid;grid-template-columns:270px 1fr;gap:48px;margin-top:40px;align-items:start}
@@ -126,33 +127,14 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 .bmk-list-n{color:var(--rojo);font-size:15px;text-align:center;font-style:italic}
 .bmk-x{border:0;background:none;color:var(--muted);font-size:18px;line-height:1;padding:6px}
 .bmk-x:hover{color:var(--rojo)}
-.bmk-add{margin-top:10px;border:1px dashed var(--line-strong);background:none;border-radius:var(--radius);padding:9px 14px;font-size:13px;color:var(--muted)}
-.bmk-add:hover{border-color:var(--rojo);color:var(--rojo)}
 .bmk-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border:1px solid var(--line-strong);border-radius:var(--radius);padding:7px;background:var(--blanco);min-height:46px}
 .bmk-tags:focus-within{border-color:var(--rojo);box-shadow:0 0 0 3px rgba(140,41,54,.1)}
 .bmk-tag{display:inline-flex;align-items:center;gap:2px;background:var(--beige);border-radius:999px;padding:3px 4px 3px 12px;font-size:14px;font-style:italic}
 .bmk-tag .bmk-x{font-size:15px;padding:2px 6px;font-style:normal}
 .bmk-tag-input{flex:1;min-width:140px;border:0;outline:none;font-size:15px;padding:4px 6px;background:transparent;color:var(--ink)}
 .bmk-count{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic}
-.bmk-chips{display:flex;flex-wrap:wrap;gap:6px}
-.bmk-chip{border:1px solid var(--line-strong);background:var(--blanco);border-radius:999px;padding:7px 15px;font-size:14px;transition:all .15s}
-.bmk-chip:hover{border-color:var(--rojo);color:var(--rojo)}
-.bmk-chip.on{background:var(--rojo);border-color:var(--rojo);color:var(--blanco);font-style:italic}
-.bmk-chip-input{border:1px dashed var(--line-strong);border-radius:999px;padding:7px 15px;font-size:14px;width:150px;background:transparent;color:var(--ink)}
-.bmk-chip-input::placeholder{color:var(--muted);font-style:italic}
-.bmk-chip-input:focus{outline:none;border-style:solid;border-color:var(--rojo)}
-.bmk-note{margin-top:10px}
 .bmk-pair{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
 .bmk-pair span{font-size:26px;color:var(--rojo);line-height:1;font-style:italic}
-.bmk-colors{display:grid;gap:10px}
-.bmk-color-row{display:grid;grid-template-columns:92px 46px 120px 1fr;gap:10px;align-items:center}
-.bmk-color-label{font-size:14px;color:var(--muted);font-style:italic}
-.bmk-swatch{width:46px;height:46px;border:1px solid var(--line-strong);border-radius:var(--radius);padding:3px;background:var(--blanco);cursor:pointer}
-.bmk-swatch::-webkit-color-swatch-wrapper{padding:0}
-.bmk-swatch::-webkit-color-swatch{border:0;border-radius:2px}
-.bmk-swatch::-moz-color-swatch{border:0;border-radius:2px}
-.bmk-swatch.is-empty{opacity:.4}
-.bmk-hex{font-size:14px;text-transform:uppercase;letter-spacing:.04em}
 .bmk-input::placeholder{color:#B9A49E}
 .bmk-fixed{background:var(--beige);border-radius:var(--radius);padding:14px 16px;font-size:14px}
 .bmk-fixed ol{margin:0;padding-left:20px}
@@ -208,15 +190,13 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 @media (max-width:640px){
   .bmk{padding:36px 16px 52px}
   .bmk-rail{margin:40px 0 20px}
+  .bmk-util{margin:-20px 0 12px}
   .bmk-rail-label{display:none}
   .bmk-node{width:30px;height:30px;font-size:11px}
   .bmk-rail-step:not(:last-child)::after{top:14px;left:calc(50% + 18px);right:calc(-50% + 18px)}
   .bmk-row{grid-template-columns:1fr;gap:4px}
   .bmk-row > em{text-align:left}
   .bmk-how{margin-top:56px}
-  .bmk-color-row{grid-template-columns:46px 1fr}
-  .bmk-color-label{grid-column:1/-1;margin-bottom:-4px}
-  .bmk-color-row .bmk-input:last-child{grid-column:1/-1}
   .bmk-pair{grid-template-columns:1fr}
   .bmk-pair span{text-align:center}
   .bmk-nav .bmk-btn{flex:1;justify-content:center}
@@ -231,95 +211,304 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 <script>
 (function () {
   /* ============================================================
-     CONTENIDO — edita textos y campos aquí.
+     CONTENIDO / CONTENT — textos en español (es) e inglés (en).
      Escribe *palabra* para mostrarla en cursiva.
-     Tipos: text · textarea · list · tags · chips · pair · colors · fixed
+     Tipos de campo: text · textarea · list · tags · pair · fixed
      ============================================================ */
-  const SECTIONS = [
-    {
-      title: 'Esencia', en: 'Core', time: 5,
-      desc: 'Qué es tu marca, la *idea* que la sostiene y por qué *importa*.',
-      tip: 'Si no puedes decirlo *en una frase*, todavía no está claro. Todo lo demás se apoya en este bloque.',
-      fields: [
-        { id: 'brand', label: 'Marca', type: 'textarea', rows: 2, hint: '¿Qué es la marca, *qué hace* y *para quién* es?' },
-        { id: 'idea', label: 'Idea', type: 'textarea', rows: 2, hint: '¿Cuál es *la única idea* por la que esta marca debería ser conocida?' },
-        { id: 'promise', label: 'Promesa', type: 'textarea', rows: 2, hint: '¿Qué obtiene la gente de esta marca que *de verdad le importa*?' },
-        { id: 'difference', label: 'Diferencia', type: 'textarea', rows: 2, hint: '¿Qué la hace *significativamente distinta* de lo que la gente esperaría normalmente?' }
-      ]
-    },
-    {
-      title: 'Carácter', en: 'Character', time: 4,
-      desc: 'La personalidad de tu marca y *lo que nunca sería*.',
-      tip: 'La *tensión* es lo que hace memorable a una personalidad: dos cualidades que, en principio, no encajan.',
-      fields: [
-        { id: 'traits', label: 'Rasgos', type: 'tags', min: 3, max: 5, hint: 'Elige *de 3 a 5 palabras* que describan la personalidad de la marca.' },
-        { id: 'notThis', label: 'Esto no', type: 'textarea', rows: 2, hint: '¿Cómo no debería *sentirse*, *sonar* o *comportarse* nunca esta marca?' },
-        { id: 'tension', label: 'Tensión', type: 'pair', hint: '¿Qué dos cualidades crean su carácter? Ejemplo: *sofisticada + irreverente*.' }
-      ]
-    },
-    {
-      title: 'Audiencia', en: 'Audience', time: 4,
-      desc: 'La *persona* a la que le habla tu marca y lo que *desea*.',
-      tip: 'Hazlo *humano y específico*. Sin datos demográficos, salvo que de verdad importen a la marca.',
-      fields: [
-        { id: 'who', label: 'Quién', type: 'textarea', rows: 3, hint: '¿A *quién* le estamos hablando?' },
-        { id: 'desire', label: 'Deseo', type: 'textarea', rows: 2, hint: '¿Qué *quiere*, *valora* o *le importa* a esta persona?' }
-      ]
-    },
-    {
-      title: 'Mundo', en: 'World', time: 5,
-      desc: 'El *universo* al que pertenece tu marca y lo que *se siente* en él.',
-      tip: 'Piensa en un *universo*, no en un moodboard: ¿qué películas, lugares o creadores viven en él?',
-      fields: [
-        { id: 'mood', label: 'Mood', type: 'tags', min: 5, max: 5, hint: 'Elige *5 palabras* que describan el mundo de la marca.' },
-        { id: 'references', label: 'Referencias', type: 'list', n: 3, min: 3, hint: 'Añade *3 referencias* visuales, culturales o creativas.' },
-        { id: 'feeling', label: 'Sensación', type: 'textarea', rows: 2, hint: '¿Qué debería *sentir* alguien al encontrarse con esta marca?' }
-      ]
-    },
-    {
-      title: 'Expresión', en: 'Expression', time: 6,
-      desc: 'Cómo *suena*, qué *dice* y cómo *se ve* tu marca.',
-      tip: 'Elige palabras que *solo* podrían describir a tu marca. Si le sirven a cualquiera, no la distinguen.',
-      fields: [
-        { id: 'voice', label: 'Voz', type: 'tags', min: 3, max: 3, prefix: 'Sonamos como:', hint: 'Sonamos como… *3 palabras*.' },
-        { id: 'message', label: 'Mensaje', type: 'textarea', rows: 2, hint: '¿Qué debería *comunicar siempre* esta marca?' },
-        { id: 'visual', label: 'Visual', type: 'tags', min: 5, max: 5, prefix: 'Nos vemos como:', hint: 'Nos vemos como… *5 palabras*.' },
-        { id: 'signature', label: 'Firma', type: 'textarea', rows: 2, hint: '¿Qué *elemento reconocible* podría hacer identificable a esta marca?' }
-      ]
-    },
-    {
-      title: 'Reglas para la IA', en: 'AI Rules', time: 5,
-      desc: 'Los *límites* que protegen a tu marca cuando la IA duda.',
-      tip: 'Cuanto más *concreta* la regla, mejor funciona. "Ser auténtica" no es una regla; "mostrar producto real, nunca idealizado" sí.',
-      fields: [
-        { id: 'always', label: 'Siempre', type: 'list', n: 3, min: 3, bullet: true, hint: '¿Qué debe *preservar siempre* la IA? *3 reglas*.' },
-        { id: 'never', label: 'Nunca', type: 'list', n: 3, min: 3, bullet: true, hint: '¿Qué no debe hacer *nunca* la IA? *3 reglas*.' },
-        { id: 'priority', label: 'Prioridad', type: 'textarea', rows: 2, hint: 'Al tomar una decisión de marca, ¿qué *importa más*?' },
-        { id: 'aiRule', label: 'Regla IA', type: 'fixed', hint: '*Ya incluida* en tu Brand OS. No tienes que rellenarla.',
-          html: '<p style="margin:0 0 10px">Usa esta información como el contexto creativo de la marca. Preserva su carácter, su distintividad y su intención estratégica.</p>' +
-                '<p style="margin:0 0 4px"><em>Prioriza:</em></p><ol style="margin:0 0 10px"><li>Distintividad</li><li>Coherencia estratégica</li><li>Carácter de marca</li><li>Relevancia emocional</li><li>Contexto</li></ol>' +
-                '<p style="margin:0 0 10px">No inventes atributos estratégicos que no estén respaldados por el Brand OS. Traduce la marca al formato solicitado manteniendo su identidad. Cuando falte información que afecte de forma material al resultado, pregunta en lugar de suponer.</p>' +
-                '<p style="margin:0">El objetivo no es reproducir las respuestas. <em>El objetivo es traducirlas en decisiones de marca coherentes.</em></p>',
-          text: 'Usa esta información como el contexto creativo de la marca.\nPreserva su carácter, su distintividad y su intención estratégica.\n\nPrioriza:\n1. Distintividad\n2. Coherencia estratégica\n3. Carácter de marca\n4. Relevancia emocional\n5. Contexto\n\nNo inventes atributos estratégicos que no estén respaldados por el Brand OS.\nTraduce la marca al formato solicitado manteniendo su identidad.\nCuando falte información que afecte de forma material al resultado, pregunta en lugar de suponer.\n\nEl objetivo no es reproducir las respuestas.\nEl objetivo es traducirlas en decisiones de marca coherentes.' }
-      ]
-    }
+  const BASE = [
+    { time: 5, fields: [
+      { id: 'brand', type: 'textarea', rows: 2 },
+      { id: 'idea', type: 'textarea', rows: 2 },
+      { id: 'promise', type: 'textarea', rows: 2 },
+      { id: 'difference', type: 'textarea', rows: 2 }
+    ] },
+    { time: 4, fields: [
+      { id: 'traits', type: 'tags', min: 3, max: 5 },
+      { id: 'notThis', type: 'textarea', rows: 2 },
+      { id: 'tension', type: 'pair' }
+    ] },
+    { time: 4, fields: [
+      { id: 'who', type: 'textarea', rows: 3 },
+      { id: 'desire', type: 'textarea', rows: 2 }
+    ] },
+    { time: 5, fields: [
+      { id: 'mood', type: 'tags', min: 5, max: 5 },
+      { id: 'references', type: 'list', n: 3, min: 3 },
+      { id: 'feeling', type: 'textarea', rows: 2 }
+    ] },
+    { time: 6, fields: [
+      { id: 'voice', type: 'tags', min: 3, max: 3 },
+      { id: 'message', type: 'textarea', rows: 2 },
+      { id: 'visual', type: 'tags', min: 5, max: 5 },
+      { id: 'signature', type: 'textarea', rows: 2 }
+    ] },
+    { time: 5, fields: [
+      { id: 'always', type: 'list', n: 3, min: 3, bullet: true },
+      { id: 'never', type: 'list', n: 3, min: 3, bullet: true },
+      { id: 'priority', type: 'textarea', rows: 2 },
+      { id: 'aiRule', type: 'fixed' }
+    ] }
   ];
 
-  const COLOR_SLOTS = [['primary', 'Primario'], ['secondary', 'Secundario'], ['accent', 'Acento']];
+  const TEXT = {
+    es: {
+      pending: '[Pendiente]',
+      exportTitle: 'BRANDBOOK OS 101',
+      exportSub: 'El contexto mínimo que la IA necesita para entender, proteger y extender una marca.',
+      sections: [
+        { title: 'Esencia',
+          desc: 'Qué es tu marca, la *idea* que la sostiene y por qué *importa*.',
+          tip: 'Si no puedes decirlo *en una frase*, todavía no está claro. Todo lo demás se apoya en este bloque.',
+          fields: {
+            brand: { label: 'Marca', hint: '¿Qué es la marca, *qué hace* y *para quién* es?' },
+            idea: { label: 'Idea', hint: '¿Cuál es *la única idea* por la que esta marca debería ser conocida?' },
+            promise: { label: 'Promesa', hint: '¿Qué obtiene la gente de esta marca que *de verdad le importa*?' },
+            difference: { label: 'Diferencia', hint: '¿Qué la hace *significativamente distinta* de lo que la gente esperaría normalmente?' }
+          } },
+        { title: 'Carácter',
+          desc: 'La personalidad de tu marca y *lo que nunca sería*.',
+          tip: 'La *tensión* es lo que hace memorable a una personalidad: dos cualidades que, en principio, no encajan.',
+          fields: {
+            traits: { label: 'Rasgos', hint: 'Elige *de 3 a 5 palabras* que describan la personalidad de la marca.' },
+            notThis: { label: 'Esto no', hint: '¿Cómo no debería *sentirse*, *sonar* o *comportarse* nunca esta marca?' },
+            tension: { label: 'Tensión', hint: '¿Qué dos cualidades crean su carácter? Ejemplo: *sofisticada + irreverente*.' }
+          } },
+        { title: 'Audiencia',
+          desc: 'La *persona* a la que le habla tu marca y lo que *desea*.',
+          tip: 'Hazlo *humano y específico*. Sin datos demográficos, salvo que de verdad importen a la marca.',
+          fields: {
+            who: { label: 'Quién', hint: '¿A *quién* le estamos hablando?' },
+            desire: { label: 'Deseo', hint: '¿Qué *quiere*, *valora* o *le importa* a esta persona?' }
+          } },
+        { title: 'Mundo',
+          desc: 'El *universo* al que pertenece tu marca y lo que *se siente* en él.',
+          tip: 'Piensa en un *universo*, no en un moodboard: ¿qué películas, lugares o creadores viven en él?',
+          fields: {
+            mood: { label: 'Mood', hint: 'Elige *5 palabras* que describan el mundo de la marca.' },
+            references: { label: 'Referencias', hint: 'Añade *3 referencias* visuales, culturales o creativas.' },
+            feeling: { label: 'Sensación', hint: '¿Qué debería *sentir* alguien al encontrarse con esta marca?' }
+          } },
+        { title: 'Expresión',
+          desc: 'Cómo *suena*, qué *dice* y cómo *se ve* tu marca.',
+          tip: 'Elige palabras que *solo* podrían describir a tu marca. Si le sirven a cualquiera, no la distinguen.',
+          fields: {
+            voice: { label: 'Voz', prefix: 'Sonamos como:', hint: 'Sonamos como… *3 palabras*.' },
+            message: { label: 'Mensaje', hint: '¿Qué debería *comunicar siempre* esta marca?' },
+            visual: { label: 'Visual', prefix: 'Nos vemos como:', hint: 'Nos vemos como… *5 palabras*.' },
+            signature: { label: 'Firma', hint: '¿Qué *elemento reconocible* podría hacer identificable a esta marca?' }
+          } },
+        { title: 'Reglas para la IA',
+          desc: 'Los *límites* que protegen a tu marca cuando la IA duda.',
+          tip: 'Cuanto más *concreta* la regla, mejor funciona. "Ser auténtica" no es una regla; "mostrar producto real, nunca idealizado" sí.',
+          fields: {
+            always: { label: 'Siempre', hint: '¿Qué debe *preservar siempre* la IA? *3 reglas*.' },
+            never: { label: 'Nunca', hint: '¿Qué no debe hacer *nunca* la IA? *3 reglas*.' },
+            priority: { label: 'Prioridad', hint: 'Al tomar una decisión de marca, ¿qué *importa más*?' },
+            aiRule: { label: 'Regla IA', hint: '*Ya incluida* en tu Brandbook OS. No tienes que rellenarla.' }
+          } }
+      ],
+      rule: {
+        intro: ['Usa esta información como el contexto creativo de la marca.', 'Preserva su carácter, su distintividad y su intención estratégica.'],
+        prioritize: 'Prioriza:',
+        list: ['Distintividad', 'Coherencia estratégica', 'Carácter de marca', 'Relevancia emocional', 'Contexto'],
+        rules: ['No inventes atributos estratégicos que no estén respaldados por el Brandbook OS.', 'Traduce la marca al formato solicitado manteniendo su identidad.', 'Cuando falte información que afecte de forma material al resultado, pregunta en lugar de suponer.'],
+        goal: ['El objetivo no es reproducir las respuestas.', 'El objetivo es traducirlas en decisiones de marca coherentes.']
+      },
+      ui: {
+        progress: 'Tu progreso',
+        start: 'Empezar por 01 →',
+        cont: n => `Continuar en ${n} →`,
+        seeResult: 'Ver mi Brandbook OS',
+        roadmap: 'Hoja de ruta',
+        blocks: 'Bloques',
+        backMap: '← Hoja de ruta',
+        backMapLong: '← Volver a la hoja de ruta',
+        saved: 'Se guarda automáticamente',
+        savedOk: 'Guardado ✓',
+        completed: 'Completado',
+        tip: 'Consejo',
+        of: (a, r) => `${a} de ${r}`,
+        max: ' · Máximo alcanzado',
+        enter: ' · Escribe y pulsa Enter',
+        remove: 'Quitar',
+        result: 'Resultado',
+        resultTitle: 'Tu Brandbook <em>OS</em>',
+        resultSub: 'Todo lo que has definido, listo para que la IA trabaje con tu marca',
+        copy: 'Copiar Brandbook OS',
+        download: 'Descargar .md',
+        missing: (n, pct) => `Te faltan ${n} campos · ${pct}% completado`,
+        complete: '✓ Todo completo. Tu marca está <em>lista para trabajar con IA</em>.',
+        reset: 'Borrar todas las respuestas',
+        confirmReset: '¿Borrar todas las respuestas? Esta acción no se puede deshacer.',
+        cleared: 'Respuestas borradas',
+        copied: 'Brandbook OS copiado ✓',
+        copyFail: 'No se pudo copiar',
+        how: [
+          { k: 'Recorre', p: 'Los bloques en orden, empezando por la esencia.', s: 'Puedes saltar entre bloques cuando quieras; nada se pierde.' },
+          { k: 'Escribe', p: 'Corto y concreto.', s: 'La IA trabaja mejor con precisión que con volumen.' },
+          { k: 'Conseguirás', p: 'Tu Brandbook OS, listo para pegar en tu IA.', s: 'Un bloque de texto para Claude, ChatGPT o Gemini.' }
+        ],
+        use: [
+          { k: 'Copia', p: 'Tu Brandbook OS completo.', s: 'Los campos vacíos aparecen como [Pendiente].' },
+          { k: 'Pega', p: 'Como contexto, al inicio de la conversación.', s: 'En Claude o ChatGPT: dentro de un Proyecto, en instrucciones personalizadas o al principio del chat.' },
+          { k: 'Pide', p: 'Con intención.', s: '"Usando mi Brandbook OS, escribe 3 posts de lanzamiento para Instagram."' }
+        ]
+      }
+    },
+
+    en: {
+      pending: '[Pending]',
+      exportTitle: 'BRANDBOOK OS 101',
+      exportSub: 'The minimum context AI needs to understand, protect and extend a brand.',
+      sections: [
+        { title: 'Core',
+          desc: 'What your brand is, the *idea* behind it and why it *matters*.',
+          tip: 'If you can\'t say it *in one sentence*, it isn\'t clear yet. Everything else builds on this block.',
+          fields: {
+            brand: { label: 'Brand', hint: 'What is the brand, *what does it do*, and *who is it for*?' },
+            idea: { label: 'Idea', hint: 'What is *the one idea* this brand should be known for?' },
+            promise: { label: 'Promise', hint: 'What do people get from this brand *that matters to them*?' },
+            difference: { label: 'Difference', hint: 'What makes this brand *meaningfully different* from what people would normally expect?' }
+          } },
+        { title: 'Character',
+          desc: 'Your brand\'s personality and *what it would never be*.',
+          tip: '*Tension* is what makes a personality memorable: two qualities that, at first, don\'t seem to fit.',
+          fields: {
+            traits: { label: 'Traits', hint: 'Choose *3–5 words* that describe the brand\'s personality.' },
+            notThis: { label: 'Not this', hint: 'What should this brand never *feel*, *sound* or *behave* like?' },
+            tension: { label: 'Tension', hint: 'What two qualities create its character? Example: *sophisticated + irreverent*.' }
+          } },
+        { title: 'Audience',
+          desc: 'The *person* your brand speaks to and what they *desire*.',
+          tip: 'Keep it *human and specific*. No demographics unless they matter to the brand.',
+          fields: {
+            who: { label: 'Who', hint: 'Who are we *speaking to*?' },
+            desire: { label: 'Desire', hint: 'What does this person *want*, *value* or *care about*?' }
+          } },
+        { title: 'World',
+          desc: 'The *universe* your brand belongs to and how it *feels* inside.',
+          tip: 'Think of a *universe*, not a moodboard: which films, places or creators live in it?',
+          fields: {
+            mood: { label: 'Mood', hint: 'Choose *5 words* that describe the brand\'s world.' },
+            references: { label: 'References', hint: 'Add *3* visual, cultural or creative references.' },
+            feeling: { label: 'Feeling', hint: 'What should someone *feel* when they encounter this brand?' }
+          } },
+        { title: 'Expression',
+          desc: 'How your brand *sounds*, what it *says* and how it *looks*.',
+          tip: 'Choose words that could *only* describe your brand. If they fit anyone, they don\'t set you apart.',
+          fields: {
+            voice: { label: 'Voice', prefix: 'We sound like:', hint: 'We sound like… *3 words*.' },
+            message: { label: 'Message', hint: 'What should this brand *always communicate*?' },
+            visual: { label: 'Visual', prefix: 'We look like:', hint: 'We look like… *5 words*.' },
+            signature: { label: 'Signature', hint: 'What is *one recognizable element* that could make this brand identifiable?' }
+          } },
+        { title: 'AI Rules',
+          desc: 'The *boundaries* that protect your brand when AI is unsure.',
+          tip: 'The more *specific* the rule, the better it works. "Be authentic" isn\'t a rule; "show real product, never idealized" is.',
+          fields: {
+            always: { label: 'Always', hint: 'What should AI *always preserve*? *3 rules*.' },
+            never: { label: 'Never', hint: 'What should AI *never do*? *3 rules*.' },
+            priority: { label: 'Priority', hint: 'When making a brand decision, what *matters most*?' },
+            aiRule: { label: 'AI Rule', hint: '*Already included* in your Brandbook OS. Nothing to fill in.' }
+          } }
+      ],
+      rule: {
+        intro: ['Use this information as the brand\'s creative context.', 'Preserve its character, distinctiveness and strategic intent.'],
+        prioritize: 'Prioritize:',
+        list: ['Distinctiveness', 'Strategic coherence', 'Brand character', 'Emotional relevance', 'Context'],
+        rules: ['Do not invent strategic attributes that are not supported by the Brandbook OS.', 'Translate the brand into the requested format while maintaining its identity.', 'When information is missing and materially affects the output, ask rather than assume.'],
+        goal: ['The goal is not to reproduce the answers.', 'The goal is to translate them into coherent brand decisions.']
+      },
+      ui: {
+        progress: 'Your progress',
+        start: 'Start with 01 →',
+        cont: n => `Continue with ${n} →`,
+        seeResult: 'See my Brandbook OS',
+        roadmap: 'Roadmap',
+        blocks: 'Blocks',
+        backMap: '← Roadmap',
+        backMapLong: '← Back to the roadmap',
+        saved: 'Saves automatically',
+        savedOk: 'Saved ✓',
+        completed: 'Completed',
+        tip: 'Tip',
+        of: (a, r) => `${a} of ${r}`,
+        max: ' · Maximum reached',
+        enter: ' · Type and press Enter',
+        remove: 'Remove',
+        result: 'Result',
+        resultTitle: 'Your Brandbook <em>OS</em>',
+        resultSub: 'Everything you\'ve defined, ready for AI to work with your brand',
+        copy: 'Copy Brandbook OS',
+        download: 'Download .md',
+        missing: (n, pct) => `${n} fields left · ${pct}% complete`,
+        complete: '✓ All complete. Your brand is <em>ready to work with AI</em>.',
+        reset: 'Clear all answers',
+        confirmReset: 'Clear all answers? This can\'t be undone.',
+        cleared: 'Answers cleared',
+        copied: 'Brandbook OS copied ✓',
+        copyFail: 'Couldn\'t copy',
+        how: [
+          { k: 'Go through', p: 'The blocks in order, starting with the core.', s: 'You can jump between blocks anytime; nothing gets lost.' },
+          { k: 'Write', p: 'Short and specific.', s: 'AI works better with precision than with volume.' },
+          { k: 'You\'ll get', p: 'Your Brandbook OS, ready to paste into your AI.', s: 'A block of text for Claude, ChatGPT or Gemini.' }
+        ],
+        use: [
+          { k: 'Copy', p: 'Your complete Brandbook OS.', s: 'Empty fields show up as [Pending].' },
+          { k: 'Paste', p: 'As context, at the start of the conversation.', s: 'In Claude or ChatGPT: inside a Project, in custom instructions or at the start of the chat.' },
+          { k: 'Ask', p: 'With intent.', s: '"Using my Brandbook OS, write 3 launch posts for Instagram."' }
+        ]
+      }
+    }
+  };
+
   const STORAGE_KEY = 'ai-brand-os-v1';
-  const PENDING = '[Pendiente]';
+  const LANG_KEY = 'brandbook-os-lang';
 
-  /* ============================================================ */
-  const root = document.getElementById('bmk');
-  const toastEl = document.getElementById('bmk-toast');
-  let state = load();
-  let view = { name: 'map' };
-
+  /* ---------- Helpers ---------- */
   const pad = n => String(n).padStart(2, '0');
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const plain = s => String(s ?? '').replace(/\*/g, '');
   const rich = s => esc(s).replace(/\*([^*]+)\*/g, '<em>$1</em>');
   const clean = a => (Array.isArray(a) ? a : []).map(x => (x || '').trim()).filter(Boolean);
+  const reduceMotion = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const line = i => `bmk-line" style="--i:${i}`;
+
+  function initialLang() {
+    const q = new URLSearchParams(location.search).get('lang');
+    if (q === 'es' || q === 'en') return q;
+    try { const s = localStorage.getItem(LANG_KEY); if (s === 'es' || s === 'en') return s; } catch (e) {}
+    return /^en\b/i.test(navigator.language || '') ? 'en' : 'es';
+  }
+
+  function ruleText(r) {
+    return [...r.intro, '', r.prioritize, ...r.list.map((x, i) => `${i + 1}. ${x}`), '', ...r.rules, '', ...r.goal].join('\n');
+  }
+  function ruleHTML(r) {
+    return `<p style="margin:0 0 10px">${esc(r.intro.join(' '))}</p>` +
+      `<p style="margin:0 0 4px"><em>${esc(r.prioritize)}</em></p><ol style="margin:0 0 10px">${r.list.map(x => `<li>${esc(x)}</li>`).join('')}</ol>` +
+      `<p style="margin:0 0 10px">${esc(r.rules.join(' '))}</p>` +
+      `<p style="margin:0">${esc(r.goal[0])} <em>${esc(r.goal[1])}</em></p>`;
+  }
+  function buildSections() {
+    return BASE.map((b, i) => {
+      const t = T.sections[i];
+      return { ...b, title: t.title, desc: t.desc, tip: t.tip, fields: b.fields.map(f => {
+        const out = { ...f, ...t.fields[f.id] };
+        if (f.type === 'fixed') { out.html = ruleHTML(T.rule); out.text = ruleText(T.rule); }
+        return out;
+      }) };
+    });
+  }
+
+  /* ---------- State ---------- */
+  const root = document.getElementById('bmk');
+  const toastEl = document.getElementById('bmk-toast');
+  let state = load();
+  let view = { name: 'map' };
+  let lang = initialLang();
+  let T = TEXT[lang];
+  let SECTIONS = buildSections();
   const findField = id => { for (const s of SECTIONS) for (const f of s.fields) if (f.id === id) return f; };
 
   function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; } }
@@ -327,9 +516,9 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
     const el = root.querySelector('[data-saved]');
     if (el) {
-      if (el.textContent !== 'Guardado ✓') { el.textContent = 'Guardado ✓'; replay([el]); }
+      if (el.textContent !== T.ui.savedOk) { el.textContent = T.ui.savedOk; replay([el]); }
       el.classList.add('flash'); clearTimeout(save.t);
-      save.t = setTimeout(() => { el.classList.remove('flash'); el.textContent = 'Se guarda automáticamente'; replay([el]); }, 1400);
+      save.t = setTimeout(() => { el.classList.remove('flash'); el.textContent = T.ui.saved; replay([el]); }, 1400);
     }
   }
 
@@ -340,9 +529,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
       case 'text': case 'textarea': return !!(v || '').trim();
       case 'list': return clean(v).length >= (f.min || f.n);
       case 'tags': return clean(v).length >= (f.min || 1);
-      case 'chips': return clean(v).length > 0;
       case 'pair': return Array.isArray(v) && !!(v[0] || '').trim() && !!(v[1] || '').trim();
-      case 'colors': return COLOR_SLOTS.every(([k]) => v && v[k] && /^#[0-9a-f]{6}$/i.test(v[k].hex || ''));
       default: return true;
     }
   }
@@ -353,14 +540,18 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   function status(i) { const p = secProg(SECTIONS[i]); return p.done === p.total ? 'done' : p.done > 0 ? 'partial' : 'todo'; }
 
   /* ---------- Views ---------- */
-  const reduceMotion = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
-  const line = i => `bmk-line" style="--i:${i}`;
+  function mount() {
+    root.innerHTML = `<div class="bmk-wrap"><div class="bmk-util">${langSwitch()}</div><div class="bmk-stage"></div></div>`;
+    document.documentElement.lang = lang;
+    render();
+    placeLangPill(false);
+  }
 
   function render(keepTop) {
-    root.innerHTML = '<div class="bmk-wrap bmk-stage">' +
-      (view.name === 'map' ? mapView() : view.name === 'section' ? sectionView(view.i, keepTop) : resultView(keepTop)) + '</div>';
+    const stage = root.querySelector('.bmk-stage');
+    stage.className = 'bmk-stage';
+    stage.innerHTML = view.name === 'map' ? mapView() : view.name === 'section' ? sectionView(view.i, keepTop) : resultView(keepTop);
     placePill(true);
-    const stage = root.firstElementChild;
     void stage.offsetWidth;
     stage.classList.add('is-shown');
   }
@@ -376,7 +567,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     });
   }
 
-  /* Pill deslizante: parte de la posición del step anterior y se anima hasta el nuevo.
+  /* Pill deslizante del stepper: parte de la posición del step anterior y se anima hasta el nuevo.
      Sin step anterior (primera vez, resize, carga de fuentes) se coloca sin transición. */
   let lastPill = null;
   function placePill(animate) {
@@ -398,47 +589,62 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     lastPill = { ...to, scroll: to.x - (bar.clientWidth - to.w) / 2 };
   }
 
+  /* Selector de idioma: mismo "Tabs sliding" que el stepper */
+  function langSwitch() {
+    return `<div class="bmk-lang" role="tablist" aria-label="Idioma / Language"><span class="bmk-lang-pill" aria-hidden="true"></span>${['es', 'en'].map(l =>
+      `<button class="bmk-pill" role="tab" data-act="lang" data-lang="${l}" aria-selected="${l === lang}">${l.toUpperCase()}</button>`).join('')}</div>`;
+  }
+  function placeLangPill(animate) {
+    const bar = root.querySelector('.bmk-lang');
+    if (!bar) return;
+    const pill = bar.querySelector('.bmk-lang-pill'), tab = bar.querySelector('[aria-selected="true"]');
+    if (!animate) pill.style.transition = 'none';
+    pill.style.transform = `translateX(${tab.offsetLeft}px)`;
+    pill.style.width = `${tab.offsetWidth}px`;
+    if (!animate) { void pill.offsetWidth; pill.style.transition = ''; }
+  }
+
   function mapView() {
     const o = overall(), nx = nextIndex();
-    const cta = o.done === 0 ? { t: 'Empezar por 01 →', a: 'data-act="open" data-i="0"' }
-      : nx === -1 ? { t: 'Ver mi Brand OS →', a: 'data-act="result"' }
-      : { t: `Continuar en ${pad(nx + 1)} →`, a: `data-act="open" data-i="${nx}"` };
+    const cta = o.done === 0 ? { t: T.ui.start, a: 'data-act="open" data-i="0"' }
+      : nx === -1 ? { t: T.ui.seeResult + ' →', a: 'data-act="result"' }
+      : { t: T.ui.cont(pad(nx + 1)), a: `data-act="open" data-i="${nx}"` };
 
     const rail = SECTIONS.map((s, i) => {
       const st = status(i);
       return `<button class="bmk-rail-step is-${st} ${i === nx ? 'is-next' : ''} ${line(3 + i)}" data-act="open" data-i="${i}" aria-label="${pad(i + 1)} ${esc(plain(s.title))}">
         <span class="bmk-node">${st === 'done' ? '✓' : pad(i + 1)}</span><span class="bmk-rail-label">${rich(s.title)}</span></button>`;
-    }).join('') + `<button class="bmk-rail-step is-final ${line(3 + SECTIONS.length)}" data-act="result" aria-label="Resultado"><span class="bmk-node">✦</span><span class="bmk-rail-label"><em>Brand OS</em></span></button>`;
+    }).join('') + `<button class="bmk-rail-step is-final ${line(3 + SECTIONS.length)}" data-act="result" aria-label="${esc(T.ui.result)}"><span class="bmk-node">✦</span><span class="bmk-rail-label"><em>Brandbook OS</em></span></button>`;
 
     return `
       <header class="bmk-hero">
-        <h1><span class="${line(0)};display:block">Haz que la IA entienda</span> <em class="${line(1)}">tu marca.</em></h1>
+        <h1><span class="${line(0)};display:block">Brandbook OS</span> <em class="${line(1)}">101</em></h1>
         <div class="bmk-panel ${line(2)}">
-          <div class="bmk-panel-top"><span class="bmk-eyebrow">Tu progreso</span><span class="bmk-pct">${o.pct}%</span></div>
+          <div class="bmk-panel-top"><span class="bmk-eyebrow">${esc(T.ui.progress)}</span><span class="bmk-pct">${o.pct}%</span></div>
           <div class="bmk-bar ${o.pct === 100 ? 'is-done' : ''}"><i style="width:${o.pct}%"></i></div>
           <button class="bmk-btn" ${cta.a}>${esc(cta.t)}</button>
         </div>
       </header>
-      <nav class="bmk-rail" aria-label="Hoja de ruta">${rail}</nav>
-      <section class="bmk-how">
-        <div class="bmk-row ${line(13)}"><em>Recorre</em><p>Los bloques en orden, empezando por la esencia.<small>Puedes saltar entre bloques cuando quieras; nada se pierde.</small></p></div>
-        <div class="bmk-row ${line(14)}"><em>Escribe</em><p>Corto y concreto.<small>La IA trabaja mejor con precisión que con volumen.</small></p></div>
-        <div class="bmk-row ${line(15)}"><em>Conseguirás</em><p>Tu Brand OS, listo para pegar en tu IA.<small>Un bloque de texto para Claude, ChatGPT o Gemini.</small></p></div>
-      </section>`;
+      <nav class="bmk-rail" aria-label="${esc(T.ui.roadmap)}">${rail}</nav>
+      <section class="bmk-how">${rows(T.ui.how, 13)}</section>`;
+  }
+
+  function rows(items, from) {
+    return items.map((r, j) => `<div class="bmk-row ${line(from + j)}"><em>${esc(r.k)}</em><p>${esc(r.p)}<small>${esc(r.s)}</small></p></div>`).join('');
   }
 
   function stepper(current) {
-    return `<div class="bmk-steps" role="tablist" aria-label="Bloques"><span class="bmk-steps-pill" aria-hidden="true"></span>${SECTIONS.map((s, i) => {
+    return `<div class="bmk-steps" role="tablist" aria-label="${esc(T.ui.blocks)}"><span class="bmk-steps-pill" aria-hidden="true"></span>${SECTIONS.map((s, i) => {
       const st = status(i), sel = i === current;
       return `<button class="bmk-pill ${st === 'done' ? 'is-done' : ''}" role="tab" aria-selected="${sel}" data-pill="${i}" data-act="open" data-i="${i}" title="${esc(plain(s.title))}">${st === 'done' && !sel ? '✓ ' : ''}${pad(i + 1)}</button>`;
-    }).join('')}<button class="bmk-pill" role="tab" aria-selected="${current === 'result'}" data-act="result" title="Brand OS">✦ <em>OS</em></button></div>`;
+    }).join('')}<button class="bmk-pill" role="tab" aria-selected="${current === 'result'}" data-act="result" title="Brandbook OS">✦ <em>OS</em></button></div>`;
   }
 
   function topBar(current, keepTop) {
     return `<div class="bmk-top ${keepTop ? '' : line(0)}">
-      <button class="bmk-btn bmk-btn--ghost" data-act="map">← Hoja de ruta</button>
+      <button class="bmk-btn bmk-btn--ghost" data-act="map">${esc(T.ui.backMap)}</button>
       ${stepper(current)}
-      <span class="bmk-saved" data-saved>Se guarda automáticamente</span>
+      <span class="bmk-saved" data-saved>${esc(T.ui.saved)}</span>
     </div>`;
   }
 
@@ -450,15 +656,15 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
           <div class="bmk-sec-num ${line(1)}">${pad(i + 1)}</div>
           <h2 class="${line(2)}">${esc(plain(s.title))}</h2>
           <p class="bmk-desc ${line(3)}">${esc(plain(s.desc))}</p>
-          <div class="bmk-aside-prog ${line(4)}"><em>Completado</em><span data-sec-count style="display:inline-block">${p.done}/${p.total}</span></div>
+          <div class="bmk-aside-prog ${line(4)}"><em>${esc(T.ui.completed)}</em><span data-sec-count style="display:inline-block">${p.done}/${p.total}</span></div>
           <div class="bmk-bar ${p.done === p.total ? 'is-done' : ''} ${line(4)}" data-sec-bar><i style="width:${p.pct}%"></i></div>
-          ${s.tip ? `<div class="bmk-tip ${line(5)}"><b>Consejo</b>${rich(s.tip)}</div>` : ''}
+          ${s.tip ? `<div class="bmk-tip ${line(5)}"><b>${esc(T.ui.tip)}</b>${rich(s.tip)}</div>` : ''}
         </aside>
         <div>
           <div class="bmk-form">${s.fields.map((f, k) => fieldHTML(f, k)).join('')}</div>
           <div class="bmk-nav ${line(Math.min(s.fields.length + 2, 11))}">
-            ${i > 0 ? `<button class="bmk-btn bmk-btn--ghost" data-act="open" data-i="${i - 1}">← ${pad(i)} ${esc(plain(SECTIONS[i - 1].title))}</button>` : `<button class="bmk-btn bmk-btn--ghost" data-act="map">← Hoja de ruta</button>`}
-            ${last ? `<button class="bmk-btn" data-act="result">Ver mi Brand OS ✦</button>` : `<button class="bmk-btn" data-act="open" data-i="${i + 1}">${pad(i + 2)} ${esc(plain(SECTIONS[i + 1].title))} →</button>`}
+            ${i > 0 ? `<button class="bmk-btn bmk-btn--ghost" data-act="open" data-i="${i - 1}">← ${pad(i)} ${esc(plain(SECTIONS[i - 1].title))}</button>` : `<button class="bmk-btn bmk-btn--ghost" data-act="map">${esc(T.ui.backMap)}</button>`}
+            ${last ? `<button class="bmk-btn" data-act="result">${esc(T.ui.seeResult)} ✦</button>` : `<button class="bmk-btn" data-act="open" data-i="${i + 1}">${pad(i + 2)} ${esc(plain(SECTIONS[i + 1].title))} →</button>`}
           </div>
         </div>
       </div>`;
@@ -469,55 +675,32 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     let c = '';
     switch (f.type) {
       case 'text':
-        c = `<input class="bmk-input" data-f="${f.id}" data-t="text" value="${esc(v)}">`; break;
+        c = `<input class="bmk-input" data-f="${f.id}" data-t="text" value="${esc(v)}" aria-label="${esc(f.label)}">`; break;
       case 'textarea':
-        c = `<textarea class="bmk-input" rows="${f.rows || 2}" data-f="${f.id}" data-t="text">${esc(v)}</textarea>`; break;
+        c = `<textarea class="bmk-input" rows="${f.rows || 2}" data-f="${f.id}" data-t="text" aria-label="${esc(f.label)}">${esc(v)}</textarea>`; break;
       case 'list': {
         const a = Array.isArray(v) ? v : [];
-        const n = f.addable ? Math.max(f.n, a.length) : f.n;
-        let rows = '';
-        for (let k = 0; k < n; k++) {
-          rows += `<div class="bmk-list-row"><span class="bmk-list-n">${f.bullet ? '—' : k + 1}</span>
-            <input class="bmk-input" data-f="${f.id}" data-t="list" data-k="${k}" value="${esc(a[k])}">
-            ${f.addable && k >= f.n ? `<button class="bmk-x" data-act="rmitem" data-f="${f.id}" data-k="${k}" aria-label="Quitar">×</button>` : '<span></span>'}</div>`;
+        let rowsHTML = '';
+        for (let n = 0; n < f.n; n++) {
+          rowsHTML += `<div class="bmk-list-row"><span class="bmk-list-n">${f.bullet ? '—' : n + 1}</span>
+            <input class="bmk-input" data-f="${f.id}" data-t="list" data-k="${n}" value="${esc(a[n])}" aria-label="${esc(f.label)} ${n + 1}"><span></span></div>`;
         }
-        c = `<div class="bmk-list">${rows}</div>${f.addable ? `<button class="bmk-add" data-act="additem" data-f="${f.id}">${esc(f.addLabel)}</button>` : ''}`;
+        c = `<div class="bmk-list">${rowsHTML}</div>`;
         break;
       }
       case 'tags': {
-        const a = clean(v);
-        c = `<div class="bmk-tags">${a.map((t, k) => `<span class="bmk-tag">${esc(t)}<button class="bmk-x" data-act="rmtag" data-f="${f.id}" data-k="${k}" aria-label="Quitar ${esc(t)}">×</button></span>`).join('')}
+        const a = clean(v), range = f.min === f.max ? f.max : `${f.min}–${f.max}`;
+        c = `<div class="bmk-tags">${a.map((t, n) => `<span class="bmk-tag">${esc(t)}<button class="bmk-x" data-act="rmtag" data-f="${f.id}" data-k="${n}" aria-label="${esc(T.ui.remove)} ${esc(t)}">×</button></span>`).join('')}
           ${a.length < f.max ? `<input class="bmk-tag-input" data-f="${f.id}" data-t="taginput" aria-label="${esc(f.label)}">` : ''}</div>
-          <div class="bmk-count">${a.length} de ${f.min === f.max ? f.max : f.min + '–' + f.max}${a.length >= f.max ? ' · Máximo alcanzado' : ' · Escribe y pulsa Enter'}</div>`;
-        break;
-      }
-      case 'chips': {
-        const a = clean(v);
-        const opts = f.options.concat(a.filter(x => !f.options.includes(x)));
-        c = `<div class="bmk-chips">${opts.map(o => `<button class="bmk-chip ${a.includes(o) ? 'on' : ''}" data-act="chip" data-f="${f.id}" data-v="${esc(o)}" aria-pressed="${a.includes(o)}">${esc(o)}</button>`).join('')}
-          <input class="bmk-chip-input" data-f="${f.id}" data-t="chipinput" placeholder="+ Otra (Enter)"></div>
-          ${f.note ? `<textarea class="bmk-input bmk-note" rows="2" data-f="${f.id}_note" data-t="text" aria-label="Detalle">${esc(state[f.id + '_note'])}</textarea>` : ''}`;
+          <div class="bmk-count">${T.ui.of(a.length, range)}${a.length >= f.max ? T.ui.max : T.ui.enter}</div>`;
         break;
       }
       case 'pair': {
         const a = Array.isArray(v) ? v : [];
         c = `<div class="bmk-pair">
-          <input class="bmk-input" data-f="${f.id}" data-t="list" data-k="0" value="${esc(a[0])}">
+          <input class="bmk-input" data-f="${f.id}" data-t="list" data-k="0" value="${esc(a[0])}" aria-label="${esc(f.label)} 1">
           <span>+</span>
-          <input class="bmk-input" data-f="${f.id}" data-t="list" data-k="1" value="${esc(a[1])}"></div>`;
-        break;
-      }
-      case 'colors': {
-        const o = v || {};
-        c = `<div class="bmk-colors">${COLOR_SLOTS.map(([k, label]) => {
-          const hex = (o[k] && o[k].hex) || '', valid = /^#[0-9a-f]{6}$/i.test(hex);
-          return `<div class="bmk-color-row">
-            <span class="bmk-color-label">${label}</span>
-            <input type="color" class="bmk-swatch ${valid ? '' : 'is-empty'}" data-f="${f.id}" data-t="color" data-k="${k}.hex" value="${valid ? hex : '#D8B3AA'}" aria-label="Color ${label}">
-            <input class="bmk-input bmk-hex" data-f="${f.id}" data-t="color" data-k="${k}.hex" value="${esc(hex)}" placeholder="#HEX" maxlength="7" aria-label="Hex ${label}">
-            <input class="bmk-input" data-f="${f.id}" data-t="color" data-k="${k}.name" value="${esc(o[k] && o[k].name)}" placeholder="Nombre o uso (opcional)" aria-label="Nombre ${label}">
-          </div>`;
-        }).join('')}</div>`;
+          <input class="bmk-input" data-f="${f.id}" data-t="list" data-k="1" value="${esc(a[1])}" aria-label="${esc(f.label)} 2"></div>`;
         break;
       }
       case 'fixed':
@@ -534,27 +717,23 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     return `${topBar('result', keepTop)}
       <div class="bmk-result-head">
         <div>
-          <div class="bmk-eyebrow ${line(1)}">${pad(SECTIONS.length + 1)} · Resultado</div>
-          <h2 class="${line(2)}">Tu AI Brand <em>OS</em></h2>
-          <p class="${line(3)}">Todo lo que has definido, listo para que la IA trabaje con tu marca</p>
+          <div class="bmk-eyebrow ${line(1)}">${pad(SECTIONS.length + 1)} · ${esc(T.ui.result)}</div>
+          <h2 class="${line(2)}">${T.ui.resultTitle}</h2>
+          <p class="${line(3)}">${esc(T.ui.resultSub)}</p>
         </div>
         <div class="bmk-actions ${line(4)}">
-          <button class="bmk-btn" data-act="copy">Copiar Brand OS</button>
-          <button class="bmk-btn bmk-btn--ghost" data-act="download">Descargar .md</button>
+          <button class="bmk-btn" data-act="copy">${esc(T.ui.copy)}</button>
+          <button class="bmk-btn bmk-btn--ghost" data-act="download">${esc(T.ui.download)}</button>
         </div>
       </div>
-      ${missing.length ? `<div class="bmk-missing ${line(5)}"><h4>Te faltan ${o.total - o.done} campos · ${o.pct}% completado</h4><ul>${missing.map(m =>
+      ${missing.length ? `<div class="bmk-missing ${line(5)}"><h4>${esc(T.ui.missing(o.total - o.done, o.pct))}</h4><ul>${missing.map(m =>
         `<li><button data-act="open" data-i="${m.i}">${pad(m.i + 1)} ${esc(plain(m.s.title))}</button><span>${esc(m.fs.map(f => f.label).join(', '))}</span></li>`).join('')}</ul></div>`
-        : `<div class="bmk-complete ${line(5)}">✓ Todo completo. Tu marca está <em>lista para trabajar con IA</em>.</div>`}
+        : `<div class="bmk-complete ${line(5)}">${T.ui.complete}</div>`}
       <pre class="bmk-pre ${line(6)}">${esc(buildText())}</pre>
-      <section class="bmk-use">
-        <div class="bmk-row ${line(7)}"><em>Copia</em><p>Tu Brand OS completo.<small>Los campos vacíos aparecen como ${PENDING}.</small></p></div>
-        <div class="bmk-row ${line(8)}"><em>Pega</em><p>Como contexto, al inicio de la conversación.<small>En Claude o ChatGPT: dentro de un Proyecto, en instrucciones personalizadas o al principio del chat.</small></p></div>
-        <div class="bmk-row ${line(9)}"><em>Pide</em><p>Con intención.<small>"Usando mi Brand OS, escribe 3 posts de lanzamiento para Instagram."</small></p></div>
-      </section>
+      <section class="bmk-use">${rows(T.ui.use, 7)}</section>
       <div class="bmk-nav ${line(10)};margin-top:36px">
-        <button class="bmk-btn bmk-btn--ghost" data-act="map">← Volver a la hoja de ruta</button>
-        <button class="bmk-link" data-act="reset">Borrar todas las respuestas</button>
+        <button class="bmk-btn bmk-btn--ghost" data-act="map">${esc(T.ui.backMapLong)}</button>
+        <button class="bmk-link" data-act="reset">${esc(T.ui.reset)}</button>
       </div>`;
   }
 
@@ -562,27 +741,16 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   function fmt(f) {
     const v = state[f.id];
     switch (f.type) {
-      case 'text': case 'textarea': return (v || '').trim() || PENDING;
-      case 'list': { const a = clean(v); return a.length ? a.map((x, k) => f.bullet ? `* ${x}` : `${k + 1}. ${x}`).join('\n') : PENDING; }
-      case 'tags': { const a = clean(v); return a.length ? (f.prefix ? f.prefix + ' ' : '') + a.join(' · ') : PENDING; }
-      case 'chips': {
-        const a = clean(v), note = (state[f.id + '_note'] || '').trim();
-        return [a.join(' / '), note].filter(Boolean).join('\n') || PENDING;
-      }
-      case 'pair': { const a = Array.isArray(v) ? v : []; return (a[0] || '').trim() && (a[1] || '').trim() ? `${a[0].trim()} + ${a[1].trim()}` : PENDING; }
-      case 'colors': {
-        const o = v || {};
-        return COLOR_SLOTS.map(([k, label]) => {
-          const c = o[k] || {}, hex = (c.hex || '').toUpperCase(), name = (c.name || '').trim();
-          return `${label}: ${[hex, name].filter(Boolean).join(' — ') || PENDING}`;
-        }).join('\n');
-      }
+      case 'text': case 'textarea': return (v || '').trim() || T.pending;
+      case 'list': { const a = clean(v); return a.length ? a.map((x, k) => f.bullet ? `* ${x}` : `${k + 1}. ${x}`).join('\n') : T.pending; }
+      case 'tags': { const a = clean(v); return a.length ? (f.prefix ? f.prefix + ' ' : '') + a.join(' · ') : T.pending; }
+      case 'pair': { const a = Array.isArray(v) ? v : []; return (a[0] || '').trim() && (a[1] || '').trim() ? `${a[0].trim()} + ${a[1].trim()}` : T.pending; }
       case 'fixed': return f.text;
     }
   }
 
   function buildText() {
-    const out = ['AI BRAND OS', 'El contexto mínimo que la IA necesita para entender, proteger y extender una marca.', ''];
+    const out = [T.exportTitle, T.exportSub, ''];
     SECTIONS.forEach((s, i) => {
       out.push('────────────────────────', `${pad(i + 1)} — ${plain(s.title).toUpperCase()}`, '');
       s.fields.forEach(f => out.push(f.label.toUpperCase(), fmt(f), ''));
@@ -592,29 +760,41 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 
   /* ---------- UI helpers ---------- */
   function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove('show'), 1800); }
-  /* Cambio de vista: fundido de salida (200ms) → render → entrada escalonada.
-     Entre steps la barra superior se queda y la pill se desliza al instante. */
+
+  /* Cambio de contenido: fundido de salida (200ms) → render → entrada escalonada.
+     keepTop: entre steps la barra superior se queda y la pill ya se ha deslizado. */
   let busy = false;
+  function swap(update, keepTop) {
+    const stage = root.querySelector('.bmk-stage');
+    const done = () => {
+      update(); render(keepTop); busy = false;
+      if (root.getBoundingClientRect().top < 0) root.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+    };
+    if (reduceMotion()) return done();
+    busy = true;
+    stage.classList.remove('is-shown');
+    stage.classList.add('is-hiding');
+    if (!keepTop) stage.classList.add('hide-all');
+    setTimeout(done, 200);
+  }
   function go(v) {
     if (busy || (v.name === view.name && v.i === view.i)) return;
-    const stage = root.querySelector('.bmk-stage');
     const keepTop = view.name !== 'map' && v.name !== 'map';
     if (keepTop) {
       root.querySelectorAll('.bmk-steps .bmk-pill').forEach(b =>
         b.setAttribute('aria-selected', String(v.name === 'section' ? b.dataset.pill === String(v.i) : !b.dataset.pill)));
       placePill(true);
     }
-    const swap = () => {
-      view = v; render(keepTop); busy = false;
-      if (root.getBoundingClientRect().top < 0) root.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
-    };
-    if (!stage || reduceMotion()) return swap();
-    busy = true;
-    stage.classList.remove('is-shown');
-    stage.classList.add('is-hiding');
-    if (!keepTop) stage.classList.add('hide-all');
-    setTimeout(swap, 200);
+    swap(() => { view = v; }, keepTop);
   }
+  function setLang(l) {
+    if (busy || l === lang) return;
+    root.querySelectorAll('.bmk-lang .bmk-pill').forEach(b => b.setAttribute('aria-selected', String(b.dataset.lang === l)));
+    placeLangPill(true);
+    try { localStorage.setItem(LANG_KEY, l); } catch (e) {}
+    swap(() => { lang = l; T = TEXT[l]; SECTIONS = buildSections(); document.documentElement.lang = l; }, false);
+  }
+
   const headOf = el => el.querySelectorAll('.bmk-check, .bmk-label');
   function rerenderField(id, focusType, animate) {
     const el = root.querySelector(`[data-field="${id}"]`);
@@ -654,17 +834,15 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
       ta.remove(); return ok;
     }
   }
-  function commitEntry(t, refocus) {
+  function commitTag(t, refocus) {
     const id = t.dataset.f, f = findField(id);
     const val = t.value.replace(/,+$/, '').trim();
     if (!val) return;
     const a = clean(state[id]);
-    if (f.type === 'tags' && a.length >= f.max) return;
+    if (a.length >= f.max) return;
     if (!a.some(x => x.toLowerCase() === val.toLowerCase())) a.push(val);
     state[id] = a; save();
-    rerenderField(id, refocus ? t.dataset.t : null, nu => f.type === 'tags'
-      ? [[...nu.querySelectorAll('.bmk-tag')].pop(), nu.querySelector('.bmk-count')]
-      : [nu.querySelector(`.bmk-chip[data-v="${CSS.escape(val)}"]`)]);
+    rerenderField(id, refocus ? 'taginput' : null, nu => [[...nu.querySelectorAll('.bmk-tag')].pop(), nu.querySelector('.bmk-count')]);
     refresh();
   }
 
@@ -674,39 +852,26 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     if (!id) return;
     if (ty === 'text') state[id] = t.value;
     else if (ty === 'list') { const a = Array.isArray(state[id]) ? state[id] : []; a[+t.dataset.k] = t.value; state[id] = a; }
-    else if (ty === 'color') {
-      const [slot, prop] = t.dataset.k.split('.');
-      const o = state[id] || {}; o[slot] = o[slot] || {};
-      if (prop === 'hex') {
-        const row = t.closest('.bmk-color-row'), pick = row.querySelector('input[type=color]'), txt = row.querySelector('.bmk-hex');
-        if (t.type === 'color') { o[slot].hex = t.value.toUpperCase(); txt.value = o[slot].hex; pick.classList.remove('is-empty'); }
-        else {
-          let h = t.value.trim(); if (h && h[0] !== '#') h = '#' + h;
-          o[slot].hex = h;
-          if (/^#[0-9a-f]{6}$/i.test(h)) { pick.value = h; pick.classList.remove('is-empty'); }
-        }
-      } else o[slot][prop] = t.value;
-      state[id] = o;
-    } else return;
+    else return;
     save(); refresh();
   });
 
   root.addEventListener('keydown', e => {
-    const t = e.target, ty = t.dataset && t.dataset.t;
-    if (ty !== 'taginput' && ty !== 'chipinput') return;
-    if (e.key === 'Enter' || (e.key === ',' && ty === 'taginput')) { e.preventDefault(); commitEntry(t, true); }
-    else if (e.key === 'Backspace' && !t.value && ty === 'taginput') {
+    const t = e.target;
+    if (!t.dataset || t.dataset.t !== 'taginput') return;
+    if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); commitTag(t, true); }
+    else if (e.key === 'Backspace' && !t.value) {
       const a = clean(state[t.dataset.f]); if (a.length) { a.pop(); state[t.dataset.f] = a; save(); rerenderField(t.dataset.f, 'taginput'); refresh(); }
     }
   });
 
   root.addEventListener('focusout', e => {
-    const t = e.target, ty = t.dataset && t.dataset.t;
-    if ((ty === 'taginput' || ty === 'chipinput') && t.value.trim()) {
+    const t = e.target;
+    if (t.dataset && t.dataset.t === 'taginput' && t.value.trim()) {
       const next = e.relatedTarget;
       // no re-renderizar si el foco va a un botón del mismo campo
       if (next && next.closest && next.closest(`[data-field="${t.dataset.f}"]`)) return;
-      commitEntry(t, false);
+      commitTag(t, false);
     }
   });
 
@@ -715,41 +880,28 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     if (!b) return;
     const id = b.dataset.f;
     switch (b.dataset.act) {
+      case 'lang': setLang(b.dataset.lang); break;
       case 'open': go({ name: 'section', i: +b.dataset.i }); break;
       case 'map': go({ name: 'map' }); break;
       case 'result': go({ name: 'result' }); break;
-      case 'chip': {
-        const a = clean(state[id]), v = b.dataset.v, k = a.indexOf(v);
-        k >= 0 ? a.splice(k, 1) : a.push(v);
-        state[id] = a; save();
-        rerenderField(id, null, k < 0 ? nu => [nu.querySelector(`.bmk-chip[data-v="${CSS.escape(v)}"]`)] : null);
-        refresh(); break;
-      }
       case 'rmtag': { const a = clean(state[id]); a.splice(+b.dataset.k, 1); state[id] = a; save(); rerenderField(id, 'taginput', nu => [nu.querySelector('.bmk-count')]); refresh(); break; }
-      case 'additem': {
-        const f = findField(id), a = Array.isArray(state[id]) ? state[id].slice() : [];
-        while (a.length < f.n) a.push('');
-        a.push(''); state[id] = a; save();
-        rerenderField(id, 'list', nu => [[...nu.querySelectorAll('.bmk-list-row')].pop()]); break;
-      }
-      case 'rmitem': { const a = Array.isArray(state[id]) ? state[id] : []; a.splice(+b.dataset.k, 1); state[id] = a; save(); rerenderField(id); refresh(); break; }
-      case 'copy': toast((await copyText(buildText())) ? 'Brand OS copiado ✓' : 'No se pudo copiar'); break;
+      case 'copy': toast((await copyText(buildText())) ? T.ui.copied : T.ui.copyFail); break;
       case 'download': {
         const url = URL.createObjectURL(new Blob([buildText()], { type: 'text/markdown;charset=utf-8' }));
-        const a = document.createElement('a'); a.href = url; a.download = 'ai-brand-os.md';
+        const a = document.createElement('a'); a.href = url; a.download = `brandbook-os-101-${lang}.md`;
         document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
         break;
       }
       case 'reset':
-        if (confirm('¿Borrar todas las respuestas? Esta acción no se puede deshacer.')) { state = {}; save(); go({ name: 'map' }); toast('Respuestas borradas'); }
+        if (confirm(T.ui.confirmReset)) { state = {}; save(); view = { name: 'result' }; go({ name: 'map' }); toast(T.ui.cleared); }
         break;
     }
   });
 
-  window.addEventListener('resize', () => placePill(false));
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => placePill(false));
+  window.addEventListener('resize', () => { placePill(false); placeLangPill(false); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { placePill(false); placeLangPill(false); });
 
-  render();
+  mount();
 })();
 </script>
 </body>
