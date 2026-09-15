@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Brand Master Key</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   AI BRAND MASTER KEY — widget embebible · identidad LaGutierrez
+   Todo el CSS está bajo .bmk para no chocar con tu web.
+   Paleta: Rojo Pasión #8C2936 · Blanco Fantasmal #FFFFFF ·
+           Sombra Oscura #000000 · Beige Costero #F9EED9
+   ============================================================ */
+.bmk{
+  --rojo:#8C2936; --blanco:#FFFFFF; --sombra:#000000; --beige:#F9EED9;
+  --bg:var(--beige); --surface:var(--blanco); --ink:#231F20; --muted:#76625E;
+  --line:#EAD5C6; --line-strong:#D8B3AA;
+  --accent:var(--rojo); --accent-soft:#F3DCD8;
+  --radius:4px;
+  --serif:'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+  --tabs-dur:250ms; --tabs-ease:cubic-bezier(0.22, 1, 0.36, 1);
+  --stagger-dur:500ms; --stagger-distance:12px; --stagger-stagger:40ms; --stagger-blur:3px; --stagger-ease:cubic-bezier(0.22, 1, 0.36, 1);
+  background:var(--bg); color:var(--ink); font-family:var(--serif);
+  font-size:15px; line-height:1.6; padding:56px 20px 72px;
+  -webkit-font-smoothing:antialiased;
+}
+.bmk *,.bmk *::before,.bmk *::after{box-sizing:border-box}
+.bmk button,.bmk input,.bmk textarea{font-family:var(--serif)}
+.bmk button{font-size:inherit;color:inherit;cursor:pointer}
+.bmk h1,.bmk h2,.bmk h3,.bmk h4,.bmk p{margin:0}
+.bmk em{font-style:italic}
+.bmk-wrap{max-width:1080px;margin:0 auto}
+.bmk-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+
+/* ---------- Buttons ---------- */
+.bmk-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rojo);background:var(--rojo);color:var(--blanco)!important;
+  padding:12px 22px;border-radius:999px;font-size:14px;letter-spacing:.02em;transition:background .2s,border-color .2s}
+.bmk-btn:hover{background:var(--sombra);border-color:var(--sombra)}
+.bmk-btn--ghost{background:transparent;color:var(--ink)!important;border-color:var(--line-strong)}
+.bmk-btn--ghost:hover{background:var(--surface);border-color:var(--rojo);color:var(--rojo)!important}
+.bmk-link{background:none;border:0;padding:6px 0;font-size:14px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.bmk-link:hover{color:var(--rojo)}
+
+/* ---------- Progress bar ---------- */
+.bmk-bar{height:3px;background:var(--line);overflow:hidden}
+.bmk-bar > i{display:block;height:100%;background:var(--sombra);transition:width .35s ease}
+.bmk-bar.is-done > i{background:var(--rojo)}
+
+/* ---------- MAP: hero ---------- */
+.bmk-hero{display:grid;grid-template-columns:1fr 250px;gap:40px;align-items:end;padding-bottom:8px}
+.bmk-hero h1{font-weight:400;font-size:clamp(36px,5.4vw,60px);line-height:1.02;letter-spacing:-.015em;margin:0;color:var(--sombra);max-width:12.5em}
+.bmk-hero h1 em{display:block;text-align:right;color:var(--rojo);font-size:.82em;margin-top:.08em}
+.bmk-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.bmk-panel-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.bmk-pct{font-size:24px;line-height:1;color:var(--rojo)}
+.bmk-panel .bmk-btn{width:100%;justify-content:center;margin-top:14px;padding:9px 14px;font-size:13px}
+
+/* ---------- MAP: rail ---------- */
+.bmk-rail{display:grid;grid-template-columns:repeat(8,1fr);margin:80px 0 0}
+.bmk-rail-step{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;background:none;border:0;padding:0}
+.bmk-rail-step:not(:last-child)::after{content:'';position:absolute;top:17px;left:calc(50% + 22px);right:calc(-50% + 22px);height:1px;background:var(--line-strong)}
+.bmk-rail-step.is-done:not(:last-child)::after{background:var(--rojo)}
+.bmk-node{width:36px;height:36px;border-radius:50%;border:1px solid var(--line-strong);background:var(--surface);display:grid;place-items:center;font-size:12px;color:var(--muted);transition:all .2s}
+.bmk-rail-step.is-done .bmk-node{background:var(--rojo);border-color:var(--rojo);color:var(--blanco)}
+.bmk-rail-step.is-partial .bmk-node{border-color:var(--sombra);color:var(--sombra)}
+.bmk-rail-step.is-next .bmk-node{border-color:var(--rojo);color:var(--rojo);box-shadow:0 0 0 5px var(--accent-soft)}
+.bmk-rail-step.is-final .bmk-node{background:var(--sombra);border-color:var(--sombra);color:var(--beige)}
+.bmk-rail-label{font-size:13px;color:var(--muted);text-align:center;line-height:1.3;padding:0 4px}
+.bmk-rail-step:hover .bmk-rail-label{color:var(--rojo)}
+
+/* ---------- MAP: how (debajo de la línea de tiempo) ---------- */
+/* Filas editoriales: etiqueta en cursiva a la izquierda, contenido a la derecha */
+.bmk-how,.bmk-use{max-width:820px;margin:80px auto 0;display:grid;gap:30px}
+.bmk-use{margin-top:56px}
+.bmk-row{display:grid;grid-template-columns:170px 1fr;gap:28px;align-items:baseline}
+.bmk-row > em{font-size:19px;color:var(--rojo);text-align:right}
+.bmk-row p{font-size:clamp(18px,2.2vw,22px);line-height:1.2;color:var(--sombra)}
+.bmk-row p small{display:block;font-size:14px;line-height:1.5;color:var(--muted);margin-top:6px}
+
+/* ---------- Stepper — Transitions.dev "Tabs sliding" ---------- */
+.bmk-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--rojo)}
+.bmk-steps{position:relative;display:inline-flex;align-items:center;gap:3px;padding:3px;border-radius:48px;background:#F0DDC4;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.bmk-steps::-webkit-scrollbar{display:none}
+.bmk-steps-pill{position:absolute;top:3px;left:0;height:30px;width:0;background:var(--blanco);border-radius:48px;
+  box-shadow:0 1px 2px rgba(140,41,54,.14),0 2px 6px -2px rgba(140,41,54,.14);
+  transform:translateX(0);transition:transform var(--tabs-dur) var(--tabs-ease),width var(--tabs-dur) var(--tabs-ease);
+  will-change:transform,width;z-index:0;pointer-events:none}
+.bmk-pill{position:relative;z-index:1;flex:none;appearance:none;border:0;background:transparent;height:30px;min-width:40px;padding:4px 12px;
+  border-radius:48px;font-size:13px;color:rgba(35,31,32,.7);white-space:nowrap;transition:color var(--tabs-dur) var(--tabs-ease)}
+.bmk-pill:not([aria-selected="true"]):hover,.bmk-pill[aria-selected="true"]{color:var(--sombra)}
+.bmk-pill.is-done{color:var(--rojo)}
+.bmk-saved{font-size:13px;font-style:italic;color:var(--muted);transition:color .3s}
+.bmk-saved.flash{color:var(--rojo)}
+@media (prefers-reduced-motion:reduce){.bmk-steps-pill,.bmk-pill{transition:none!important}}
+
+/* ---------- SECTION ---------- */
+.bmk-layout{display:grid;grid-template-columns:270px 1fr;gap:48px;margin-top:40px;align-items:start}
+.bmk-aside{position:sticky;top:24px}
+.bmk-sec-num{font-size:88px;line-height:.9;color:var(--rojo);letter-spacing:-.03em}
+.bmk-aside h2{font-weight:400;font-size:clamp(34px,4vw,44px);line-height:1.02;letter-spacing:-.015em;margin:22px 0 8px;color:var(--sombra)}
+.bmk-aside .bmk-desc{color:var(--muted);margin:0 0 28px;font-size:16px;font-style:italic;line-height:1.3}
+.bmk-aside-prog{font-size:13px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.bmk-aside-prog em{color:var(--ink)}
+.bmk-tip{margin-top:32px;padding-top:16px;border-top:1px solid var(--rojo);color:var(--rojo);font-size:17px;font-style:italic;line-height:1.35}
+.bmk-tip em{font-style:normal}
+.bmk-tip b{display:block;font-size:10.5px;font-style:normal;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
+
+.bmk-form{border-bottom:1px solid var(--line)}
+.bmk-field{display:grid;grid-template-columns:190px 1fr;gap:10px 36px;padding:28px 0;border-top:1px solid var(--line)}
+.bmk-field:first-child{padding-top:6px;border-top:0}
+.bmk-field-head{display:flex;align-items:flex-start;gap:10px}
+.bmk-check{width:16px;height:16px;margin-top:5px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;flex:none;font-size:9px;color:transparent;transition:all .2s;font-family:system-ui,sans-serif}
+.bmk-field.is-done .bmk-check{background:var(--rojo);border-color:var(--rojo);color:var(--blanco)}
+.bmk-label{font-size:19px;font-style:italic;line-height:1.25;color:var(--sombra)}
+.bmk-field.is-done .bmk-label{color:var(--rojo)}
+.bmk .bmk-hint{color:var(--muted);font-size:14px;margin:2px 0 12px}
+.bmk .bmk-hint em{color:var(--ink)}
+.bmk-input{width:100%;border:1px solid var(--line-strong);border-radius:var(--radius);padding:11px 13px;font-size:15px;color:var(--ink);background:var(--blanco);transition:border-color .15s,box-shadow .15s}
+.bmk-input:focus{outline:none;border-color:var(--rojo);box-shadow:0 0 0 3px rgba(140,41,54,.1)}
+textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
+.bmk-list{display:grid;gap:8px}
+.bmk-list-row{display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:8px}
+.bmk-list-n{color:var(--rojo);font-size:15px;text-align:center;font-style:italic}
+.bmk-x{border:0;background:none;color:var(--muted);font-size:18px;line-height:1;padding:6px}
+.bmk-x:hover{color:var(--rojo)}
+.bmk-add{margin-top:10px;border:1px dashed var(--line-strong);background:none;border-radius:var(--radius);padding:9px 14px;font-size:13px;color:var(--muted)}
+.bmk-add:hover{border-color:var(--rojo);color:var(--rojo)}
+.bmk-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border:1px solid var(--line-strong);border-radius:var(--radius);padding:7px;background:var(--blanco);min-height:46px}
+.bmk-tags:focus-within{border-color:var(--rojo);box-shadow:0 0 0 3px rgba(140,41,54,.1)}
+.bmk-tag{display:inline-flex;align-items:center;gap:2px;background:var(--beige);border-radius:999px;padding:3px 4px 3px 12px;font-size:14px;font-style:italic}
+.bmk-tag .bmk-x{font-size:15px;padding:2px 6px;font-style:normal}
+.bmk-tag-input{flex:1;min-width:140px;border:0;outline:none;font-size:15px;padding:4px 6px;background:transparent;color:var(--ink)}
+.bmk-count{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic}
+.bmk-chips{display:flex;flex-wrap:wrap;gap:6px}
+.bmk-chip{border:1px solid var(--line-strong);background:var(--blanco);border-radius:999px;padding:7px 15px;font-size:14px;transition:all .15s}
+.bmk-chip:hover{border-color:var(--rojo);color:var(--rojo)}
+.bmk-chip.on{background:var(--rojo);border-color:var(--rojo);color:var(--blanco);font-style:italic}
+.bmk-chip-input{border:1px dashed var(--line-strong);border-radius:999px;padding:7px 15px;font-size:14px;width:150px;background:transparent;color:var(--ink)}
+.bmk-chip-input::placeholder{color:var(--muted);font-style:italic}
+.bmk-chip-input:focus{outline:none;border-style:solid;border-color:var(--rojo)}
+.bmk-note{margin-top:10px}
+.bmk-pair{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
+.bmk-pair span{font-size:26px;color:var(--rojo);line-height:1;font-style:italic}
+.bmk-colors{display:grid;gap:10px}
+.bmk-color-row{display:grid;grid-template-columns:92px 46px 120px 1fr;gap:10px;align-items:center}
+.bmk-color-label{font-size:14px;color:var(--muted);font-style:italic}
+.bmk-swatch{width:46px;height:46px;border:1px solid var(--line-strong);border-radius:var(--radius);padding:3px;background:var(--blanco);cursor:pointer}
+.bmk-swatch::-webkit-color-swatch-wrapper{padding:0}
+.bmk-swatch::-webkit-color-swatch{border:0;border-radius:2px}
+.bmk-swatch::-moz-color-swatch{border:0;border-radius:2px}
+.bmk-swatch.is-empty{opacity:.4}
+.bmk-hex{font-size:14px;text-transform:uppercase;letter-spacing:.04em}
+.bmk-input::placeholder{color:#B9A49E}
+.bmk-fixed{background:var(--beige);border-radius:var(--radius);padding:14px 16px;font-size:14px}
+.bmk-fixed ol{margin:0;padding-left:20px}
+.bmk-fixed li{padding:2px 0}
+.bmk-fixed li::marker{color:var(--rojo)}
+.bmk-field--fixed .bmk-check{background:var(--line-strong);border-color:var(--line-strong);color:var(--blanco)}
+
+.bmk-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px;flex-wrap:wrap}
+
+/* ---------- RESULT ---------- */
+.bmk-result-head{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end;margin:40px 0 28px}
+.bmk-result-head h2{font-weight:400;font-size:clamp(34px,4.8vw,52px);line-height:1.02;letter-spacing:-.015em;margin:12px 0 10px;color:var(--sombra)}
+.bmk-result-head h2 em{color:var(--rojo)}
+.bmk-result-head p{color:var(--muted);font-style:italic;font-size:16px;line-height:1.35}
+.bmk-result-head p em{font-style:normal}
+.bmk-result-head p em{color:var(--ink)}
+.bmk-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.bmk-missing{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--rojo);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px}
+.bmk-missing h4{margin:0 0 10px;font-size:15px;font-weight:700}
+.bmk-missing ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.bmk-missing li{display:flex;gap:10px;align-items:baseline;font-size:14px;flex-wrap:wrap}
+.bmk-missing li button{background:none;border:0;padding:0;color:var(--rojo);text-decoration:underline;text-underline-offset:3px;font-size:14px}
+.bmk-missing li span{color:var(--muted);font-style:italic}
+.bmk-complete{background:var(--rojo);color:var(--blanco);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;font-size:15px}
+.bmk-pre{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:32px;font-family:var(--serif);font-size:14px;line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:560px;overflow:auto;color:var(--ink)}
+.bmk-use{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:36px}
+
+.bmk-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#000;color:#fff;padding:10px 20px;border-radius:999px;font-family:'Libre Caslon Text',Georgia,serif;font-size:14px;opacity:0;pointer-events:none;transition:all .25s;z-index:50}
+.bmk-toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- Responsive ---------- */
+/* ---------- Transitions.dev — Texts reveal ---------- */
+/* Cambio de vista: cada .bmk-line entra escalonada (--i) al añadir .is-shown al stage;
+   al salir, .is-hiding hace un fundido corto de 200ms sin repetir el escalonado. */
+.bmk-line{opacity:0;transform:translateY(var(--stagger-distance));filter:blur(var(--stagger-blur));
+  transition:opacity var(--stagger-dur) var(--stagger-ease),transform var(--stagger-dur) var(--stagger-ease),filter var(--stagger-dur) var(--stagger-ease);
+  transition-delay:calc(var(--stagger-stagger) * var(--i, 0))}
+.bmk-stage.is-shown .bmk-line{opacity:1;transform:none;filter:none}
+.bmk-stage.is-hiding .bmk-line,.bmk-stage.is-hiding.hide-all .bmk-top{opacity:0;transform:none;filter:none;
+  transition:opacity 200ms ease,transform 0s linear,filter 0s linear;transition-delay:0s}
+/* Actualizaciones al rellenar (check, etiqueta, contador, etiquetas nuevas…) */
+@keyframes bmk-reveal{from{opacity:0;transform:translateY(var(--stagger-distance));filter:blur(var(--stagger-blur))}to{opacity:1;transform:none;filter:none}}
+.bmk-upd{animation:bmk-reveal var(--stagger-dur) var(--stagger-ease) both;animation-delay:calc(var(--stagger-stagger) * var(--j, 0))}
+@media (prefers-reduced-motion:reduce){.bmk-line{transition:none!important}.bmk-upd{animation:none!important}}
+
+@media (max-width:860px){
+  .bmk-hero,.bmk-result-head{grid-template-columns:1fr;gap:24px}
+  .bmk-layout{grid-template-columns:1fr;gap:24px}
+  .bmk-aside{position:static}
+  .bmk-sec-num{font-size:60px}
+  .bmk-field{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:640px){
+  .bmk{padding:36px 16px 52px}
+  .bmk-rail{margin:40px 0 20px}
+  .bmk-rail-label{display:none}
+  .bmk-node{width:30px;height:30px;font-size:11px}
+  .bmk-rail-step:not(:last-child)::after{top:14px;left:calc(50% + 18px);right:calc(-50% + 18px)}
+  .bmk-row{grid-template-columns:1fr;gap:4px}
+  .bmk-row > em{text-align:left}
+  .bmk-how{margin-top:56px}
+  .bmk-color-row{grid-template-columns:46px 1fr}
+  .bmk-color-label{grid-column:1/-1;margin-bottom:-4px}
+  .bmk-color-row .bmk-input:last-child{grid-column:1/-1}
+  .bmk-pair{grid-template-columns:1fr}
+  .bmk-pair span{text-align:center}
+  .bmk-nav .bmk-btn{flex:1;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div class="bmk" id="bmk" aria-live="polite"></div>
+<div class="bmk-toast" id="bmk-toast"></div>
+
+<script>
+(function () {
+  /* ============================================================
+     CONTENIDO — edita textos y campos aquí.
+     Escribe *palabra* para mostrarla en cursiva.
+     Tipos: text · textarea · list · tags · chips · pair · colors · fixed
+     ============================================================ */
+  const SECTIONS = [
+    {
+      title: 'Esencia de marca', en: 'Brand Essence', time: 10,
+      desc: 'El núcleo: qué haces, *para quién* existe y qué *prometes*.',
+      tip: 'Si no puedes decirlo *en una frase*, todavía no está claro. Todo lo demás se apoya en este bloque.',
+      fields: [
+        { id: 'name', label: 'Nombre de la marca', type: 'text', hint: 'Tal y como quieres que la IA la escriba.' },
+        { id: 'what', label: 'Qué hacemos', type: 'textarea', rows: 2, hint: 'Una frase *clara*. Sin adjetivos vacíos.' },
+        { id: 'who', label: 'Para quién es', type: 'textarea', rows: 2, hint: 'Una audiencia *específica*. "Todo el mundo" no es una respuesta.' },
+        { id: 'idea', label: 'Idea de marca', type: 'textarea', rows: 2, hint: 'La idea *central* que lo sostiene todo.' },
+        { id: 'promise', label: 'Promesa', type: 'textarea', rows: 2, hint: 'Lo que la gente debería *sentir*, *recibir* o *vivir* de forma constante.' },
+        { id: 'words', label: '3–5 palabras', type: 'tags', min: 3, max: 5, hint: 'La expresión *más simple* del carácter de la marca.' }
+      ]
+    },
+    {
+      title: 'Diferencia', en: 'Brand Difference', time: 8,
+      desc: 'Lo que te *separa* de todo lo demás en tu categoría.',
+      tip: 'No intentes explicarlo todo. Captura *la única diferencia* que debería influir en las decisiones creativas.',
+      fields: [
+        { id: 'weAre', label: 'Somos', type: 'textarea', rows: 2, hint: 'Lo que hace a esta marca *distintiva*.' },
+        { id: 'weAreNot', label: 'No somos', type: 'textarea', rows: 2, hint: 'De qué se aleja la marca *deliberadamente*.' },
+        { id: 'category', label: 'Categoría', type: 'textarea', rows: 2, hint: '¿Qué *convenciones* de tu categoría hay que conocer? Lo que "todos hacen".' },
+        { id: 'twist', label: 'Nuestro giro', type: 'textarea', rows: 2, hint: '¿Qué hacemos *distinto* de lo esperado?' }
+      ]
+    },
+    {
+      title: 'Personalidad', en: 'Personality', time: 10,
+      desc: 'Cómo sería tu marca si *entrara por la puerta*.',
+      tip: 'La *tensión* es lo que hace memorable a una personalidad: dos cualidades que, en principio, no encajan.',
+      fields: [
+        { id: 'person', label: 'Si la marca fuera una persona', type: 'textarea', rows: 3, hint: 'Describe al *personaje* en pocas frases.' },
+        { id: 'traits', label: 'Rasgos', type: 'list', n: 5, min: 3, hint: 'Cinco *rasgos* de carácter. Mínimo tres.' },
+        { id: 'energy', label: 'Energía', type: 'chips', hint: 'Elige *una o dos*. Puedes añadir la tuya.', options: ['Tranquila', 'Audaz', 'Juguetona', 'Sensual', 'Intelectual', 'Rebelde', 'Cálida', 'Elegante', 'Enérgica', 'Misteriosa'] },
+        { id: 'attitude', label: 'Actitud', type: 'textarea', rows: 2, hint: 'Cómo se *comporta* la marca y cómo se acerca a la gente.' },
+        { id: 'tension', label: 'Tensión', type: 'pair', hint: 'Dos cualidades que, *juntas*, crean carácter.' }
+      ]
+    },
+    {
+      title: 'Mundo de marca', en: 'Brand World', time: 10,
+      desc: 'El *universo* cultural y estético al que pertenece tu marca.',
+      tip: 'Piensa en un *universo*, no en un moodboard: ¿qué películas, lugares y materiales viven en él?',
+      fields: [
+        { id: 'world', label: 'El mundo al que pertenecemos', type: 'textarea', rows: 2, hint: 'El universo *cultural* y *estético* en pocas palabras.' },
+        { id: 'mood', label: 'Mood', type: 'tags', min: 5, max: 8, hint: 'Entre *5 y 8* palabras clave.' },
+        { id: 'references', label: 'Referencias', type: 'textarea', rows: 3, hint: 'Personas, lugares, películas, arquitectura, moda, arte, fotografía.' },
+        { id: 'materials', label: 'Materiales + texturas', type: 'textarea', rows: 2, hint: 'Lo que se podría *tocar* dentro de la marca.' },
+        { id: 'atmosphere', label: 'Atmósfera', type: 'textarea', rows: 2, hint: '¿Qué se debería *sentir* al entrar en el mundo de esta marca?' }
+      ]
+    },
+    {
+      title: 'Voz', en: 'Voice', time: 10,
+      desc: 'Cómo *habla* tu marca: el tono, las palabras y lo que *nunca diría*.',
+      tip: 'Lee tu ejemplo de voz *en voz alta*. Si podría firmarlo cualquier otra marca, reescríbelo.',
+      fields: [
+        { id: 'sound', label: 'Sonamos', type: 'textarea', rows: 2, hint: 'Describe la *voz*.' },
+        { id: 'speakLike', label: 'Hablamos como', type: 'tags', min: 3, max: 5, hint: 'De *3 a 5* características.' },
+        { id: 'use', label: 'Usamos', type: 'textarea', rows: 2, hint: 'Palabras, expresiones, *patrones* de lenguaje.' },
+        { id: 'avoid', label: 'Evitamos', type: 'textarea', rows: 2, hint: 'Palabras, actitudes o tonos que *suenan mal* en esta marca.' },
+        { id: 'voiceExample', label: 'Ejemplo de voz', type: 'textarea', rows: 3, hint: 'De 1 a 3 frases que suenen, *sin duda*, a esta marca.' }
+      ]
+    },
+    {
+      title: 'Dirección visual', en: 'Visual Direction', time: 12,
+      desc: 'Cómo se ve y se *siente* tu marca. *Dirección*, no manual.',
+      tip: 'No es un manual de identidad: es una *dirección*. Describe carácter, no especificaciones técnicas.',
+      fields: [
+        { id: 'visualMood', label: 'Mood visual', type: 'textarea', rows: 2, hint: '¿Cómo debería *verse* y *sentirse* la marca?' },
+        { id: 'colors', label: 'Color', type: 'colors', hint: 'Elige el color y, si quieres, dale un *nombre* o un uso.' },
+        { id: 'typography', label: 'Tipografía', type: 'textarea', rows: 2, hint: 'El *carácter* general, no un sistema tipográfico completo.' },
+        { id: 'imageLang', label: 'Lenguaje de imagen', type: 'chips', note: true, hint: 'Fotografía, ilustración, CGI, collage… *Elige y matiza*.', options: ['Fotografía', 'Ilustración', 'CGI / 3D', 'Collage', 'Tipográfico', 'Motion', 'Archivo'] },
+        { id: 'composition', label: 'Composición', type: 'textarea', rows: 2, hint: 'Cómo se *encuadran*, ordenan y equilibran las cosas.' },
+        { id: 'light', label: 'Luz + textura', type: 'textarea', rows: 2, hint: 'Tipo de *luz*, grano, acabado.' },
+        { id: 'signature', label: 'Firma', type: 'textarea', rows: 2, hint: 'Un comportamiento visual *reconocible*.' }
+      ]
+    },
+    {
+      title: 'Reglas para la IA', en: 'AI Brand Rules', time: 8,
+      desc: 'Los *límites* que protegen a tu marca cuando la IA duda.',
+      tip: 'Cuanto más *concreta* la regla, mejor funciona. "Ser auténtica" no es una regla; "mostrar producto real, nunca idealizado" sí.',
+      fields: [
+        { id: 'always', label: 'Siempre', type: 'list', n: 3, min: 3, bullet: true, addable: true, addLabel: '+ Añadir regla', hint: 'Lo que la IA debe hacer *en todo* lo que cree.' },
+        { id: 'never', label: 'Nunca', type: 'list', n: 3, min: 3, bullet: true, addable: true, addLabel: '+ Añadir regla', hint: 'Lo que la IA no debe hacer *jamás*.' },
+        { id: 'prioritize', label: 'Prioriza', type: 'fixed', hint: '*Ya incluido* en tu Master Key. No tienes que rellenarlo.',
+          html: '<ol><li>Carácter de marca</li><li>Distintividad</li><li>Coherencia</li><li>Ejecución</li></ol>',
+          text: '1. Carácter de marca\n2. Distintividad\n3. Coherencia\n4. Ejecución' },
+        { id: 'unclear', label: 'Cuando algo no esté claro', type: 'fixed', hint: '*Ya incluido* en tu Master Key.',
+          html: 'No inventes una nueva dirección de marca. Pide aclaración o usa el <em>principio de marca existente más cercano</em>.',
+          text: 'No inventes una nueva dirección de marca.\nPide aclaración o usa el principio de marca existente más cercano.' }
+      ]
+    }
+  ];
+
+  const COLOR_SLOTS = [['primary', 'Primario'], ['secondary', 'Secundario'], ['accent', 'Acento']];
+  const STORAGE_KEY = 'ai-brand-master-key-v2';
+  const PENDING = '[Pendiente]';
+
+  /* ============================================================ */
+  const root = document.getElementById('bmk');
+  const toastEl = document.getElementById('bmk-toast');
+  let state = load();
+  let view = { name: 'map' };
+
+  const pad = n => String(n).padStart(2, '0');
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const plain = s => String(s ?? '').replace(/\*/g, '');
+  const rich = s => esc(s).replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  const clean = a => (Array.isArray(a) ? a : []).map(x => (x || '').trim()).filter(Boolean);
+  const findField = id => { for (const s of SECTIONS) for (const f of s.fields) if (f.id === id) return f; };
+
+  function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; } }
+  function save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    const el = root.querySelector('[data-saved]');
+    if (el) {
+      if (el.textContent !== 'Guardado ✓') { el.textContent = 'Guardado ✓'; replay([el]); }
+      el.classList.add('flash'); clearTimeout(save.t);
+      save.t = setTimeout(() => { el.classList.remove('flash'); el.textContent = 'Se guarda automáticamente'; replay([el]); }, 1400);
+    }
+  }
+
+  /* ---------- Progress ---------- */
+  function isFilled(f) {
+    const v = state[f.id];
+    switch (f.type) {
+      case 'text': case 'textarea': return !!(v || '').trim();
+      case 'list': return clean(v).length >= (f.min || f.n);
+      case 'tags': return clean(v).length >= (f.min || 1);
+      case 'chips': return clean(v).length > 0;
+      case 'pair': return Array.isArray(v) && !!(v[0] || '').trim() && !!(v[1] || '').trim();
+      case 'colors': return COLOR_SLOTS.every(([k]) => v && v[k] && /^#[0-9a-f]{6}$/i.test(v[k].hex || ''));
+      default: return true;
+    }
+  }
+  const countable = s => s.fields.filter(f => f.type !== 'fixed');
+  function secProg(s) { const fs = countable(s); const done = fs.filter(isFilled).length; return { done, total: fs.length, pct: Math.round(done / fs.length * 100) }; }
+  function overall() { let d = 0, t = 0; SECTIONS.forEach(s => { const p = secProg(s); d += p.done; t += p.total; }); return { done: d, total: t, pct: Math.round(d / t * 100) }; }
+  function nextIndex() { return SECTIONS.findIndex(s => { const p = secProg(s); return p.done < p.total; }); }
+  function status(i) { const p = secProg(SECTIONS[i]); return p.done === p.total ? 'done' : p.done > 0 ? 'partial' : 'todo'; }
+
+  /* ---------- Views ---------- */
+  const reduceMotion = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const line = i => `bmk-line" style="--i:${i}`;
+
+  function render(keepTop) {
+    root.innerHTML = '<div class="bmk-wrap bmk-stage">' +
+      (view.name === 'map' ? mapView() : view.name === 'section' ? sectionView(view.i, keepTop) : resultView(keepTop)) + '</div>';
+    placePill(true);
+    const stage = root.firstElementChild;
+    void stage.offsetWidth;
+    stage.classList.add('is-shown');
+  }
+
+  /* Repite el reveal sobre elementos que acaban de cambiar */
+  function replay(els) {
+    Array.prototype.forEach.call(els, (el, j) => {
+      if (!el) return;
+      el.classList.remove('bmk-upd');
+      el.style.setProperty('--j', j);
+      void el.offsetWidth;
+      el.classList.add('bmk-upd');
+    });
+  }
+
+  /* Pill deslizante: parte de la posición del step anterior y se anima hasta el nuevo.
+     Sin step anterior (primera vez, resize, carga de fuentes) se coloca sin transición. */
+  let lastPill = null;
+  function placePill(animate) {
+    const bar = root.querySelector('.bmk-steps');
+    if (!bar) { lastPill = null; return; }
+    const pill = bar.querySelector('.bmk-steps-pill'), tab = bar.querySelector('[aria-selected="true"]');
+    if (!tab) return;
+    const to = { x: tab.offsetLeft, w: tab.offsetWidth };
+    const set = p => { pill.style.transform = `translateX(${p.x}px)`; pill.style.width = `${p.w}px`; };
+    pill.style.transition = 'none';
+    set(animate && lastPill ? lastPill : to);
+    void pill.offsetWidth;
+    pill.style.transition = '';
+    set(to);
+    if (bar.scrollWidth > bar.clientWidth) {
+      if (lastPill) bar.scrollLeft = lastPill.scroll || 0;
+      bar.scrollTo({ left: to.x - (bar.clientWidth - to.w) / 2, behavior: animate && lastPill ? 'smooth' : 'auto' });
+    }
+    lastPill = { ...to, scroll: to.x - (bar.clientWidth - to.w) / 2 };
+  }
+
+  function mapView() {
+    const o = overall(), nx = nextIndex();
+    const cta = o.done === 0 ? { t: 'Empezar por 01 →', a: 'data-act="open" data-i="0"' }
+      : nx === -1 ? { t: 'Ver mi Master Key →', a: 'data-act="result"' }
+      : { t: `Continuar en ${pad(nx + 1)} →`, a: `data-act="open" data-i="${nx}"` };
+
+    const rail = SECTIONS.map((s, i) => {
+      const st = status(i);
+      return `<button class="bmk-rail-step is-${st} ${i === nx ? 'is-next' : ''} ${line(3 + i)}" data-act="open" data-i="${i}" aria-label="${pad(i + 1)} ${esc(plain(s.title))}">
+        <span class="bmk-node">${st === 'done' ? '✓' : pad(i + 1)}</span><span class="bmk-rail-label">${rich(s.title)}</span></button>`;
+    }).join('') + `<button class="bmk-rail-step is-final ${line(3 + SECTIONS.length)}" data-act="result" aria-label="Resultado"><span class="bmk-node">✦</span><span class="bmk-rail-label"><em>Master Key</em></span></button>`;
+
+    return `
+      <header class="bmk-hero">
+        <h1><span class="${line(0)};display:block">Haz que la IA entienda</span> <em class="${line(1)}">tu marca.</em></h1>
+        <div class="bmk-panel ${line(2)}">
+          <div class="bmk-panel-top"><span class="bmk-eyebrow">Tu progreso</span><span class="bmk-pct">${o.pct}%</span></div>
+          <div class="bmk-bar ${o.pct === 100 ? 'is-done' : ''}"><i style="width:${o.pct}%"></i></div>
+          <button class="bmk-btn" ${cta.a}>${esc(cta.t)}</button>
+        </div>
+      </header>
+      <nav class="bmk-rail" aria-label="Hoja de ruta">${rail}</nav>
+      <section class="bmk-how">
+        <div class="bmk-row ${line(13)}"><em>Recorre</em><p>Los bloques en orden, empezando por la esencia.<small>Puedes saltar entre bloques cuando quieras; nada se pierde.</small></p></div>
+        <div class="bmk-row ${line(14)}"><em>Escribe</em><p>Corto y concreto.<small>La IA trabaja mejor con precisión que con volumen.</small></p></div>
+        <div class="bmk-row ${line(15)}"><em>Conseguirás</em><p>Tu Master Key, lista para pegar en tu IA.<small>Un bloque de texto para Claude, ChatGPT o Gemini.</small></p></div>
+      </section>`;
+  }
+
+  function stepper(current) {
+    return `<div class="bmk-steps" role="tablist" aria-label="Bloques"><span class="bmk-steps-pill" aria-hidden="true"></span>${SECTIONS.map((s, i) => {
+      const st = status(i), sel = i === current;
+      return `<button class="bmk-pill ${st === 'done' ? 'is-done' : ''}" role="tab" aria-selected="${sel}" data-pill="${i}" data-act="open" data-i="${i}" title="${esc(plain(s.title))}">${st === 'done' && !sel ? '✓ ' : ''}${pad(i + 1)}</button>`;
+    }).join('')}<button class="bmk-pill" role="tab" aria-selected="${current === 'result'}" data-act="result" title="Master Key">✦ <em>Key</em></button></div>`;
+  }
+
+  function topBar(current, keepTop) {
+    return `<div class="bmk-top ${keepTop ? '' : line(0)}">
+      <button class="bmk-btn bmk-btn--ghost" data-act="map">← Hoja de ruta</button>
+      ${stepper(current)}
+      <span class="bmk-saved" data-saved>Se guarda automáticamente</span>
+    </div>`;
+  }
+
+  function sectionView(i, keepTop) {
+    const s = SECTIONS[i], p = secProg(s), last = i === SECTIONS.length - 1;
+    return `${topBar(i, keepTop)}
+      <div class="bmk-layout">
+        <aside class="bmk-aside">
+          <div class="bmk-sec-num ${line(1)}">${pad(i + 1)}</div>
+          <h2 class="${line(2)}">${esc(plain(s.title))}</h2>
+          <p class="bmk-desc ${line(3)}">${esc(plain(s.desc))}</p>
+          <div class="bmk-aside-prog ${line(4)}"><em>Completado</em><span data-sec-count style="display:inline-block">${p.done}/${p.total}</span></div>
+          <div class="bmk-bar ${p.done === p.total ? 'is-done' : ''} ${line(4)}" data-sec-bar><i style="width:${p.pct}%"></i></div>
+          ${s.tip ? `<div class="bmk-tip ${line(5)}"><b>Consejo</b>${rich(s.tip)}</div>` : ''}
+        </aside>
+        <div>
+          <div class="bmk-form">${s.fields.map((f, k) => fieldHTML(f, k)).join('')}</div>
+          <div class="bmk-nav ${line(Math.min(s.fields.length + 2, 11))}">
+            ${i > 0 ? `<button class="bmk-btn bmk-btn--ghost" data-act="open" data-i="${i - 1}">← ${pad(i)} ${esc(plain(SECTIONS[i - 1].title))}</button>` : `<button class="bmk-btn bmk-btn--ghost" data-act="map">← Hoja de ruta</button>`}
+            ${last ? `<button class="bmk-btn" data-act="result">Ver mi Master Key ✦</button>` : `<button class="bmk-btn" data-act="open" data-i="${i + 1}">${pad(i + 2)} ${esc(plain(SECTIONS[i + 1].title))} →</button>`}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function fieldHTML(f, k) {
+    const v = state[f.id], fixed = f.type === 'fixed';
+    let c = '';
+    switch (f.type) {
+      case 'text':
+        c = `<input class="bmk-input" data-f="${f.id}" data-t="text" value="${esc(v)}">`; break;
+      case 'textarea':
+        c = `<textarea class="bmk-input" rows="${f.rows || 2}" data-f="${f.id}" data-t="text">${esc(v)}</textarea>`; break;
+      case 'list': {
+        const a = Array.isArray(v) ? v : [];
+        const n = f.addable ? Math.max(f.n, a.length) : f.n;
+        let rows = '';
+        for (let k = 0; k < n; k++) {
+          rows += `<div class="bmk-list-row"><span class="bmk-list-n">${f.bullet ? '—' : k + 1}</span>
+            <input class="bmk-input" data-f="${f.id}" data-t="list" data-k="${k}" value="${esc(a[k])}">
+            ${f.addable && k >= f.n ? `<button class="bmk-x" data-act="rmitem" data-f="${f.id}" data-k="${k}" aria-label="Quitar">×</button>` : '<span></span>'}</div>`;
+        }
+        c = `<div class="bmk-list">${rows}</div>${f.addable ? `<button class="bmk-add" data-act="additem" data-f="${f.id}">${esc(f.addLabel)}</button>` : ''}`;
+        break;
+      }
+      case 'tags': {
+        const a = clean(v);
+        c = `<div class="bmk-tags">${a.map((t, k) => `<span class="bmk-tag">${esc(t)}<button class="bmk-x" data-act="rmtag" data-f="${f.id}" data-k="${k}" aria-label="Quitar ${esc(t)}">×</button></span>`).join('')}
+          ${a.length < f.max ? `<input class="bmk-tag-input" data-f="${f.id}" data-t="taginput" aria-label="${esc(f.label)}">` : ''}</div>
+          <div class="bmk-count">${a.length} de ${f.min}–${f.max}${a.length >= f.max ? ' · Máximo alcanzado' : ' · Escribe y pulsa Enter'}</div>`;
+        break;
+      }
+      case 'chips': {
+        const a = clean(v);
+        const opts = f.options.concat(a.filter(x => !f.options.includes(x)));
+        c = `<div class="bmk-chips">${opts.map(o => `<button class="bmk-chip ${a.includes(o) ? 'on' : ''}" data-act="chip" data-f="${f.id}" data-v="${esc(o)}" aria-pressed="${a.includes(o)}">${esc(o)}</button>`).join('')}
+          <input class="bmk-chip-input" data-f="${f.id}" data-t="chipinput" placeholder="+ Otra (Enter)"></div>
+          ${f.note ? `<textarea class="bmk-input bmk-note" rows="2" data-f="${f.id}_note" data-t="text" aria-label="Detalle">${esc(state[f.id + '_note'])}</textarea>` : ''}`;
+        break;
+      }
+      case 'pair': {
+        const a = Array.isArray(v) ? v : [];
+        c = `<div class="bmk-pair">
+          <input class="bmk-input" data-f="${f.id}" data-t="list" data-k="0" value="${esc(a[0])}">
+          <span>+</span>
+          <input class="bmk-input" data-f="${f.id}" data-t="list" data-k="1" value="${esc(a[1])}"></div>`;
+        break;
+      }
+      case 'colors': {
+        const o = v || {};
+        c = `<div class="bmk-colors">${COLOR_SLOTS.map(([k, label]) => {
+          const hex = (o[k] && o[k].hex) || '', valid = /^#[0-9a-f]{6}$/i.test(hex);
+          return `<div class="bmk-color-row">
+            <span class="bmk-color-label">${label}</span>
+            <input type="color" class="bmk-swatch ${valid ? '' : 'is-empty'}" data-f="${f.id}" data-t="color" data-k="${k}.hex" value="${valid ? hex : '#D8B3AA'}" aria-label="Color ${label}">
+            <input class="bmk-input bmk-hex" data-f="${f.id}" data-t="color" data-k="${k}.hex" value="${esc(hex)}" placeholder="#HEX" maxlength="7" aria-label="Hex ${label}">
+            <input class="bmk-input" data-f="${f.id}" data-t="color" data-k="${k}.name" value="${esc(o[k] && o[k].name)}" placeholder="Nombre o uso (opcional)" aria-label="Nombre ${label}">
+          </div>`;
+        }).join('')}</div>`;
+        break;
+      }
+      case 'fixed':
+        c = `<div class="bmk-fixed">${f.html}</div>`; break;
+    }
+    return `<div class="bmk-field ${fixed ? 'bmk-field--fixed' : ''} ${!fixed && isFilled(f) ? 'is-done' : ''} ${k === undefined ? '' : line(Math.min(k + 2, 10))}" data-field="${f.id}">
+      <div class="bmk-field-head"><span class="bmk-check">${fixed ? '•' : '✓'}</span><span class="bmk-label">${esc(f.label)}</span></div>
+      <div class="bmk-field-body">${f.hint ? `<p class="bmk-hint">${rich(f.hint)}</p>` : ''}<div class="bmk-control">${c}</div></div></div>`;
+  }
+
+  function resultView(keepTop) {
+    const o = overall();
+    const missing = SECTIONS.map((s, i) => ({ i, s, fs: countable(s).filter(f => !isFilled(f)) })).filter(m => m.fs.length);
+    return `${topBar('result', keepTop)}
+      <div class="bmk-result-head">
+        <div>
+          <div class="bmk-eyebrow ${line(1)}">08 · Brand Context</div>
+          <h2 class="${line(2)}">Tu AI Brand <em>Master Key</em>${state.name ? ` — ${esc(state.name)}` : ''}</h2>
+          <p class="${line(3)}">Todo lo que has definido, listo para que la IA trabaje con tu marca</p>
+        </div>
+        <div class="bmk-actions ${line(4)}">
+          <button class="bmk-btn" data-act="copy">Copiar Master Key</button>
+          <button class="bmk-btn bmk-btn--ghost" data-act="download">Descargar .md</button>
+        </div>
+      </div>
+      ${missing.length ? `<div class="bmk-missing ${line(5)}"><h4>Te faltan ${o.total - o.done} campos · ${o.pct}% completado</h4><ul>${missing.map(m =>
+        `<li><button data-act="open" data-i="${m.i}">${pad(m.i + 1)} ${esc(plain(m.s.title))}</button><span>${esc(m.fs.map(f => f.label).join(', '))}</span></li>`).join('')}</ul></div>`
+        : `<div class="bmk-complete ${line(5)}">✓ Todo completo. Tu marca está <em>lista para trabajar con IA</em>.</div>`}
+      <pre class="bmk-pre ${line(6)}">${esc(buildText())}</pre>
+      <section class="bmk-use">
+        <div class="bmk-row ${line(7)}"><em>Copia</em><p>Tu Master Key completa.<small>Los campos vacíos aparecen como ${PENDING}.</small></p></div>
+        <div class="bmk-row ${line(8)}"><em>Pega</em><p>Como contexto, al inicio de la conversación.<small>En Claude o ChatGPT: dentro de un Proyecto, en instrucciones personalizadas o al principio del chat.</small></p></div>
+        <div class="bmk-row ${line(9)}"><em>Pide</em><p>Con intención.<small>"Usando mi Master Key, escribe 3 posts de lanzamiento para Instagram."</small></p></div>
+      </section>
+      <div class="bmk-nav ${line(10)};margin-top:36px">
+        <button class="bmk-btn bmk-btn--ghost" data-act="map">← Volver a la hoja de ruta</button>
+        <button class="bmk-link" data-act="reset">Borrar todas las respuestas</button>
+      </div>`;
+  }
+
+  /* ---------- Export ---------- */
+  function fmt(f) {
+    const v = state[f.id];
+    switch (f.type) {
+      case 'text': case 'textarea': return (v || '').trim() || PENDING;
+      case 'list': { const a = clean(v); return a.length ? a.map((x, k) => f.bullet ? `* ${x}` : `${k + 1}. ${x}`).join('\n') : PENDING; }
+      case 'tags': { const a = clean(v); return a.length ? a.join(' · ') : PENDING; }
+      case 'chips': {
+        const a = clean(v), note = (state[f.id + '_note'] || '').trim();
+        return [a.join(' / '), note].filter(Boolean).join('\n') || PENDING;
+      }
+      case 'pair': { const a = Array.isArray(v) ? v : []; return (a[0] || '').trim() && (a[1] || '').trim() ? `${a[0].trim()} + ${a[1].trim()}` : PENDING; }
+      case 'colors': {
+        const o = v || {};
+        return COLOR_SLOTS.map(([k, label]) => {
+          const c = o[k] || {}, hex = (c.hex || '').toUpperCase(), name = (c.name || '').trim();
+          return `${label}: ${[hex, name].filter(Boolean).join(' — ') || PENDING}`;
+        }).join('\n');
+      }
+      case 'fixed': return f.text;
+    }
+  }
+
+  function buildText() {
+    const out = ['AI BRAND MASTER KEY' + (state.name ? ` — ${state.name.trim()}` : ''),
+      'Sistema compacto de contexto de marca para que la IA entienda, exprese y extienda esta marca con coherencia.', ''];
+    SECTIONS.forEach((s, i) => {
+      out.push('────────────────────────', `${pad(i + 1)} — ${plain(s.title).toUpperCase()}`, '');
+      s.fields.forEach(f => out.push(f.label.toUpperCase(), fmt(f), ''));
+    });
+    out.push('────────────────────────', 'BRAND CONTEXT', '',
+      'Cuando crees cualquier cosa para esta marca:', 'ENTENDER → INTERPRETAR → CREAR', '',
+      'No reproduzcas la información literalmente.',
+      'Traduce la esencia, la personalidad, el mundo y las reglas de la marca al contexto específico que se pide.', '',
+      'El objetivo no es hacer algo que simplemente se vea bien.',
+      'El objetivo es hacer algo que se sienta específico de esta marca.');
+    return out.join('\n');
+  }
+
+  /* ---------- UI helpers ---------- */
+  function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove('show'), 1800); }
+  /* Cambio de vista: fundido de salida (200ms) → render → entrada escalonada.
+     Entre steps la barra superior se queda y la pill se desliza al instante. */
+  let busy = false;
+  function go(v) {
+    if (busy || (v.name === view.name && v.i === view.i)) return;
+    const stage = root.querySelector('.bmk-stage');
+    const keepTop = view.name !== 'map' && v.name !== 'map';
+    if (keepTop) {
+      root.querySelectorAll('.bmk-steps .bmk-pill').forEach(b =>
+        b.setAttribute('aria-selected', String(v.name === 'section' ? b.dataset.pill === String(v.i) : !b.dataset.pill)));
+      placePill(true);
+    }
+    const swap = () => {
+      view = v; render(keepTop); busy = false;
+      if (root.getBoundingClientRect().top < 0) root.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+    };
+    if (!stage || reduceMotion()) return swap();
+    busy = true;
+    stage.classList.remove('is-shown');
+    stage.classList.add('is-hiding');
+    if (!keepTop) stage.classList.add('hide-all');
+    setTimeout(swap, 200);
+  }
+  const headOf = el => el.querySelectorAll('.bmk-check, .bmk-label');
+  function rerenderField(id, focusType, animate) {
+    const el = root.querySelector(`[data-field="${id}"]`);
+    if (!el) return;
+    const was = el.classList.contains('is-done');
+    const tmp = document.createElement('div');
+    tmp.innerHTML = fieldHTML(findField(id));
+    const nu = tmp.firstElementChild;
+    el.replaceWith(nu);
+    if (nu.classList.contains('is-done') !== was) replay(headOf(nu));
+    if (animate) replay(animate(nu));
+    if (focusType) { const inputs = nu.querySelectorAll(`[data-t="${focusType}"]`); inputs.length && inputs[inputs.length - 1].focus(); }
+  }
+  function refresh() {
+    if (view.name !== 'section') return;
+    const s = SECTIONS[view.i], p = secProg(s);
+    s.fields.forEach(f => {
+      if (f.type === 'fixed') return;
+      const el = root.querySelector(`[data-field="${f.id}"]`), d = isFilled(f);
+      if (el && el.classList.contains('is-done') !== d) { el.classList.toggle('is-done', d); replay(headOf(el)); }
+    });
+    const cnt = root.querySelector('[data-sec-count]'), txt = `${p.done}/${p.total}`;
+    if (cnt && cnt.textContent !== txt) { cnt.textContent = txt; replay([cnt]); }
+    const bar = root.querySelector('[data-sec-bar]'); if (bar) { bar.firstElementChild.style.width = p.pct + '%'; bar.classList.toggle('is-done', p.done === p.total); }
+    root.querySelectorAll('[data-pill]').forEach(b => {
+      const i = +b.dataset.pill, done = status(i) === 'done', was = b.classList.contains('is-done');
+      b.classList.toggle('is-done', done);
+      if (i !== view.i) b.textContent = (done ? '✓ ' : '') + pad(i + 1);
+      if (was !== done) replay([b]);
+    });
+    placePill(false);
+  }
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; } catch (e) {
+      const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (_) {}
+      ta.remove(); return ok;
+    }
+  }
+  function commitEntry(t, refocus) {
+    const id = t.dataset.f, f = findField(id);
+    const val = t.value.replace(/,+$/, '').trim();
+    if (!val) return;
+    const a = clean(state[id]);
+    if (f.type === 'tags' && a.length >= f.max) return;
+    if (!a.some(x => x.toLowerCase() === val.toLowerCase())) a.push(val);
+    state[id] = a; save();
+    rerenderField(id, refocus ? t.dataset.t : null, nu => f.type === 'tags'
+      ? [[...nu.querySelectorAll('.bmk-tag')].pop(), nu.querySelector('.bmk-count')]
+      : [nu.querySelector(`.bmk-chip[data-v="${CSS.escape(val)}"]`)]);
+    refresh();
+  }
+
+  /* ---------- Events ---------- */
+  root.addEventListener('input', e => {
+    const t = e.target, id = t.dataset.f, ty = t.dataset.t;
+    if (!id) return;
+    if (ty === 'text') state[id] = t.value;
+    else if (ty === 'list') { const a = Array.isArray(state[id]) ? state[id] : []; a[+t.dataset.k] = t.value; state[id] = a; }
+    else if (ty === 'color') {
+      const [slot, prop] = t.dataset.k.split('.');
+      const o = state[id] || {}; o[slot] = o[slot] || {};
+      if (prop === 'hex') {
+        const row = t.closest('.bmk-color-row'), pick = row.querySelector('input[type=color]'), txt = row.querySelector('.bmk-hex');
+        if (t.type === 'color') { o[slot].hex = t.value.toUpperCase(); txt.value = o[slot].hex; pick.classList.remove('is-empty'); }
+        else {
+          let h = t.value.trim(); if (h && h[0] !== '#') h = '#' + h;
+          o[slot].hex = h;
+          if (/^#[0-9a-f]{6}$/i.test(h)) { pick.value = h; pick.classList.remove('is-empty'); }
+        }
+      } else o[slot][prop] = t.value;
+      state[id] = o;
+    } else return;
+    save(); refresh();
+  });
+
+  root.addEventListener('keydown', e => {
+    const t = e.target, ty = t.dataset && t.dataset.t;
+    if (ty !== 'taginput' && ty !== 'chipinput') return;
+    if (e.key === 'Enter' || (e.key === ',' && ty === 'taginput')) { e.preventDefault(); commitEntry(t, true); }
+    else if (e.key === 'Backspace' && !t.value && ty === 'taginput') {
+      const a = clean(state[t.dataset.f]); if (a.length) { a.pop(); state[t.dataset.f] = a; save(); rerenderField(t.dataset.f, 'taginput'); refresh(); }
+    }
+  });
+
+  root.addEventListener('focusout', e => {
+    const t = e.target, ty = t.dataset && t.dataset.t;
+    if ((ty === 'taginput' || ty === 'chipinput') && t.value.trim()) {
+      const next = e.relatedTarget;
+      // no re-renderizar si el foco va a un botón del mismo campo
+      if (next && next.closest && next.closest(`[data-field="${t.dataset.f}"]`)) return;
+      commitEntry(t, false);
+    }
+  });
+
+  root.addEventListener('click', async e => {
+    const b = e.target.closest('[data-act]');
+    if (!b) return;
+    const id = b.dataset.f;
+    switch (b.dataset.act) {
+      case 'open': go({ name: 'section', i: +b.dataset.i }); break;
+      case 'map': go({ name: 'map' }); break;
+      case 'result': go({ name: 'result' }); break;
+      case 'chip': {
+        const a = clean(state[id]), v = b.dataset.v, k = a.indexOf(v);
+        k >= 0 ? a.splice(k, 1) : a.push(v);
+        state[id] = a; save();
+        rerenderField(id, null, k < 0 ? nu => [nu.querySelector(`.bmk-chip[data-v="${CSS.escape(v)}"]`)] : null);
+        refresh(); break;
+      }
+      case 'rmtag': { const a = clean(state[id]); a.splice(+b.dataset.k, 1); state[id] = a; save(); rerenderField(id, 'taginput', nu => [nu.querySelector('.bmk-count')]); refresh(); break; }
+      case 'additem': {
+        const f = findField(id), a = Array.isArray(state[id]) ? state[id].slice() : [];
+        while (a.length < f.n) a.push('');
+        a.push(''); state[id] = a; save();
+        rerenderField(id, 'list', nu => [[...nu.querySelectorAll('.bmk-list-row')].pop()]); break;
+      }
+      case 'rmitem': { const a = Array.isArray(state[id]) ? state[id] : []; a.splice(+b.dataset.k, 1); state[id] = a; save(); rerenderField(id); refresh(); break; }
+      case 'copy': toast((await copyText(buildText())) ? 'Master Key copiada ✓' : 'No se pudo copiar'); break;
+      case 'download': {
+        const slug = (state.name || 'mi-marca').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        const url = URL.createObjectURL(new Blob([buildText()], { type: 'text/markdown;charset=utf-8' }));
+        const a = document.createElement('a'); a.href = url; a.download = `brand-master-key-${slug || 'marca'}.md`;
+        document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+        break;
+      }
+      case 'reset':
+        if (confirm('¿Borrar todas las respuestas? Esta acción no se puede deshacer.')) { state = {}; save(); go({ name: 'map' }); toast('Respuestas borradas'); }
+        break;
+    }
+  });
+
+  window.addEventListener('resize', () => placePill(false));
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => placePill(false));
+
+  render();
+})();
+</script>
+</body>
+</html>
