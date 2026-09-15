@@ -100,12 +100,9 @@
 /* ---------- SECTION ---------- */
 .bmk-layout{display:grid;grid-template-columns:270px 1fr;gap:48px;margin-top:40px;align-items:start}
 .bmk-aside{position:sticky;top:24px}
-.bmk-sec-num{font-size:88px;line-height:.9;color:var(--rojo);letter-spacing:-.03em}
-.bmk-aside h2{font-weight:400;font-size:clamp(34px,4vw,44px);line-height:1.02;letter-spacing:-.015em;margin:22px 0 8px;color:var(--sombra)}
-.bmk-aside .bmk-desc{color:var(--muted);margin:0 0 28px;font-size:16px;font-style:italic;line-height:1.3}
-.bmk-aside-prog{font-size:13px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
-.bmk-aside-prog em{color:var(--ink)}
-.bmk-tip{margin-top:32px;padding-top:16px;border-top:1px solid var(--rojo);color:var(--rojo);font-size:17px;font-style:italic;line-height:1.35}
+.bmk-aside h2{font-weight:400;font-size:clamp(30px,3.4vw,38px);line-height:1.05;letter-spacing:-.01em;margin:16px 0 6px;color:var(--sombra)}
+.bmk-aside .bmk-desc{color:var(--muted);margin:0 0 24px;font-size:15px;font-style:italic;line-height:1.4}
+.bmk-tip{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);color:var(--rojo);font-size:15px;font-style:italic;line-height:1.45}
 .bmk-tip em{font-style:normal}
 .bmk-tip b{display:block;font-size:10.5px;font-style:normal;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
 
@@ -175,8 +172,14 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 .bmk-ex-btn:hover{color:var(--sombra)}
 .bmk-ex{margin:0 0 12px;padding:12px 14px;background:var(--accent-soft);border-radius:var(--radius);font-size:14px;line-height:1.5;font-style:italic;color:var(--ink)}
 .bmk-ex span{display:block;font-style:normal;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rojo);margin-bottom:4px}
-.bmk-inblock{margin-top:26px}
-.bmk-inblock > b{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:6px}
+.bmk-inblock{padding-top:18px;border-top:1px solid var(--line)}
+.bmk-inblock-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.bmk-inblock-top b{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.bmk-inblock-top span{font-size:13px;color:var(--muted)}
+.bmk-inblock .bmk-bar{margin-bottom:10px}
+.bmk-sec-head{display:flex;align-items:center;gap:12px}
+.bmk-sec-node{width:38px;height:38px;flex:none;border-radius:50%;border:1px solid var(--rojo);background:var(--blanco);color:var(--rojo);display:grid;place-items:center;font-size:13px;box-shadow:0 0 0 5px var(--accent-soft)}
+.bmk-sec-of{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .bmk-checklist{list-style:none;margin:0;padding:0;display:grid;gap:1px}
 .bmk-checklist button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:5px 0;font-size:14px;color:var(--muted);text-align:left}
 .bmk-checklist button:hover{color:var(--rojo)}
@@ -203,6 +206,14 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 .bmk-refs-or{margin:16px 0 8px;font-size:14px;color:var(--muted)}
 @media (max-height:760px){.bmk-aside{position:static}}
 
+/* ---------- Pasos bloqueados / locked steps ---------- */
+.bmk-pill.is-locked,.bmk-pill.is-locked:hover{color:rgba(35,31,32,.3);cursor:not-allowed}
+.bmk-rail-step.is-locked{cursor:not-allowed}
+.bmk-rail-step.is-locked .bmk-node,.bmk-rail-step.is-final.is-locked .bmk-node{background:transparent;border-style:dashed;border-color:var(--line-strong);color:var(--line-strong)}
+.bmk-rail-step.is-locked .bmk-rail-label,.bmk-rail-step.is-locked:hover .bmk-rail-label{color:var(--muted);opacity:.55}
+.bmk-btn.is-locked{background:transparent;border:1px dashed var(--line-strong);color:var(--muted)!important;cursor:not-allowed}
+.bmk-btn.is-locked:hover{background:transparent;border-color:var(--rojo);color:var(--rojo)!important}
+
 /* ---------- Transitions.dev — Texts reveal ---------- */
 /* Cambio de vista: cada .bmk-line entra escalonada (--i) al añadir .is-shown al stage;
    al salir, .is-hiding hace un fundido corto de 200ms sin repetir el escalonado. */
@@ -221,7 +232,6 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   .bmk-hero,.bmk-result-head{grid-template-columns:1fr;gap:24px}
   .bmk-layout{grid-template-columns:1fr;gap:24px}
   .bmk-aside{position:static}
-  .bmk-sec-num{font-size:60px}
   .bmk-field{grid-template-columns:1fr;gap:8px}
 }
 @media (max-width:640px){
@@ -430,6 +440,10 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         refsCount: n => `${n} de 3 referencias`,
         exampleShow: 'Ver ejemplo', exampleHide: 'Ocultar ejemplo', exampleOf: 'Ejemplo · Salitre, vermutería de barrio',
         question: (k, n) => `Pregunta ${k} de ${n}`, inBlock: 'En este bloque',
+        blockOf: (k, n) => `Bloque ${k} de ${n}`,
+        finishBlock: 'Completa este bloque para continuar',
+        locked: (n, t) => `Completa ${n} · ${t} para avanzar`,
+        lockedTitle: 'Completa los bloques anteriores para desbloquear',
         refsMax: 'Máximo 6 archivos',
         refsType: 'Solo imágenes o PDF',
         refsSize: 'Archivo demasiado grande (máx. 10 MB)',
@@ -590,6 +604,10 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         refsCount: n => `${n} of 3 references`,
         exampleShow: 'See example', exampleHide: 'Hide example', exampleOf: 'Example · Salitre, a neighborhood vermouth bar',
         question: (k, n) => `Question ${k} of ${n}`, inBlock: 'In this block',
+        blockOf: (k, n) => `Block ${k} of ${n}`,
+        finishBlock: 'Finish this block to continue',
+        locked: (n, t) => `Finish ${n} · ${t} to move on`,
+        lockedTitle: 'Finish the previous blocks to unlock',
         refsMax: 'Maximum 6 files',
         refsType: 'Images or PDFs only',
         refsSize: 'File too large (max 10 MB)',
@@ -713,6 +731,24 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   function nextIndex() { return SECTIONS.findIndex(s => { const p = secProg(s); return p.done < p.total; }); }
   function status(i) { const p = secProg(SECTIONS[i]); return p.done === p.total ? 'done' : p.done > 0 ? 'partial' : 'todo'; }
 
+  /* Pasos en orden: un bloque se abre si todos los anteriores están completos */
+  const canOpen = i => { const nx = nextIndex(); return nx === -1 || i <= nx; };
+  const canResult = () => nextIndex() === -1;
+  function nextText(i, locked) {
+    if (locked) return T.ui.finishBlock;
+    return i === SECTIONS.length - 1 ? `${T.ui.seeResult} ✦` : `${pad(i + 2)} ${plain(SECTIONS[i + 1].title)} →`;
+  }
+  function blocked() {
+    const nx = nextIndex();
+    if (nx < 0) return;
+    const s = SECTIONS[nx];
+    toast(T.ui.locked(pad(nx + 1), plain(s.title)));
+    if (view.name === 'section' && view.i === nx) {
+      const f = countable(s).find(x => !isFilled(x)), el = f && root.querySelector(`[data-field="${f.id}"]`);
+      if (el) { el.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'center' }); replay(headOf(el)); }
+    }
+  }
+
   /* ---------- Views ---------- */
   function mount() {
     root.innerHTML = `<div class="bmk-wrap"><div class="bmk-util">${langSwitch()}</div><div class="bmk-stage"></div></div>`;
@@ -785,10 +821,10 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
       : { t: T.ui.cont(pad(nx + 1)), a: `data-act="open" data-i="${nx}"` };
 
     const rail = SECTIONS.map((s, i) => {
-      const st = status(i);
-      return `<button class="bmk-rail-step is-${st} ${i === nx ? 'is-next' : ''} ${line(3 + i)}" data-act="open" data-i="${i}" aria-label="${pad(i + 1)} ${esc(plain(s.title))}">
+      const st = status(i), locked = !canOpen(i);
+      return `<button class="bmk-rail-step is-${st} ${i === nx ? 'is-next' : ''} ${locked ? 'is-locked' : ''} ${line(3 + i)}" data-act="open" data-i="${i}" aria-disabled="${locked}" ${locked ? `title="${esc(T.ui.lockedTitle)}"` : ''} aria-label="${pad(i + 1)} ${esc(plain(s.title))}">
         <span class="bmk-node">${st === 'done' ? '✓' : pad(i + 1)}</span><span class="bmk-rail-label">${rich(s.title)}</span></button>`;
-    }).join('') + `<button class="bmk-rail-step is-final ${line(3 + SECTIONS.length)}" data-act="result" aria-label="${esc(T.ui.result)}"><span class="bmk-node">✦</span><span class="bmk-rail-label"><em>Brandbook OS</em></span></button>`;
+    }).join('') + `<button class="bmk-rail-step is-final ${canResult() ? '' : 'is-locked'} ${line(3 + SECTIONS.length)}" data-act="result" aria-disabled="${!canResult()}" ${canResult() ? '' : `title="${esc(T.ui.lockedTitle)}"`} aria-label="${esc(T.ui.result)}"><span class="bmk-node">✦</span><span class="bmk-rail-label"><em>Brandbook OS</em></span></button>`;
 
     return `
       <header class="bmk-hero">
@@ -809,9 +845,9 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 
   function stepper(current) {
     return `<div class="bmk-steps" role="tablist" aria-label="${esc(T.ui.blocks)}"><span class="bmk-steps-pill" aria-hidden="true"></span>${SECTIONS.map((s, i) => {
-      const st = status(i), sel = i === current;
-      return `<button class="bmk-pill ${st === 'done' ? 'is-done' : ''}" role="tab" aria-selected="${sel}" data-pill="${i}" data-act="open" data-i="${i}" title="${esc(plain(s.title))}">${st === 'done' && !sel ? '✓ ' : ''}${pad(i + 1)}</button>`;
-    }).join('')}<button class="bmk-pill" role="tab" aria-selected="${current === 'result'}" data-act="result" title="Brandbook OS">✦ <em>OS</em></button></div>`;
+      const st = status(i), sel = i === current, locked = !canOpen(i);
+      return `<button class="bmk-pill ${st === 'done' ? 'is-done' : ''} ${locked ? 'is-locked' : ''}" role="tab" aria-selected="${sel}" aria-disabled="${locked}" data-pill="${i}" data-act="open" data-i="${i}" title="${esc(locked ? T.ui.lockedTitle : plain(s.title))}">${st === 'done' && !sel ? '✓ ' : ''}${pad(i + 1)}</button>`;
+    }).join('')}<button class="bmk-pill ${canResult() ? '' : 'is-locked'}" role="tab" aria-selected="${current === 'result'}" aria-disabled="${!canResult()}" data-final data-act="result" title="${esc(canResult() ? 'Brandbook OS' : T.ui.lockedTitle)}">✦ <em>OS</em></button></div>`;
   }
 
   function topBar(current, keepTop) {
@@ -827,21 +863,23 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     return `${topBar(i, keepTop)}
       <div class="bmk-layout">
         <aside class="bmk-aside">
-          <div class="bmk-sec-num ${line(1)}">${pad(i + 1)}</div>
+          <div class="bmk-sec-head ${line(1)}"><span class="bmk-sec-node">${pad(i + 1)}</span><span class="bmk-sec-of">${esc(T.ui.blockOf(i + 1, SECTIONS.length))}</span></div>
           <h2 class="${line(2)}">${esc(plain(s.title))}</h2>
           <p class="bmk-desc ${line(3)}">${esc(plain(s.desc))}</p>
-          <div class="bmk-aside-prog ${line(4)}"><em>${esc(T.ui.completed)}</em><span data-sec-count style="display:inline-block">${p.done}/${p.total}</span></div>
-          <div class="bmk-bar ${p.done === p.total ? 'is-done' : ''} ${line(4)}" data-sec-bar><i style="width:${p.pct}%"></i></div>
-          <div class="bmk-inblock ${line(5)}"><b>${esc(T.ui.inBlock)}</b><ol class="bmk-checklist">${countable(s).map(f =>
-            `<li><button class="${isFilled(f) ? 'is-done' : ''}" data-act="jump" data-f="${f.id}" data-check="${f.id}"><span class="bmk-check">✓</span>${esc(f.label)}</button></li>`).join('')}</ol></div>
-          ${s.tip ? `<div class="bmk-tip ${line(6)}"><b>${esc(T.ui.tip)}</b>${rich(s.tip)}</div>` : ''}
+          <div class="bmk-inblock ${line(4)}">
+            <div class="bmk-inblock-top"><b>${esc(T.ui.inBlock)}</b><span data-sec-count style="display:inline-block">${p.done}/${p.total}</span></div>
+            <div class="bmk-bar ${p.done === p.total ? 'is-done' : ''}" data-sec-bar><i style="width:${p.pct}%"></i></div>
+            <ol class="bmk-checklist">${countable(s).map(f =>
+              `<li><button class="${isFilled(f) ? 'is-done' : ''}" data-act="jump" data-f="${f.id}" data-check="${f.id}"><span class="bmk-check">✓</span>${esc(f.label)}</button></li>`).join('')}</ol>
+          </div>
+          ${s.tip ? `<div class="bmk-tip ${line(5)}"><b>${esc(T.ui.tip)}</b>${rich(s.tip)}</div>` : ''}
         </aside>
         <div>
           ${s.intro ? `<p class="bmk-intro ${line(1)}">${rich(s.intro)}</p>` : ''}
           <div class="bmk-form">${s.fields.map((f, k) => fieldHTML(f, k)).join('')}</div>
           <div class="bmk-nav ${line(Math.min(s.fields.length + 2, 11))}">
             ${i > 0 ? `<button class="bmk-btn bmk-btn--ghost" data-act="open" data-i="${i - 1}">← ${pad(i)} ${esc(plain(SECTIONS[i - 1].title))}</button>` : `<button class="bmk-btn bmk-btn--ghost" data-act="map">${esc(T.ui.backMap)}</button>`}
-            ${last ? `<button class="bmk-btn" data-act="result">${esc(T.ui.seeResult)} ✦</button>` : `<button class="bmk-btn" data-act="open" data-i="${i + 1}">${pad(i + 2)} ${esc(plain(SECTIONS[i + 1].title))} →</button>`}
+            <button class="bmk-btn ${p.done < p.total ? 'is-locked' : ''}" data-next ${last ? 'data-act="result"' : `data-act="open" data-i="${i + 1}"`} aria-disabled="${p.done < p.total}">${esc(nextText(i, p.done < p.total))}</button>
           </div>
         </div>
       </div>`;
@@ -1070,6 +1108,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   }
   function go(v) {
     if (busy || (v.name === view.name && v.i === view.i)) return;
+    if ((v.name === 'section' && !canOpen(v.i)) || (v.name === 'result' && !canResult())) return blocked();
     const keepTop = view.name !== 'map' && v.name !== 'map';
     if (keepTop) {
       root.querySelectorAll('.bmk-steps .bmk-pill').forEach(b =>
@@ -1118,10 +1157,29 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     const bar = root.querySelector('[data-sec-bar]'); if (bar) { bar.firstElementChild.style.width = p.pct + '%'; bar.classList.toggle('is-done', p.done === p.total); }
     root.querySelectorAll('[data-pill]').forEach(b => {
       const i = +b.dataset.pill, done = status(i) === 'done', was = b.classList.contains('is-done');
+      const locked = !canOpen(i), wasLocked = b.classList.contains('is-locked');
       b.classList.toggle('is-done', done);
+      b.classList.toggle('is-locked', locked);
+      b.setAttribute('aria-disabled', String(locked));
+      b.title = locked ? T.ui.lockedTitle : plain(SECTIONS[i].title);
       if (i !== view.i) b.textContent = (done ? '✓ ' : '') + pad(i + 1);
-      if (was !== done) replay([b]);
+      if (was !== done || wasLocked !== locked) replay([b]);
     });
+    const fin = root.querySelector('[data-final]');
+    if (fin) {
+      const locked = !canResult(), wasLocked = fin.classList.contains('is-locked');
+      fin.classList.toggle('is-locked', locked); fin.setAttribute('aria-disabled', String(locked));
+      fin.title = locked ? T.ui.lockedTitle : 'Brandbook OS';
+      if (locked !== wasLocked) replay([fin]);
+    }
+    const nb = root.querySelector('[data-next]');
+    if (nb) {
+      const locked = p.done < p.total;
+      if (nb.classList.contains('is-locked') !== locked) {
+        nb.classList.toggle('is-locked', locked); nb.setAttribute('aria-disabled', String(locked));
+        nb.textContent = nextText(view.i, locked); replay([nb]);
+      }
+    }
     placePill(false);
   }
   async function copyText(text) {
