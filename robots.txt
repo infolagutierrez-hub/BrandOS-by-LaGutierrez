@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+Sitemap: https://infolagutierrez-hub.github.io/BrandOS-by-LaGutierrez/sitemap.xml
