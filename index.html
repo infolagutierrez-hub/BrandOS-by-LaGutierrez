@@ -52,7 +52,7 @@
 /* ---------- MAP: hero ---------- */
 .bmk-hero{display:grid;grid-template-columns:1fr 250px;gap:40px;align-items:end;padding-bottom:8px}
 .bmk-hero h1{font-weight:400;font-size:clamp(36px,5.4vw,60px);line-height:1.02;letter-spacing:-.015em;margin:0;color:var(--sombra);width:fit-content;max-width:100%}
-.bmk-hero h1 em{display:block;text-align:right;color:var(--rojo);font-size:.82em;margin-top:.08em}
+.bmk-hero h1 em{color:var(--rojo)}
 .bmk-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
 .bmk-panel-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
 .bmk-pct{font-size:24px;line-height:1;color:var(--rojo)}
@@ -314,6 +314,47 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   .bmk-guide > li{padding:18px}
   .bmk-guide-actions .bmk-btn{flex:1 1 140px;justify-content:center;min-height:44px}
   .bmk-doc-actions .bmk-btn{min-height:46px}
+}
+/* ---------- Portada en rojo + firma con el logo / red cover + logo signature ---------- */
+.bmk{transition:background-color .4s ease,color .4s ease}
+.bmk-by{display:flex;align-items:center;gap:12px;margin-top:14px}
+.bmk-by em{font-size:20px;color:var(--rojo)}
+.bmk-logo{display:block;width:clamp(150px,20vw,230px);height:auto}
+.bmk.is-map{background:var(--rojo);color:var(--blanco)}
+.bmk.is-map .bmk-hero h1,.bmk.is-map .bmk-hero h1 em{color:var(--blanco)}
+.bmk.is-map .bmk-by em{color:var(--beige)}
+/* El wordmark es negro sobre transparente: lo mostramos en blanco */
+.bmk.is-map .bmk-logo{filter:brightness(0) invert(1)}
+.bmk.is-map .bmk-panel{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3)}
+.bmk.is-map .bmk-eyebrow{color:var(--beige)}
+.bmk.is-map .bmk-pct{color:var(--blanco)}
+.bmk.is-map .bmk-bar{background:rgba(255,255,255,.28)}
+.bmk.is-map .bmk-bar > i,.bmk.is-map .bmk-bar.is-done > i{background:var(--blanco)}
+.bmk.is-map .bmk-btn{background:var(--blanco);border-color:var(--blanco);color:var(--rojo)!important}
+.bmk.is-map .bmk-btn:hover{background:var(--beige);border-color:var(--beige);color:var(--rojo)!important}
+.bmk.is-map .bmk-node{background:transparent;border-color:rgba(255,255,255,.55);color:rgba(255,255,255,.75)}
+.bmk.is-map .bmk-rail-step.is-done .bmk-node{background:var(--blanco);border-color:var(--blanco);color:var(--rojo)}
+.bmk.is-map .bmk-rail-step.is-partial .bmk-node{border-color:var(--blanco);color:var(--blanco)}
+.bmk.is-map .bmk-rail-step.is-next .bmk-node{border-color:var(--blanco);color:var(--blanco);box-shadow:0 0 0 5px rgba(255,255,255,.18)}
+.bmk.is-map .bmk-rail-step.is-final .bmk-node{background:var(--sombra);border-color:var(--sombra);color:var(--blanco)}
+.bmk.is-map .bmk-rail-step.is-locked .bmk-node,.bmk.is-map .bmk-rail-step.is-final.is-locked .bmk-node{background:transparent;border-color:rgba(255,255,255,.4);color:rgba(255,255,255,.45)}
+.bmk.is-map .bmk-rail-step:not(:last-child)::after{background:rgba(255,255,255,.4)}
+.bmk.is-map .bmk-rail-step.is-done:not(:last-child)::after{background:var(--blanco)}
+.bmk.is-map .bmk-rail-label{color:rgba(255,255,255,.85)}
+.bmk.is-map .bmk-rail-step:hover .bmk-rail-label{color:var(--blanco)}
+.bmk.is-map .bmk-rail-step.is-locked .bmk-rail-label,.bmk.is-map .bmk-rail-step.is-locked:hover .bmk-rail-label{color:rgba(255,255,255,.5)}
+.bmk.is-map .bmk-how{border-top-color:rgba(255,255,255,.3)}
+.bmk.is-map .bmk-row > em{color:var(--beige)}
+.bmk.is-map .bmk-row p{color:var(--blanco)}
+.bmk.is-map .bmk-row p small{color:rgba(255,255,255,.72)}
+.bmk.is-map .bmk-lang{background:rgba(255,255,255,.16)}
+.bmk.is-map .bmk-lang .bmk-pill{color:rgba(255,255,255,.8)}
+.bmk.is-map .bmk-lang .bmk-pill[aria-selected="true"]{color:var(--rojo)}
+.bmk.is-map .bmk-lang-pill{background:var(--blanco)}
+@media (max-width:640px){
+  .bmk-by{margin-top:10px}
+  .bmk-by em{font-size:17px}
+  .bmk-logo{width:clamp(140px,44vw,200px)}
 }
 </style>
 </head>
@@ -719,6 +760,8 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   const clean = a => (Array.isArray(a) ? a : []).map(x => (x || '').trim()).filter(Boolean);
   const reduceMotion = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   const line = i => `bmk-line" style="--i:${i}`;
+  /* Textos de interfaz sin punto final (no afecta al documento .md) */
+  const noDot = s => String(s ?? '').replace(/([^.\s])\.$/, '$1');
   const MAX_FILES = 6, MAX_SIZE = 10 * 1024 * 1024;
   const ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
   const ICON_DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg>';
@@ -843,6 +886,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   function render(keepTop) {
     const stage = root.querySelector('.bmk-stage');
     stage.className = 'bmk-stage';
+    root.classList.toggle('is-map', view.name === 'map');
     stage.innerHTML = view.name === 'map' ? mapView() : view.name === 'section' ? sectionView(view.i, keepTop) : resultView(keepTop);
     placePill(true);
     void stage.offsetWidth;
@@ -913,7 +957,10 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 
     return `
       <header class="bmk-hero">
-        <h1><span class="${line(0)};display:block">Brandbook OS</span> <em class="${line(1)}">101</em></h1>
+        <div>
+          <h1 class="${line(0)}">Brandbook OS <em>101</em></h1>
+          <div class="bmk-by ${line(1)}"><em>by</em><img src="logo-lagutierrez.png" alt="LaGutierrez" class="bmk-logo"></div>
+        </div>
         <div class="bmk-panel ${line(2)}">
           <div class="bmk-panel-top"><span class="bmk-eyebrow">${esc(T.ui.progress)}</span><span class="bmk-pct">${o.pct}%</span></div>
           <div class="bmk-bar ${o.pct === 100 ? 'is-done' : ''}"><i style="width:${o.pct}%"></i></div>
@@ -921,11 +968,11 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         </div>
       </header>
       <nav class="bmk-rail" aria-label="${esc(T.ui.roadmap)}">${rail}</nav>
-      <section class="bmk-how">${rows(T.ui.how, 13)}</section>`;
+      <section class="bmk-how">${rows(T.ui.how.slice(1), 13)}</section>`;
   }
 
   function rows(items, from) {
-    return items.map((r, j) => `<div class="bmk-row ${line(from + j)}"><em>${esc(r.k)}</em><p>${esc(r.p)}<small>${esc(r.s)}</small></p></div>`).join('');
+    return items.map((r, j) => `<div class="bmk-row ${line(from + j)}"><em>${esc(r.k)}</em><p>${esc(noDot(r.p))}<small>${esc(noDot(r.s))}</small></p></div>`).join('');
   }
 
   function stepper(current) {
@@ -950,17 +997,17 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         <aside class="bmk-aside">
           <div class="bmk-sec-head ${line(1)}"><span class="bmk-sec-node">${pad(i + 1)}</span><span class="bmk-sec-of">${esc(T.ui.blockOf(i + 1, SECTIONS.length))}</span></div>
           <h2 class="${line(2)}">${esc(plain(s.title))}</h2>
-          <p class="bmk-desc ${line(3)}">${esc(plain(s.desc))}</p>
+          <p class="bmk-desc ${line(3)}">${esc(noDot(plain(s.desc)))}</p>
           <div class="bmk-inblock ${line(4)}">
             <div class="bmk-inblock-top"><b>${esc(T.ui.inBlock)}</b><span data-sec-count style="display:inline-block">${p.done}/${p.total}</span></div>
             <div class="bmk-bar ${p.done === p.total ? 'is-done' : ''}" data-sec-bar><i style="width:${p.pct}%"></i></div>
             <ol class="bmk-checklist">${countable(s).map(f =>
               `<li><button class="${isFilled(f) ? 'is-done' : ''}" data-act="jump" data-f="${f.id}" data-check="${f.id}"><span class="bmk-check">✓</span>${esc(f.label)}</button></li>`).join('')}</ol>
           </div>
-          ${s.tip ? `<div class="bmk-tip ${line(5)}"><b>${esc(T.ui.tip)}</b>${rich(s.tip)}</div>` : ''}
+          ${s.tip ? `<div class="bmk-tip ${line(5)}"><b>${esc(T.ui.tip)}</b>${rich(noDot(s.tip))}</div>` : ''}
         </aside>
         <div>
-          ${s.intro ? `<p class="bmk-intro ${line(1)}">${rich(s.intro)}</p>` : ''}
+          ${s.intro ? `<p class="bmk-intro ${line(1)}">${rich(noDot(s.intro))}</p>` : ''}
           <div class="bmk-form">${s.fields.map((f, k) => fieldHTML(f, k)).join('')}</div>
           <div class="bmk-nav ${line(Math.min(s.fields.length + 2, 11))}">
             ${i > 0 ? `<button class="bmk-btn bmk-btn--ghost" data-act="open" data-i="${i - 1}">← ${pad(i)} ${esc(plain(SECTIONS[i - 1].title))}</button>` : `<button class="bmk-btn bmk-btn--ghost" data-act="map">${esc(T.ui.backMap)}</button>`}
@@ -1015,7 +1062,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
         c = `<label class="bmk-drop ${nFiles >= MAX_FILES ? 'is-full' : ''}">
             ${nFiles < MAX_FILES ? `<input type="file" multiple accept="image/*,application/pdf" data-f="${f.id}" data-t="file" hidden>` : ''}
             <span class="bmk-drop-t">${T.ui.refsDrop}</span><small>${esc(T.ui.refsLimits)}</small></label>
-          ${nFiles ? `<div class="bmk-files">${files}</div><p class="bmk-count">${esc(r.files.some(fl => FILES.has(fl.id)) ? T.ui.refsKeep : T.ui.refsPreview)}</p>` : ''}
+          ${nFiles ? `<div class="bmk-files">${files}</div><p class="bmk-count">${esc(noDot(r.files.some(fl => FILES.has(fl.id)) ? T.ui.refsKeep : T.ui.refsPreview))}</p>` : ''}
           <div class="bmk-refs-or"><em>${esc(T.ui.refsOr)}</em></div>
           <div class="bmk-list">${Array.from({ length: slots }, (_, j) => `<div class="bmk-list-row"><span class="bmk-list-n">${j + 1}</span>
             <input class="bmk-input" data-f="${f.id}" data-t="reftext" data-k="${j}" value="${esc(r.texts[j])}" aria-label="${esc(f.label)} ${j + 1}"><span></span></div>`).join('')}</div>
@@ -1028,10 +1075,10 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     const sec = SECTIONS.find(s => s.fields.includes(f)), qs = sec ? countable(sec) : [], pos = qs.indexOf(f);
     const exOpen = openEx.has(f.id);
     const example = f.example ? `<button class="bmk-ex-btn" data-act="example" data-f="${f.id}" aria-expanded="${exOpen}">${esc(exOpen ? T.ui.exampleHide : T.ui.exampleShow)}</button>
-        <div class="bmk-ex" data-ex="${f.id}" ${exOpen ? '' : 'hidden'}><span>${esc(T.ui.exampleOf)}</span>${esc(f.example)}</div>` : '';
+        <div class="bmk-ex" data-ex="${f.id}" ${exOpen ? '' : 'hidden'}><span>${esc(T.ui.exampleOf)}</span>${esc(noDot(f.example))}</div>` : '';
     return `<div class="bmk-field ${fixed ? 'bmk-field--fixed' : ''} ${!fixed && isFilled(f) ? 'is-done' : ''} ${k === undefined ? '' : line(Math.min(k + 2, 10))}" data-field="${f.id}">
       <div class="bmk-field-head"><span class="bmk-check">${fixed ? '•' : '✓'}</span><div>${pos >= 0 ? `<span class="bmk-qnum">${esc(T.ui.question(pos + 1, qs.length))}</span>` : ''}<span class="bmk-label">${esc(f.label)}</span></div></div>
-      <div class="bmk-field-body">${f.hint ? `<p class="bmk-hint">${rich(f.hint)}</p>` : ''}${example}<div class="bmk-control">${c}</div></div></div>`;
+      <div class="bmk-field-body">${f.hint ? `<p class="bmk-hint">${rich(noDot(f.hint))}</p>` : ''}${example}<div class="bmk-control">${c}</div></div></div>`;
   }
 
   function resultView(keepTop) {
@@ -1043,7 +1090,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
       <div class="bmk-result-head">
         <div class="bmk-eyebrow ${line(1)}">${pad(SECTIONS.length + 1)} · ${esc(T.ui.result)}</div>
         <h2 class="${line(2)}">${T.ui.resultTitle}</h2>
-        <p class="${line(3)}">${esc(T.ui.resultSub)}</p>
+        <p class="${line(3)}">${esc(noDot(T.ui.resultSub))}</p>
       </div>
       <section class="bmk-doc ${line(4)}">
         <div class="bmk-doc-bar">
@@ -1058,14 +1105,14 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
       <section class="bmk-guide-wrap">
         <h3 class="${line(5)}">${T.ui.guideTitle}</h3>
         <ol class="bmk-guide">
-          <li class="${line(6)}"><span class="bmk-guide-n">1</span><h4>${esc(g[0].t)}</h4><p>${esc(g[0].p)}</p>
+          <li class="${line(6)}"><span class="bmk-guide-n">1</span><h4>${esc(g[0].t)}</h4><p>${esc(noDot(g[0].p))}</p>
             <div class="bmk-guide-actions">
               <button class="bmk-btn bmk-btn--ghost" data-act="download">${ICON_DOWN}<span class="bmk-btn-t">${esc(dlLabel)}</span></button>
               <button class="bmk-btn bmk-btn--ghost" data-act="copy">${ICON_COPY}<span class="bmk-btn-t">${esc(T.ui.copyBtn)}</span></button>
             </div></li>
-          <li class="${line(7)}"><span class="bmk-guide-n">2</span><h4>${esc(g[1].t)}</h4><p>${esc(g[1].p)}</p>
-            <ul>${g[1].list.map(x => `<li>${x}</li>`).join('')}${hasFiles ? `<li>${g[1].files}</li>` : ''}</ul></li>
-          <li class="${line(8)}"><span class="bmk-guide-n">3</span><h4>${esc(g[2].t)}</h4><p>${esc(g[2].p)}</p>
+          <li class="${line(7)}"><span class="bmk-guide-n">2</span><h4>${esc(g[1].t)}</h4><p>${esc(noDot(g[1].p))}</p>
+            <ul>${g[1].list.map(x => `<li>${noDot(x)}</li>`).join('')}${hasFiles ? `<li>${noDot(g[1].files)}</li>` : ''}</ul></li>
+          <li class="${line(8)}"><span class="bmk-guide-n">3</span><h4>${esc(g[2].t)}</h4><p>${esc(noDot(g[2].p))}</p>
             <div class="bmk-prompt">${T.ui.prompts.map((x, k) => `<button data-act="copyprompt" data-k="${k}"><i>“${esc(x)}”</i><span class="bmk-btn-t">${esc(T.ui.copyBtn)}</span></button>`).join('')}</div></li>
         </ol>
       </section>
