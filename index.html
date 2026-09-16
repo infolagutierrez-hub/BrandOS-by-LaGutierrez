@@ -54,7 +54,7 @@
 
 /* ---------- MAP: hero ---------- */
 .bmk-hero{display:grid;grid-template-columns:1fr 250px;gap:40px;align-items:end;padding-bottom:8px}
-.bmk-hero h1{font-weight:400;font-size:clamp(36px,5.4vw,60px);line-height:1.02;letter-spacing:-.015em;margin:0;color:var(--sombra);width:fit-content;max-width:100%}
+.bmk-hero h1{font-weight:400;font-size:clamp(44px,6.6vw,76px);line-height:1.0;letter-spacing:-.015em;margin:0;color:var(--sombra);width:fit-content;max-width:100%}
 .bmk-hero h1 em{color:var(--rojo)}
 .bmk-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
 .bmk-panel-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
@@ -323,18 +323,18 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 /* Título: "Brandbook OS" y debajo generator + by + logo, alineados al final */
 .bmk-title{width:fit-content;max-width:100%}
 .bmk-sig{display:flex;align-items:baseline;justify-content:flex-end;flex-wrap:wrap;gap:6px 14px;margin-top:-.06em}
-.bmk-byline{display:flex;align-items:center;gap:10px;flex:none;align-self:flex-end;padding-bottom:.12em}
-.bmk-gen{font-size:clamp(36px,5.4vw,60px);line-height:1.05;letter-spacing:-.015em}
+.bmk-byline{display:flex;align-items:center;gap:8px;flex:none;align-self:flex-end;padding-bottom:.12em}
+.bmk-gen{font-size:clamp(26px,3.6vw,42px);line-height:1.05;letter-spacing:-.015em}
 .bmk-byword{font-size:clamp(16px,1.6vw,20px)}
 .bmk-sig em{color:var(--rojo)}
 .bmk-logo{display:block;width:clamp(150px,20vw,230px);height:auto}
 .bmk.is-map{background:var(--rojo);color:var(--blanco)}
 .bmk.is-map .bmk-hero h1,.bmk.is-map .bmk-hero h1 em{color:var(--blanco)}
-.bmk.is-map .bmk-sig em{color:var(--beige)}
+.bmk.is-map .bmk-sig em{color:var(--blanco)}
 /* El wordmark es negro sobre transparente: lo mostramos en blanco */
 .bmk.is-map .bmk-logo{filter:brightness(0) invert(1)}
 .bmk.is-map .bmk-panel{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3)}
-.bmk.is-map .bmk-eyebrow{color:var(--beige)}
+.bmk.is-map .bmk-eyebrow{color:var(--blanco)}
 .bmk.is-map .bmk-pct{color:var(--blanco)}
 .bmk.is-map .bmk-bar{background:rgba(255,255,255,.28)}
 .bmk.is-map .bmk-bar > i,.bmk.is-map .bmk-bar.is-done > i{background:var(--blanco)}
@@ -352,7 +352,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 .bmk.is-map .bmk-rail-step:hover .bmk-rail-label{color:var(--blanco)}
 .bmk.is-map .bmk-rail-step.is-locked .bmk-rail-label,.bmk.is-map .bmk-rail-step.is-locked:hover .bmk-rail-label{color:rgba(255,255,255,.5)}
 .bmk.is-map .bmk-how{border-top-color:rgba(255,255,255,.3)}
-.bmk.is-map .bmk-row > em{color:var(--beige)}
+.bmk.is-map .bmk-row > em{color:var(--blanco)}
 .bmk.is-map .bmk-row p{color:var(--blanco)}
 .bmk.is-map .bmk-row p small{color:rgba(255,255,255,.72)}
 .bmk.is-map .bmk-lang{background:rgba(255,255,255,.16)}
@@ -361,7 +361,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 .bmk.is-map .bmk-lang-pill{background:var(--blanco)}
 @media (max-width:640px){
   .bmk-sig{gap:4px 10px}
-  .bmk-byline{gap:8px}
+  .bmk-byline{gap:6px}
   .bmk-by em{font-size:17px}
   .bmk-logo{width:clamp(140px,44vw,200px)}
 }
