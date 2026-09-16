@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Brandbook OS generator</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-lagutierrez.png">
+<link rel="apple-touch-icon" href="favicon-lagutierrez.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -315,14 +318,19 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   .bmk-guide-actions .bmk-btn{flex:1 1 140px;justify-content:center;min-height:44px}
   .bmk-doc-actions .bmk-btn{min-height:46px}
 }
-/* ---------- Portada en rojo + firma con el logo / red cover + logo signature ---------- */
+/* ---------- Portada en rojo + firma con el logo (red cover + logo signature) ---------- */
 .bmk{transition:background-color .4s ease,color .4s ease}
-.bmk-by{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:2px}
-.bmk-by em{font-size:20px;color:var(--rojo)}
+/* Título: "Brandbook OS" y debajo generator + by + logo, alineados al final */
+.bmk-title{width:fit-content;max-width:100%}
+.bmk-sig{display:flex;align-items:baseline;justify-content:flex-end;flex-wrap:wrap;gap:6px 14px;margin-top:-.06em}
+.bmk-byline{display:flex;align-items:baseline;gap:10px;flex:none}
+.bmk-gen{font-size:clamp(36px,5.4vw,60px);line-height:1.05;letter-spacing:-.015em}
+.bmk-byword{font-size:clamp(16px,1.6vw,20px)}
+.bmk-sig em{color:var(--rojo)}
 .bmk-logo{display:block;width:clamp(150px,20vw,230px);height:auto}
 .bmk.is-map{background:var(--rojo);color:var(--blanco)}
 .bmk.is-map .bmk-hero h1,.bmk.is-map .bmk-hero h1 em{color:var(--blanco)}
-.bmk.is-map .bmk-by em{color:var(--beige)}
+.bmk.is-map .bmk-sig em{color:var(--beige)}
 /* El wordmark es negro sobre transparente: lo mostramos en blanco */
 .bmk.is-map .bmk-logo{filter:brightness(0) invert(1)}
 .bmk.is-map .bmk-panel{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3)}
@@ -352,7 +360,8 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 .bmk.is-map .bmk-lang .bmk-pill[aria-selected="true"]{color:var(--rojo)}
 .bmk.is-map .bmk-lang-pill{background:var(--blanco)}
 @media (max-width:640px){
-  .bmk-by{margin-top:0}
+  .bmk-sig{gap:4px 10px}
+  .bmk-byline{gap:8px}
   .bmk-by em{font-size:17px}
   .bmk-logo{width:clamp(140px,44vw,200px)}
 }
@@ -362,7 +371,7 @@ body.bmk-body-red{background:#8C2936}
 .bmk{box-sizing:border-box;min-height:100vh}
 @supports (min-height:100dvh){.bmk{min-height:100dvh}}
 /* La firma se alinea con el final del título */
-.bmk-hero > div:first-child{width:fit-content;max-width:100%}
+
 </style>
 </head>
 <body>
@@ -965,9 +974,9 @@ body.bmk-body-red{background:#8C2936}
 
     return `
       <header class="bmk-hero">
-        <div>
-          <h1 class="${line(0)}">Brandbook OS <em>generator</em></h1>
-          <div class="bmk-by ${line(1)}"><em>by</em><img src="logo-lagutierrez.png" alt="LaGutierrez" class="bmk-logo"></div>
+        <div class="bmk-title">
+          <h1 class="${line(0)}">Brandbook OS</h1>
+          <div class="bmk-sig ${line(1)}"><em class="bmk-gen">generator</em><span class="bmk-byline"><em class="bmk-byword">by</em><img src="logo-lagutierrez.png" alt="LaGutierrez" class="bmk-logo"></span></div>
         </div>
         <div class="bmk-panel ${line(2)}">
           <div class="bmk-panel-top"><span class="bmk-eyebrow">${esc(T.ui.progress)}</span><span class="bmk-pct">${o.pct}%</span></div>
