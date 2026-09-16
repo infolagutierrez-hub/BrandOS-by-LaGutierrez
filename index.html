@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Brandbook OS 101</title>
+<title>Brandbook OS generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -317,7 +317,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 }
 /* ---------- Portada en rojo + firma con el logo / red cover + logo signature ---------- */
 .bmk{transition:background-color .4s ease,color .4s ease}
-.bmk-by{display:flex;align-items:center;gap:12px;margin-top:14px}
+.bmk-by{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:2px}
 .bmk-by em{font-size:20px;color:var(--rojo)}
 .bmk-logo{display:block;width:clamp(150px,20vw,230px);height:auto}
 .bmk.is-map{background:var(--rojo);color:var(--blanco)}
@@ -352,10 +352,17 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 .bmk.is-map .bmk-lang .bmk-pill[aria-selected="true"]{color:var(--rojo)}
 .bmk.is-map .bmk-lang-pill{background:var(--blanco)}
 @media (max-width:640px){
-  .bmk-by{margin-top:10px}
+  .bmk-by{margin-top:0}
   .bmk-by em{font-size:17px}
   .bmk-logo{width:clamp(140px,44vw,200px)}
 }
+/* ---------- Sin franja blanca: el fondo acompaña a la vista / full-bleed background ---------- */
+html,body{margin:0;padding:0;background:#F9EED9}
+body.bmk-body-red{background:#8C2936}
+.bmk{box-sizing:border-box;min-height:100vh}
+@supports (min-height:100dvh){.bmk{min-height:100dvh}}
+/* La firma se alinea con el final del título */
+.bmk-hero > div:first-child{width:fit-content;max-width:100%}
 </style>
 </head>
 <body>
@@ -408,7 +415,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
   const TEXT = {
     es: {
       pending: '[Pendiente]',
-      exportTitle: 'BRANDBOOK OS 101',
+      exportTitle: 'BRANDBOOK OS',
       exportSub: 'El contexto mínimo que la IA necesita para entender, proteger y extender una marca.',
       sections: [
         { title: 'Esencia',
@@ -579,7 +586,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 
     en: {
       pending: '[Pending]',
-      exportTitle: 'BRANDBOOK OS 101',
+      exportTitle: 'BRANDBOOK OS',
       exportSub: 'The minimum context AI needs to understand, protect and extend a brand.',
       sections: [
         { title: 'Core',
@@ -887,6 +894,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     const stage = root.querySelector('.bmk-stage');
     stage.className = 'bmk-stage';
     root.classList.toggle('is-map', view.name === 'map');
+    document.body.classList.toggle('bmk-body-red', view.name === 'map');
     stage.innerHTML = view.name === 'map' ? mapView() : view.name === 'section' ? sectionView(view.i, keepTop) : resultView(keepTop);
     placePill(true);
     void stage.offsetWidth;
@@ -958,7 +966,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     return `
       <header class="bmk-hero">
         <div>
-          <h1 class="${line(0)}">Brandbook OS <em>101</em></h1>
+          <h1 class="${line(0)}">Brandbook OS <em>generator</em></h1>
           <div class="bmk-by ${line(1)}"><em>by</em><img src="logo-lagutierrez.png" alt="LaGutierrez" class="bmk-logo"></div>
         </div>
         <div class="bmk-panel ${line(2)}">
@@ -1083,7 +1091,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 
   function resultView(keepTop) {
     const md = buildText(), hasFiles = refsVal().files.length > 0;
-    const fileName = `brandbook-os-101-${lang}.${hasFiles ? 'zip' : 'md'}`;
+    const fileName = `brandbook-os-${lang}.${hasFiles ? 'zip' : 'md'}`;
     const dlLabel = hasFiles ? T.ui.downloadZip : T.ui.download;
     const g = T.ui.guide;
     return `${topBar('result', keepTop)}
@@ -1224,7 +1232,7 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
     setTimeout(() => URL.revokeObjectURL(url), 60000);
   }
   async function download() {
-    const md = buildText(), base = `brandbook-os-101-${lang}`, files = refsVal().files;
+    const md = buildText(), base = `brandbook-os-${lang}`, files = refsVal().files;
     const mdBlob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
     if (!files.length) return saveBlob(mdBlob, `${base}.md`);
     try {
