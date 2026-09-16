@@ -209,13 +209,13 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 .bmk-tone-hex{padding:7px 9px;font-size:13px;text-transform:uppercase;letter-spacing:.03em}
 .bmk-tone-name{font-size:12.5px;font-style:italic;color:var(--muted);min-height:1.3em}
 .bmk-swatch-label{margin:0;font-size:13px;font-style:italic;color:var(--muted)}
-.bmk-swatchgrid{display:grid;grid-template-columns:repeat(16,1fr);gap:4px}
-.bmk-swatch-btn{aspect-ratio:1;border-radius:3px;border:1px solid rgba(0,0,0,.08);padding:0;cursor:pointer;transition:transform .12s}
-.bmk-swatch-btn:hover,.bmk-swatch-btn:focus-visible{transform:scale(1.15);box-shadow:0 2px 6px rgba(0,0,0,.25);position:relative;z-index:1}
+.bmk-colorpicker{display:flex;gap:8px;align-items:stretch}
+.bmk-hue-canvas{flex:1;min-width:0;height:170px;border-radius:var(--radius);border:1px solid var(--line-strong);cursor:crosshair;touch-action:none;display:block}
+.bmk-lightbar{width:30px;flex:none;height:170px;border-radius:var(--radius);border:1px solid var(--line-strong);cursor:ns-resize;touch-action:none;background:linear-gradient(to bottom,#fff,#000)}
 .bmk-palette-note{font-size:12px;font-style:italic;margin:0}
 @media (max-width:640px){
   .bmk-tones{grid-template-columns:1fr}
-  .bmk-swatchgrid{grid-template-columns:repeat(10,1fr)}
+  .bmk-hue-canvas,.bmk-lightbar{height:150px}
 }
 @media (max-height:760px){.bmk-aside{position:static}}
 
@@ -587,7 +587,7 @@ body.bmk-body-red{background:#8C2936}
         refsCount: n => `${n} de 3 referencias`,
         paletteSlots: ['Primario', 'Secundario', 'Acento'],
         pickColor: 'Elige un color', toneApprox: '(aprox.)',
-        chooseFor: label => `Elige un tono para ${label}`,
+        chooseFor: label => `Elige un tono para ${label}`, lightenDarken: 'Aclarar u oscurecer',
         toneDisclaimer: 'Aproximación de referencia — no es un código Pantone® oficial. Confirma con tu guía física antes de producción',
         exampleShow: 'Ver ejemplo', exampleHide: 'Ocultar ejemplo', exampleOf: 'Ejemplo · Salitre, vermutería de barrio',
         question: (k, n) => `Pregunta ${k} de ${n}`, inBlock: 'En este bloque',
@@ -764,7 +764,7 @@ body.bmk-body-red{background:#8C2936}
         refsCount: n => `${n} of 3 references`,
         paletteSlots: ['Primary', 'Secondary', 'Accent'],
         pickColor: 'Pick a color', toneApprox: '(approx.)',
-        chooseFor: label => `Choose a tone for ${label}`,
+        chooseFor: label => `Choose a tone for ${label}`, lightenDarken: 'Lighten or darken',
         toneDisclaimer: 'Reference approximation — not an official Pantone® code. Confirm with your physical guide before production',
         exampleShow: 'See example', exampleHide: 'Hide example', exampleOf: 'Example · Salitre, a neighborhood vermouth bar',
         question: (k, n) => `Question ${k} of ${n}`, inBlock: 'In this block',
@@ -892,7 +892,6 @@ body.bmk-body-red{background:#8C2936}
     });
     return best;
   }
-  /* Paleta de swatches: barrido de matices x tonos, más una fila de neutros */
   function hslToHex(h, s, l) {
     s /= 100; l /= 100;
     const k = n => (n + h / 30) % 12, a = s * Math.min(l, 1 - l);
@@ -900,14 +899,72 @@ body.bmk-body-red{background:#8C2936}
     const hx = x => Math.round(255 * x).toString(16).padStart(2, '0');
     return `#${hx(f(0))}${hx(f(8))}${hx(f(4))}`.toUpperCase();
   }
-  function swatchBtn(hex) { return `<button type="button" class="bmk-swatch-btn" data-act="swatch" data-hex="${hex}" style="background:${hex}" aria-label="${hex}" title="${hex}"></button>`; }
-  function swatchGrid() {
-    const hues = [0, 22, 45, 67, 90, 112, 135, 157, 180, 202, 225, 247, 270, 292, 315, 337], shades = [82, 64, 46, 28];
-    let html = '';
-    hues.forEach(h => shades.forEach(l => { html += swatchBtn(hslToHex(h, 62, l)); }));
-    [92, 78, 64, 50, 36, 22, 10].forEach(l => { html += swatchBtn(hslToHex(0, 0, l)); });
-    html += swatchBtn('#FFFFFF') + swatchBtn('#000000');
-    return html;
+  function hexToHsl(hex) {
+    const n = parseInt(hex.slice(1), 16), r = ((n >> 16) & 255) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b), l = (max + min) / 2;
+    let h = 0, s = 0;
+    if (max !== min) {
+      const d = max - min; s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      if (max === r) h = (g - b) / d + (g < b ? 6 : 0); else if (max === g) h = (b - r) / d + 2; else h = (r - g) / d + 4;
+      h *= 60;
+    }
+    return { h, s: s * 100, l: l * 100 };
+  }
+  /* Panel continuo de color: matiz en x (0–360°), luminosidad en y (blanco arriba, negro abajo),
+     saturación fija al 100% — la misma fórmula que pinta el lienzo decide el color al hacer clic. */
+  function paintHueCanvas() {
+    const cv = root.querySelector('.bmk-hue-canvas');
+    if (!cv) return;
+    const w = Math.max(1, Math.round(cv.clientWidth)) || 320, h = Math.max(1, Math.round(cv.clientHeight)) || 170;
+    if (cv.width !== w) cv.width = w;
+    if (cv.height !== h) cv.height = h;
+    const ctx = cv.getContext('2d');
+    const hueGrad = ctx.createLinearGradient(0, 0, w, 0);
+    ['#FF0000', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF', '#FF00FF', '#FF0000'].forEach((c, i, a) => hueGrad.addColorStop(i / (a.length - 1), c));
+    ctx.fillStyle = hueGrad; ctx.fillRect(0, 0, w, h);
+    const shadeGrad = ctx.createLinearGradient(0, 0, 0, h);
+    shadeGrad.addColorStop(0, 'rgba(255,255,255,1)'); shadeGrad.addColorStop(0.5, 'rgba(255,255,255,0)');
+    shadeGrad.addColorStop(0.5, 'rgba(0,0,0,0)'); shadeGrad.addColorStop(1, 'rgba(0,0,0,1)');
+    ctx.fillStyle = shadeGrad; ctx.fillRect(0, 0, w, h);
+  }
+  /* Aplica un color al espacio de tono sin volver a renderizar el campo (mantiene el arrastre fluido) */
+  function applyPaletteColor(slot, hex) {
+    const o = state.colors || {}; o[slot] = { hex }; state.colors = o;
+    const card = root.querySelector(`.bmk-tone[data-slot="${slot}"]`);
+    if (!card) return;
+    const sw = card.querySelector('.bmk-tone-sw'), nm = card.querySelector('.bmk-tone-name'), hi = card.querySelector('.bmk-tone-hex');
+    if (sw) sw.style.background = hex;
+    if (nm) nm.textContent = `${nearestTone(hex)} ${T.ui.toneApprox}`;
+    if (hi) hi.value = hex;
+    card.classList.remove('is-empty');
+  }
+  /* Arrastre por puntero (ratón, dedo o lápiz) sobre el panel de matiz o la barra de aclarar/oscurecer */
+  let colorDrag = null;
+  function pickFromEvent(e) {
+    if (!colorDrag) return;
+    const rect = colorDrag.el.getBoundingClientRect();
+    const fx = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+    const fy = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
+    let hex;
+    if (colorDrag.type === 'hue') hex = hslToHex(fx * 360, 100, (1 - fy) * 100);
+    else {
+      const cur = ((state.colors || {})[activePaletteSlot] || {}).hex;
+      const hue = cur && /^#[0-9a-f]{6}$/i.test(cur) ? hexToHsl(cur).h : 0;
+      hex = hslToHex(hue, 100, (1 - fy) * 100);
+    }
+    applyPaletteColor(activePaletteSlot, hex);
+  }
+  function onColorDragMove(e) { pickFromEvent(e); }
+  function onColorDragEnd() {
+    window.removeEventListener('pointermove', onColorDragMove);
+    if (!colorDrag) return;
+    const slot = activePaletteSlot;
+    colorDrag = null;
+    save();
+    const o = state.colors || {}, filled = k => /^#[0-9a-f]{6}$/i.test((o[k] || {}).hex || '');
+    if (!PALETTE_KEYS.every(filled)) { const nxt = PALETTE_KEYS.find(k => !filled(k)); if (nxt) activePaletteSlot = nxt; }
+    rerenderField('colors', null, nu => [nu.querySelector(`.bmk-tone[data-slot="${slot}"] .bmk-tone-name`)]);
+    refresh();
   }
 
   /* Referencias: { texts: [...], files: [{ id, name, type, size, note, thumb }] } */
@@ -990,6 +1047,7 @@ body.bmk-body-red{background:#8C2936}
     placePill(true);
     void stage.offsetWidth;
     stage.classList.add('is-shown');
+    paintHueCanvas();
     if (view.name === 'result' && refsVal().files.length) loadZip().catch(() => {});
   }
 
@@ -1185,7 +1243,10 @@ body.bmk-body-red{background:#8C2936}
         c = `<div class="bmk-palette">
           <div class="bmk-tones">${cards}</div>
           <p class="bmk-swatch-label">${esc(T.ui.chooseFor(activeLabel))}</p>
-          <div class="bmk-swatchgrid">${swatchGrid()}</div>
+          <div class="bmk-colorpicker">
+            <canvas class="bmk-hue-canvas" role="slider" aria-label="${esc(T.ui.chooseFor(activeLabel))}"></canvas>
+            <div class="bmk-lightbar" role="slider" aria-label="${esc(T.ui.lightenDarken)}"></div>
+          </div>
           <p class="bmk-hint bmk-palette-note">${esc(T.ui.toneDisclaimer)}</p>
         </div>`;
         break;
@@ -1422,6 +1483,7 @@ body.bmk-body-red{background:#8C2936}
     tmp.innerHTML = fieldHTML(findField(id));
     const nu = tmp.firstElementChild;
     el.replaceWith(nu);
+    paintHueCanvas();
     if (nu.classList.contains('is-done') !== was) replay(headOf(nu));
     if (animate) replay(animate(nu));
     if (focusType) { const inputs = nu.querySelectorAll(`[data-t="${focusType}"]`); inputs.length && inputs[inputs.length - 1].focus(); }
@@ -1597,14 +1659,6 @@ body.bmk-body-red{background:#8C2936}
         state.references = r; save(); rerenderField('references', null, nu => [nu.querySelector('[data-refcount]')]); refresh(); break;
       }
       case 'paltab': { activePaletteSlot = b.dataset.slot; rerenderField('colors'); break; }
-      case 'swatch': {
-        const slot = activePaletteSlot, hex = b.dataset.hex;
-        const o = state.colors || {}; o[slot] = { hex }; state.colors = o; save();
-        const filled = k => /^#[0-9a-f]{6}$/i.test((o[k] || {}).hex || '');
-        if (!PALETTE_KEYS.every(filled)) { const nxt = PALETTE_KEYS.find(k => !filled(k)); if (nxt) activePaletteSlot = nxt; }
-        rerenderField('colors', null, nu => [nu.querySelector(`.bmk-tone[data-slot="${slot}"] .bmk-tone-name`)]);
-        refresh(); break;
-      }
       case 'copy': {
         if (await copyText(buildText())) { flash(b, T.ui.copiedBtn); if (refsVal().files.length) toast(T.ui.copiedFiles); }
         else { selectNode(root.querySelector('.bmk-pre')); toast(T.ui.manualCopy); }
@@ -1622,7 +1676,16 @@ body.bmk-body-red{background:#8C2936}
     }
   });
 
-  window.addEventListener('resize', () => { placePill(false); placeLangPill(false); });
+  window.addEventListener('resize', () => { placePill(false); placeLangPill(false); paintHueCanvas(); });
+  root.addEventListener('pointerdown', e => {
+    const el = e.target.closest('.bmk-hue-canvas, .bmk-lightbar');
+    if (!el) return;
+    e.preventDefault();
+    colorDrag = { type: el.classList.contains('bmk-hue-canvas') ? 'hue' : 'light', el };
+    pickFromEvent(e);
+    window.addEventListener('pointermove', onColorDragMove);
+    window.addEventListener('pointerup', onColorDragEnd, { once: true });
+  });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { placePill(false); placeLangPill(false); });
 
   mount();
