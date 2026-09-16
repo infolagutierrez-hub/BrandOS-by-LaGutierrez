@@ -197,6 +197,26 @@ textarea.bmk-input{resize:vertical;min-height:48px;line-height:1.55}
 .bmk-file-name small{font-style:italic;color:var(--muted);margin-left:8px}
 .bmk-file .bmk-input{padding:6px 10px;font-size:14px}
 .bmk-refs-or{margin:16px 0 8px;font-size:14px;color:var(--muted)}
+
+/* ---------- Paleta de colores de marca ---------- */
+.bmk-palette{display:grid;gap:16px}
+.bmk-tones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bmk-tone{display:grid;gap:8px;padding:12px;background:var(--blanco);border:1px solid var(--line);border-radius:var(--radius);transition:border-color .2s,box-shadow .2s}
+.bmk-tone.is-active{border-color:var(--rojo);box-shadow:0 0 0 3px var(--accent-soft)}
+.bmk-tone-head{display:flex;align-items:center;gap:8px;background:none;border:0;padding:0;width:100%;text-align:left}
+.bmk-tone-sw{width:28px;height:28px;border-radius:50%;flex:none;border:1px solid var(--line-strong);background:repeating-conic-gradient(#E4DDD1 0% 25%,#fff 0% 50%) 50%/10px 10px}
+.bmk-tone-label{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.bmk-tone-hex{padding:7px 9px;font-size:13px;text-transform:uppercase;letter-spacing:.03em}
+.bmk-tone-name{font-size:12.5px;font-style:italic;color:var(--muted);min-height:1.3em}
+.bmk-swatch-label{margin:0;font-size:13px;font-style:italic;color:var(--muted)}
+.bmk-swatchgrid{display:grid;grid-template-columns:repeat(16,1fr);gap:4px}
+.bmk-swatch-btn{aspect-ratio:1;border-radius:3px;border:1px solid rgba(0,0,0,.08);padding:0;cursor:pointer;transition:transform .12s}
+.bmk-swatch-btn:hover,.bmk-swatch-btn:focus-visible{transform:scale(1.15);box-shadow:0 2px 6px rgba(0,0,0,.25);position:relative;z-index:1}
+.bmk-palette-note{font-size:12px;font-style:italic;margin:0}
+@media (max-width:640px){
+  .bmk-tones{grid-template-columns:1fr}
+  .bmk-swatchgrid{grid-template-columns:repeat(10,1fr)}
+}
 @media (max-height:760px){.bmk-aside{position:static}}
 
 /* ---------- Pasos bloqueados / locked steps ---------- */
@@ -405,6 +425,7 @@ body.bmk-body-red{background:#8C2936}
     { time: 5, fields: [
       { id: 'mood', type: 'tags', min: 5, max: 5 },
       { id: 'references', type: 'refs', min: 3 },
+      { id: 'colors', type: 'palette' },
       { id: 'feeling', type: 'textarea', rows: 2 }
     ] },
     { time: 6, fields: [
@@ -457,6 +478,7 @@ body.bmk-body-red{background:#8C2936}
           fields: {
             mood: { label: 'Mood', hint: 'Elige *5 palabras* que describan el mundo de la marca.' },
             references: { label: 'Referencias', hint: 'Añade *3 referencias* visuales, culturales o creativas. *Adjunta* imágenes o PDF, *escríbelas*, o combina ambas.' },
+            colors: { label: 'Colores', hint: 'Elige *3 colores* para tu marca en la paleta. Cada uno mostrará su *código* y el tono Pantone® más cercano.' },
             feeling: { label: 'Sensación', hint: '¿Qué debería *sentir* alguien al encontrarse con esta marca?' }
           } },
         { title: 'Expresión',
@@ -484,7 +506,7 @@ body.bmk-body-red{background:#8C2936}
         brand: 'Qué es', idea: 'La idea', promise: 'La promesa', difference: 'Lo que la hace distinta',
         traits: 'Personalidad', notThis: 'Nunca debe sentirse, sonar o comportarse así', tension: 'La tensión que crea su carácter',
         who: 'A quién le habla', desire: 'Lo que esa persona quiere y valora',
-        mood: 'Mood', references: 'Referencias', feeling: 'Lo que alguien debe sentir al encontrarla',
+        mood: 'Mood', references: 'Referencias', colors: 'Colores de marca', feeling: 'Lo que alguien debe sentir al encontrarla',
         voice: 'Sonamos como', message: 'Lo que comunica siempre', visual: 'Nos vemos como', signature: 'Su firma reconocible',
         always: 'Al crear para esta marca, la IA siempre debe', never: 'La IA nunca debe', priority: 'Cuando dude, debe priorizar'
       },
@@ -512,6 +534,7 @@ body.bmk-body-red{background:#8C2936}
       md: {
         file: 'Archivo', folder: 'referencias', unavailable: 'no incluido',
         filesNote: 'Los archivos de referencia están en la carpeta `referencias/`, junto a este documento.',
+        colorsNote: 'Los tonos son una aproximación de referencia, no códigos Pantone® oficiales.',
         pendingTitle: 'Pendiente de definir',
         pendingIntro: 'Estos campos aún no tienen respuesta. Si afectan al resultado, pregunta antes de suponer.',
         ruleTitle: 'Instrucciones para la IA',
@@ -562,6 +585,10 @@ body.bmk-body-red{background:#8C2936}
         refsOr: 'o escríbelas',
         refsNotePh: '¿Qué te inspira de esta referencia? (opcional)',
         refsCount: n => `${n} de 3 referencias`,
+        paletteSlots: ['Primario', 'Secundario', 'Acento'],
+        pickColor: 'Elige un color', toneApprox: '(aprox.)',
+        chooseFor: label => `Elige un tono para ${label}`,
+        toneDisclaimer: 'Aproximación de referencia — no es un código Pantone® oficial. Confirma con tu guía física antes de producción',
         exampleShow: 'Ver ejemplo', exampleHide: 'Ocultar ejemplo', exampleOf: 'Ejemplo · Salitre, vermutería de barrio',
         question: (k, n) => `Pregunta ${k} de ${n}`, inBlock: 'En este bloque',
         blockOf: (k, n) => `Bloque ${k} de ${n}`,
@@ -628,6 +655,7 @@ body.bmk-body-red{background:#8C2936}
           fields: {
             mood: { label: 'Mood', hint: 'Choose *5 words* that describe the brand\'s world.' },
             references: { label: 'References', hint: 'Add *3* visual, cultural or creative references. *Attach* images or PDFs, *write them*, or mix both.' },
+            colors: { label: 'Colors', hint: 'Choose *3 colors* for your brand from the palette. Each one will show its *code* and the closest Pantone® tone.' },
             feeling: { label: 'Feeling', hint: 'What should someone *feel* when they encounter this brand?' }
           } },
         { title: 'Expression',
@@ -655,7 +683,7 @@ body.bmk-body-red{background:#8C2936}
         brand: 'What it is', idea: 'The idea', promise: 'The promise', difference: 'What makes it different',
         traits: 'Personality', notThis: 'It should never feel, sound or behave like', tension: 'The tension behind its character',
         who: 'Who it speaks to', desire: 'What that person wants and values',
-        mood: 'Mood', references: 'References', feeling: 'What someone should feel when they encounter it',
+        mood: 'Mood', references: 'References', colors: 'Brand colors', feeling: 'What someone should feel when they encounter it',
         voice: 'We sound like', message: 'What it always communicates', visual: 'We look like', signature: 'Its recognizable signature',
         always: 'When creating for this brand, AI must always', never: 'AI must never', priority: 'When unsure, it should prioritize'
       },
@@ -683,6 +711,7 @@ body.bmk-body-red{background:#8C2936}
       md: {
         file: 'File', folder: 'references', unavailable: 'not included',
         filesNote: 'Reference files are in the `references/` folder, next to this document.',
+        colorsNote: 'Tones are a reference approximation, not official Pantone® codes.',
         pendingTitle: 'Still to define',
         pendingIntro: 'These fields haven\'t been answered yet. If they affect the output, ask rather than assume.',
         ruleTitle: 'Instructions for AI',
@@ -733,6 +762,10 @@ body.bmk-body-red{background:#8C2936}
         refsOr: 'or write them',
         refsNotePh: 'What inspires you about it? (optional)',
         refsCount: n => `${n} of 3 references`,
+        paletteSlots: ['Primary', 'Secondary', 'Accent'],
+        pickColor: 'Pick a color', toneApprox: '(approx.)',
+        chooseFor: label => `Choose a tone for ${label}`,
+        toneDisclaimer: 'Reference approximation — not an official Pantone® code. Confirm with your physical guide before production',
         exampleShow: 'See example', exampleHide: 'Hide example', exampleOf: 'Example · Salitre, a neighborhood vermouth bar',
         question: (k, n) => `Question ${k} of ${n}`, inBlock: 'In this block',
         blockOf: (k, n) => `Block ${k} of ${n}`,
@@ -828,6 +861,54 @@ body.bmk-body-red{background:#8C2936}
   const findField = id => { for (const s of SECTIONS) for (const f of s.fields) if (f.id === id) return f; };
   const FILES = new Map(); // archivos originales, solo durante la sesión (id → File)
   const openEx = new Set(); // ejemplos desplegados
+  const PALETTE_KEYS = ['primary', 'secondary', 'accent'];
+  let activePaletteSlot = 'primary'; // a qué espacio de tono apunta la paleta de swatches
+
+  /* Aproximación de referencia a nombres Pantone® — no es el sistema oficial de igualación de color;
+     sirve solo para dar un nombre reconocible al tono elegido. */
+  const PANTONE_APPROX = [
+    ['PANTONE Yellow C', '#FEDD00'], ['PANTONE 116 C', '#FFC72C'], ['PANTONE 7406 C', '#FFB81C'],
+    ['PANTONE 1585 C', '#FF8200'], ['PANTONE 021 C', '#FE5000'], ['PANTONE 172 C', '#FA4616'],
+    ['PANTONE 1795 C', '#D2232A'], ['PANTONE 186 C', '#C8102E'], ['PANTONE 199 C', '#D0103A'],
+    ['PANTONE 1788 C', '#EE2737'], ['PANTONE Warm Red C', '#F9423A'], ['PANTONE Rubine Red C', '#CE0058'],
+    ['PANTONE 213 C', '#D30F72'], ['PANTONE 226 C', '#E10098'], ['PANTONE 234 C', '#951B81'],
+    ['PANTONE 2607 C', '#7A1FA2'], ['PANTONE 2685 C', '#330072'], ['PANTONE 2726 C', '#4147B4'],
+    ['PANTONE Reflex Blue C', '#001489'], ['PANTONE 286 C', '#0033A0'], ['PANTONE 300 C', '#005EB8'],
+    ['PANTONE 285 C', '#0072CE'], ['PANTONE 2995 C', '#00A9E0'], ['PANTONE 3145 C', '#007A87'],
+    ['PANTONE 3275 C', '#00B2A9'], ['PANTONE 3405 C', '#009B3A'], ['PANTONE 355 C', '#00A651'],
+    ['PANTONE 348 C', '#00843D'], ['PANTONE 3298 C', '#006747'], ['PANTONE 375 C', '#97D700'],
+    ['PANTONE 3945 C', '#ABCB51'], ['PANTONE 458 C', '#D3C374'], ['PANTONE 7502 C', '#E6DCC6'],
+    ['PANTONE 7530 C', '#B9A582'], ['PANTONE 7519 C', '#795C34'], ['PANTONE 469 C', '#6F4E37'],
+    ['PANTONE 1245 C', '#C89A3A'], ['PANTONE 7627 C', '#A9431E'], ['PANTONE 7522 C', '#B7674C'],
+    ['PANTONE Warm Gray 3 C', '#C4B7A6'], ['PANTONE Cool Gray 1 C', '#D9D9D6'], ['PANTONE Cool Gray 7 C', '#97999B'],
+    ['PANTONE Cool Gray 11 C', '#53565A'], ['PANTONE Black C', '#2D2926']
+  ];
+  function nearestTone(hex) {
+    const n = parseInt(hex.slice(1), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    let best = PANTONE_APPROX[0][0], bestD = Infinity;
+    PANTONE_APPROX.forEach(([name, h2]) => {
+      const n2 = parseInt(h2.slice(1), 16), d = ((r - (n2 >> 16 & 255)) ** 2) + ((g - (n2 >> 8 & 255)) ** 2) + ((b - (n2 & 255)) ** 2);
+      if (d < bestD) { bestD = d; best = name; }
+    });
+    return best;
+  }
+  /* Paleta de swatches: barrido de matices x tonos, más una fila de neutros */
+  function hslToHex(h, s, l) {
+    s /= 100; l /= 100;
+    const k = n => (n + h / 30) % 12, a = s * Math.min(l, 1 - l);
+    const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+    const hx = x => Math.round(255 * x).toString(16).padStart(2, '0');
+    return `#${hx(f(0))}${hx(f(8))}${hx(f(4))}`.toUpperCase();
+  }
+  function swatchBtn(hex) { return `<button type="button" class="bmk-swatch-btn" data-act="swatch" data-hex="${hex}" style="background:${hex}" aria-label="${hex}" title="${hex}"></button>`; }
+  function swatchGrid() {
+    const hues = [0, 22, 45, 67, 90, 112, 135, 157, 180, 202, 225, 247, 270, 292, 315, 337], shades = [82, 64, 46, 28];
+    let html = '';
+    hues.forEach(h => shades.forEach(l => { html += swatchBtn(hslToHex(h, 62, l)); }));
+    [92, 78, 64, 50, 36, 22, 10].forEach(l => { html += swatchBtn(hslToHex(0, 0, l)); });
+    html += swatchBtn('#FFFFFF') + swatchBtn('#000000');
+    return html;
+  }
 
   /* Referencias: { texts: [...], files: [{ id, name, type, size, note, thumb }] } */
   function refsVal() {
@@ -864,6 +945,7 @@ body.bmk-body-red{background:#8C2936}
       case 'tags': return clean(v).length >= (f.min || 1);
       case 'pair': return Array.isArray(v) && !!(v[0] || '').trim() && !!(v[1] || '').trim();
       case 'refs': return refsCount() >= (f.min || 3);
+      case 'palette': { const o = state.colors || {}; return PALETTE_KEYS.every(k => o[k] && /^#[0-9a-f]{6}$/i.test(o[k].hex || '')); }
       default: return true;
     }
   }
@@ -1086,6 +1168,28 @@ body.bmk-body-red{background:#8C2936}
           <div class="bmk-count" data-refcount>${esc(T.ui.refsCount(refsCount()))}</div>`;
         break;
       }
+      case 'palette': {
+        const o = state.colors || {};
+        const activeLabel = T.ui.paletteSlots[PALETTE_KEYS.indexOf(activePaletteSlot)];
+        const cards = PALETTE_KEYS.map((k, i) => {
+          const hex = ((o[k] && o[k].hex) || '').toUpperCase(), valid = /^#[0-9A-F]{6}$/.test(hex);
+          const tone = valid ? `${nearestTone(hex)} ${T.ui.toneApprox}` : T.ui.pickColor;
+          return `<div class="bmk-tone ${activePaletteSlot === k ? 'is-active' : ''} ${valid ? '' : 'is-empty'}" data-slot="${k}">
+            <button type="button" class="bmk-tone-head" data-act="paltab" data-slot="${k}" aria-pressed="${activePaletteSlot === k}">
+              <span class="bmk-tone-sw" style="${valid ? `background:${hex}` : ''}"></span><span class="bmk-tone-label">${esc(T.ui.paletteSlots[i])}</span>
+            </button>
+            <input class="bmk-input bmk-tone-hex" data-f="${f.id}" data-t="colorhex" data-slot="${k}" value="${esc(hex)}" placeholder="#HEX" maxlength="7" aria-label="${esc(T.ui.paletteSlots[i])} hex">
+            <span class="bmk-tone-name">${esc(tone)}</span>
+          </div>`;
+        }).join('');
+        c = `<div class="bmk-palette">
+          <div class="bmk-tones">${cards}</div>
+          <p class="bmk-swatch-label">${esc(T.ui.chooseFor(activeLabel))}</p>
+          <div class="bmk-swatchgrid">${swatchGrid()}</div>
+          <p class="bmk-hint bmk-palette-note">${esc(T.ui.toneDisclaimer)}</p>
+        </div>`;
+        break;
+      }
       case 'fixed':
         c = `<div class="bmk-fixed">${f.html}</div>`; break;
     }
@@ -1163,6 +1267,14 @@ body.bmk-body-red{background:#8C2936}
         }));
         if (!items.length) return null;
         return `**${L}:**\n${items.map((x, i) => `${i + 1}. ${x}`).join('\n')}${r.files.length ? `\n\n_${T.md.filesNote}_` : ''}`;
+      }
+      case 'palette': {
+        const o = state.colors || {};
+        const lines = PALETTE_KEYS.map((k, i) => {
+          const hex = ((o[k] && o[k].hex) || '').toUpperCase();
+          return /^#[0-9A-F]{6}$/.test(hex) ? `- ${T.ui.paletteSlots[i]} — ${hex} · ${nearestTone(hex)} ${T.ui.toneApprox}` : null;
+        }).filter(Boolean);
+        return lines.length ? `**${L}:**\n${lines.join('\n')}\n\n_${T.md.colorsNote}_` : null;
       }
       default: return null;
     }
@@ -1290,6 +1402,17 @@ body.bmk-body-red{background:#8C2936}
     swap(() => { lang = l; T = TEXT[l]; SECTIONS = buildSections(); document.documentElement.lang = l; }, false);
   }
 
+  /* Actualiza la vista previa y el nombre de tono de una tarjeta sin volver a renderizarla,
+     para no perder el foco mientras se escribe el código a mano */
+  function updateToneLive(inputEl, slot) {
+    const card = inputEl.closest('.bmk-tone');
+    if (!card) return;
+    const hex = ((state.colors || {})[slot] || {}).hex || '', valid = /^#[0-9a-f]{6}$/i.test(hex);
+    const sw = card.querySelector('.bmk-tone-sw'), nm = card.querySelector('.bmk-tone-name');
+    if (sw) sw.style.background = valid ? hex : '';
+    card.classList.toggle('is-empty', !valid);
+    if (nm) nm.textContent = valid ? `${nearestTone(hex)} ${T.ui.toneApprox}` : T.ui.pickColor;
+  }
   const headOf = el => el.querySelectorAll('.bmk-check, .bmk-label');
   function rerenderField(id, focusType, animate) {
     const el = root.querySelector(`[data-field="${id}"]`);
@@ -1395,6 +1518,12 @@ body.bmk-body-red{background:#8C2936}
     else if (ty === 'list') { const a = Array.isArray(state[id]) ? state[id] : []; a[+t.dataset.k] = t.value; state[id] = a; }
     else if (ty === 'reftext') { const r = refsVal(); r.texts[+t.dataset.k] = t.value; state.references = r; }
     else if (ty === 'refnote') { const r = refsVal(), fl = r.files.find(x => x.id === t.dataset.id); if (fl) fl.note = t.value; state.references = r; }
+    else if (ty === 'colorhex') {
+      const slot = t.dataset.slot, o = state.colors || {}; o[slot] = o[slot] || {};
+      let h = t.value.trim(); if (h && h[0] !== '#') h = '#' + h;
+      o[slot].hex = h; state.colors = o;
+      updateToneLive(t, slot);
+    }
     else return;
     save(); refresh();
   });
@@ -1466,6 +1595,15 @@ body.bmk-body-red{background:#8C2936}
       case 'rmfile': {
         const r = refsVal(); r.files = r.files.filter(x => x.id !== b.dataset.id); FILES.delete(b.dataset.id);
         state.references = r; save(); rerenderField('references', null, nu => [nu.querySelector('[data-refcount]')]); refresh(); break;
+      }
+      case 'paltab': { activePaletteSlot = b.dataset.slot; rerenderField('colors'); break; }
+      case 'swatch': {
+        const slot = activePaletteSlot, hex = b.dataset.hex;
+        const o = state.colors || {}; o[slot] = { hex }; state.colors = o; save();
+        const filled = k => /^#[0-9a-f]{6}$/i.test((o[k] || {}).hex || '');
+        if (!PALETTE_KEYS.every(filled)) { const nxt = PALETTE_KEYS.find(k => !filled(k)); if (nxt) activePaletteSlot = nxt; }
+        rerenderField('colors', null, nu => [nu.querySelector(`.bmk-tone[data-slot="${slot}"] .bmk-tone-name`)]);
+        refresh(); break;
       }
       case 'copy': {
         if (await copyText(buildText())) { flash(b, T.ui.copiedBtn); if (refsVal().files.length) toast(T.ui.copiedFiles); }
